@@ -1,10 +1,15 @@
+import { useState } from "react";
 
+export default function HomePage() {
 
+  const [recipes , setRecipes] = useState()
 
-export default function Home() {
+  fetch('/api/mongo').then(resp => resp.json()).then(data => setRecipes(data))
+
+  console.log(recipes)
   return (
-    <>
-       <h1>HELLO</h1>
-    </>
-  )
-}
+    <div>
+      <h1>Hello World</h1>
+    </div>
+  );
+};
