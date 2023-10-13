@@ -1,10 +1,12 @@
+import RecipeList from "@/components/recipe-list";
+
 
 
 
 export default function Home() {
   return (
     <>
-       <h1>HELLO</h1>
+       <RecipeList />
     </>
   )
 }
