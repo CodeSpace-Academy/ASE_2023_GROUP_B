@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import classes from './recipe-list.module.css'; // Import your CSS file
+import React, { useEffect, useState } from "react";
+import classes from "./recipe-list.module.css"; 
 
 function RecipeList() {
   const [data, setData] = useState([]);
@@ -9,12 +9,12 @@ function RecipeList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/mongodb');
+        const response = await fetch("/api/mongodb");
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const jsonData = await response.json();
-        setData(jsonData.comments); // Assuming 'comments' is the key in the response object
+        setData(jsonData.comments); 
       } catch (error) {
         setError(error);
       } finally {
@@ -42,7 +42,7 @@ function RecipeList() {
             <div className={classes.cardImageContainer}>
               {item.images && item.images.length > 0 && (
                 <img
-                  src={item.images[0]} // Assuming the first image is at index 0
+                  src={item.images[0]} 
                   alt="Item Image"
                   className={classes.cardImage}
                 />
@@ -50,7 +50,6 @@ function RecipeList() {
             </div>
             <div className={classes.cardContent}>
               <h2 className={classes.cardTitle}>{item.title}</h2>
-              {/* <p className={classes.cardDescription}>{item.description}</p> */}
               <p className={classes.cardCategory}>Category: {item.category}</p>
             </div>
           </div>

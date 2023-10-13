@@ -10,28 +10,28 @@ const client = new MongoClient(connectionString, {
     version: ServerApiVersion.v1,
     strict: true,
     deprecationErrors: true,
-  }
+  },
 });
 
 async function fetchRecipes(req, res) {
   try {
     await client.connect();
 
-    if (req.method === 'GET') {
+    if (req.method === "GET") {
       try {
-        const db = client.db('devdb');
+        const db = client.db("devdb");
 
         const documents = await db
-          .collection('recipes')
+          .collection("recipes")
           .find()
           .skip(20)
           .limit(1000)
-          .sort({ _id: -1 }) // Sorting by _id in descending order, adjust as needed
+          .sort({ _id: -1 }) 
           .toArray();
 
         res.status(200).json({ comments: documents });
       } catch (error) {
-        res.status(500).json({ message: 'Getting recipes failed.' });
+        res.status(500).json({ message: "Getting recipes failed." });
       }
     }
   } catch (error) {
