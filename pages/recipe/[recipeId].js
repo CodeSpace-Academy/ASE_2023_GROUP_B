@@ -1,5 +1,5 @@
 
-function RecipeDetailPage() {
+export default function RecipeDetailPage() {
   
   return (
     <div>
