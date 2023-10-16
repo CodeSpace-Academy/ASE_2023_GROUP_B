@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import classes from "./recipe-list.module.css"; 
+import ShowMore from "../icons&Buttons/show-more";
 
 function RecipeList() {
   const [data, setData] = useState([]);
@@ -51,10 +52,13 @@ function RecipeList() {
             <div className={classes.cardContent}>
               <h2 className={classes.cardTitle}>{item.title}</h2>
               <p className={classes.cardCategory}>Category: {item.category}</p>
+              
             </div>
           </div>
         ))}
       </div>
+      <br></br>
+      <ShowMore/>
     </div>
   );
 }
