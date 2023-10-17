@@ -3,7 +3,7 @@ import styles from './RecipeDetailPage.module.css';
 import { getEventById } from '../api/mongodb';
 
 export default function RecipeDetailPage({ recipe, error }) {
-  console.log(recipe);
+  // console.log(recipe);
 
   if (error) {
     return <div>Error loading recipe details.</div>;
