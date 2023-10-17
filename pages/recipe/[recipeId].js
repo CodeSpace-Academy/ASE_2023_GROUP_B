@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import styles from './RecipeDetailPage.module.css';
 import { getEventById } from '../api/mongodb';
 
@@ -48,6 +48,7 @@ export const getServerSideProps = async ({ params }) => {
       throw new Error('Failed to load instructions.');
     }
     return {
+      
       props: {
         recipe: Recipe,
         error: false,
