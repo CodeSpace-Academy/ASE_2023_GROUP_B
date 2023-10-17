@@ -18,7 +18,7 @@ export default function RecipeDetailPage({ recipe, error }) {
 
   return (
     <div className={styles.container}>
-      <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} />
+      {/* <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} /> */}
       <div>
         <h1 className={styles.title}>{recipe.title}</h1>
 
