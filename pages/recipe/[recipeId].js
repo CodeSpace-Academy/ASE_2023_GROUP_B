@@ -3,11 +3,11 @@ import styles from './RecipeDetailPage.module.css';
 import { getEventById } from '../api/mongodb';
 
 export default function RecipeDetailPage({ recipe, error }) {
-  console.log(recipe);
+  // console.log(recipe);
 
-  if (error) {
-    return <div>Error loading recipe details.</div>;
-  }
+  // if (error) {
+  //   return <div>Error loading recipe details.</div>;
+  // }
 
   // let instructionsArray = Array.isArray(recipe.instructions)
   // ? recipe.instructions
@@ -15,12 +15,10 @@ export default function RecipeDetailPage({ recipe, error }) {
   // ? recipe.instructions.split('\n')
   // : [];
 
-  <p>TEST</p>
-
 
   return (
     <div className={styles.container}>
-      <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} />
+      {/* <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} />
       <div>
         <h1 className={styles.title}>{recipe.title}</h1>
 
@@ -36,7 +34,8 @@ export default function RecipeDetailPage({ recipe, error }) {
         ) : (
           <div>Failed to load instructions.</div>
         )}
-      </div>
+      </div> */}
+      <p>TEST</p>
     </div>
   );
 }
