@@ -9,16 +9,18 @@ export default function RecipeDetailPage({ recipe, error }) {
     return <div>Error loading recipe details.</div>;
   }
 
-  let instructionsArray = Array.isArray(recipe.instructions)
-  ? recipe.instructions
-  : typeof recipe.instructions === 'string'
-  ? recipe.instructions.split('\n')
-  : [];
+  // let instructionsArray = Array.isArray(recipe.instructions)
+  // ? recipe.instructions
+  // : typeof recipe.instructions === 'string'
+  // ? recipe.instructions.split('\n')
+  // : [];
+
+  <p>TEST</p>
 
 
   return (
     <div className={styles.container}>
-      {/* <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} /> */}
+      <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} />
       <div>
         <h1 className={styles.title}>{recipe.title}</h1>
 
