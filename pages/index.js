@@ -2,6 +2,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { Fragment } from "react";
 
+
 const Home = () => {
   return (
     <Fragment>

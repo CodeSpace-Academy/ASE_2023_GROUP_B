@@ -1,11 +1,11 @@
-import React from "react";
-import classes from './show-more.module.css';
+import React from 'react'
+import classes from './show-more.module.css'
 
-export default function ShowMore() {
 
-    return (
-        <div>
-            <button className={classes.ShowMore}>Show More</button>
-        </div>
-    );
+export default function ShowMoreButton () {
+  return (
+    <div>
+      <button className={classes.btn}>Show more button</button>
+    </div>
+  );
 }
