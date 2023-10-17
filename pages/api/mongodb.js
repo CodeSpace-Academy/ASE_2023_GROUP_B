@@ -45,7 +45,7 @@ export default fetchRecipes;
 
 export async function getEventById(id) {
   await client.connect();
-  const db =  client.db('devdb')
-  const collection = await  db.collection('recipes');
+  const db =  client.db("devdb")
+  const collection = await  db.collection("recipes");
   return collection.findOne({ _id:id});
 }
