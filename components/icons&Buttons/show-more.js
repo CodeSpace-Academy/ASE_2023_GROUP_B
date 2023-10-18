@@ -2,10 +2,10 @@ import React from 'react'
 import classes from './show-more.module.css'
 
 
-export default function ShowMoreButton () {
+export default function ShowMoreButton ({ onClick }) {
   return (
-    <div>
-      <button className={classes.btn}>Show more button</button>
-    </div>
+    <button className={classes.btn} onClick={onClick}>
+    ShowMore 
+  </button>
   );
 }
