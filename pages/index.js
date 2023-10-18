@@ -1,9 +1,30 @@
 import Link from "next/link";
 import Head from "next/head";
-import { Fragment } from "react";
-
+import { Fragment, useState, useEffect } from "react";
 
 const Home = () => {
+  const [envCheck, setEnvCheck] = useState({ envFileExists: false, hasConnectionString: false });
+
+  useEffect(() => {
+    fetch("/api/env-check")
+      .then((response) => response.json())
+      .then((data) => setEnvCheck(data))
+      .catch((error) => {
+        console.error("Error checking environment:", error);
+        setEnvCheck({ envFileExists: false, hasConnectionString: false });
+      });
+  }, []);
+
+  if (!envCheck.envFileExists || !envCheck.hasConnectionString) {
+    return (
+      <div>
+        <h1>Error</h1>
+        <p>The .env file is missing or incomplete.</p>
+      </div>
+    );
+  }
+
+
   return (
     <Fragment>
       <Head>
