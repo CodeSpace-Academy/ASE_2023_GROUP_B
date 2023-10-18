@@ -1,4 +1,3 @@
-
 .container {
     display: flex;
     flex-direction: column;
@@ -25,7 +24,6 @@
     background-color: #474646;
     width: 300px;
     padding: 10px;
-
 }
 
 .cardImageContainer {
@@ -47,14 +45,14 @@
 
 .cardTitle {
     font-size: 18px;
-    color: #fff8f8;
+    color: #FFF8F8;
     margin: 0;
 }
 
 .cardDescription {
-    color: #100e0e;
+    color: #100E0E;
 }
 
 .cardCategory {
-    color: #ffffff;
+    color: #FFFFFF;
 }

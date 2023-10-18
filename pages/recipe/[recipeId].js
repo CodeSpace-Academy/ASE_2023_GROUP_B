@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './RecipeDetailPage.module.css';
-import { getEventById } from '../api/mongodb';
+import React from "react";
+import styles from "./RecipeDetailPage.module.css";
+import { getRecipeById } from "../api/mongodb";
 
 export default function RecipeDetailPage({ recipe, error }) {
   // console.log(recipe);
@@ -10,11 +10,10 @@ export default function RecipeDetailPage({ recipe, error }) {
   }
 
   let instructionsArray = Array.isArray(recipe.instructions)
-  ? recipe.instructions
-  : typeof recipe.instructions === 'string'
-  ? recipe.instructions.split('\n')
-  : [];
-
+    ? recipe.instructions
+    : typeof recipe.instructions === "string"
+    ? recipe.instructions.split("\n")
+    : [];
 
   return (
     <div className={styles.container}>
@@ -43,9 +42,9 @@ export const getServerSideProps = async ({ params }) => {
   try {
     const router = params;
     const { recipeId } = router;
-    const Recipe = await getEventById(recipeId);
+    const Recipe = await getRecipeById(recipeId);
     if (!Recipe || !Recipe.instructions) {
-      throw new Error('Failed to load instructions.');
+      throw new Error("Failed to load instructions.");
     }
     return {
       props: {
