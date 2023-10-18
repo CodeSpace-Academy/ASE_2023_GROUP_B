@@ -3,6 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #474646;
+    color: #fff8f8;
     padding: 20%;
 }
 
@@ -10,11 +12,12 @@
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #fff8f8;
 }
 
 .instructions {
     font-size: 18px;
     line-height: 1.6;
     margin-bottom: 10px;
-    color: black;
+    color: #fff8f8;
 }

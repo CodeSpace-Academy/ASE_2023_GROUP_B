@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styles from "./RecipeDetailPage.module.css";
 import { getRecipeById } from "../api/mongodb";
+import { formatTime } from '@/helpers/time-util';
 
 export default function RecipeDetailPage({ recipe, error }) {
   // console.log(recipe);
@@ -16,14 +17,15 @@ export default function RecipeDetailPage({ recipe, error }) {
     : [];
 
   return (
+    <Fragment>
     <div className={styles.container}>
       <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} />
       <div>
-        <h1 className={styles.title}>{recipe.title}</h1>
+        <h1>{recipe.title}</h1>
 
         <p className={styles.instructions}>{recipe.description}</p>
 
-        <h1>Instructions:</h1>
+        <h1 className={styles.title}>Instructions:</h1>
         {instructionsArray.length > 0 ? (
           <ol className={styles.instructions}>
             {instructionsArray.map((step, index) => (
@@ -33,8 +35,17 @@ export default function RecipeDetailPage({ recipe, error }) {
         ) : (
           <div>Failed to load instructions.</div>
         )}
+
+        <h1 className={styles.title}>Preparation Time:</h1>
+        <p>{formatTime(recipe.prep)}</p>
+        <h1 className={styles.title}>Cooking Time:</h1>
+        <p>{formatTime(recipe.cook)}</p>
+        <h1 className={styles.title}>Total Time:</h1>
+        <p>{formatTime(recipe.cook + recipe.prep)}</p> 
+
       </div>
     </div>
+    </Fragment>
   );
 }
 
