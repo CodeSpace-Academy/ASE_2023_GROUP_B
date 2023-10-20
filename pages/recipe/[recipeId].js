@@ -1,19 +1,58 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import styles from "./RecipeDetailPage.module.css";
 import { getRecipeById } from "../api/mongodb";
+import UpdateDescription from "@/components/Updates/UpdateDescription";
+import UpdateInstructions from "@/components/Updates/UpdateInstructions";
 
 export default function RecipeDetailPage({ recipe, error }) {
-  // console.log(recipe);
-
+  
   if (error) {
     return <div>Error loading recipe details.</div>;
   }
 
+  const [isEditingInstructions, setIsEditingInstructions] = useState(false);
+  const [editedInstructions, setEditedInstructions] = useState([]);
+
+
+  useEffect(() => {
+    if (recipe) {
+      if (Array.isArray(recipe.instructions)) {
+        setEditedInstructions(recipe.instructions);
+      } else if (typeof recipe.instructions === 'string') {
+        setEditedInstructions(recipe.instructions.split('\n'));
+      } else {
+        setEditedInstructions([]);
+      }
+    }
+  }, [recipe]);
+
+  const handleSaveInstructions = (updatedInstructions) => {
+    let updatedInstructionsArray = [];
+    if (typeof updatedInstructions === 'string') {
+      updatedInstructionsArray = updatedInstructions.split('\n');
+    }
+    console.log('Updated Instructions:', updatedInstructionsArray);
+    setEditedInstructions(updatedInstructionsArray);
+    setIsEditingInstructions(false);
+  };
+
   let instructionsArray = Array.isArray(recipe.instructions)
     ? recipe.instructions
-    : typeof recipe.instructions === "string"
-    ? recipe.instructions.split("\n")
-    : [];
+    : typeof recipe.instructions === 'string'
+      ? recipe.instructions.split('\n')
+      : [];
+
+
+
+  const [isEditingDescription, setIsEditingDescription] = useState(false);
+  const [editedDescription, setEditedDescription] = useState(recipe.description);
+
+  const handleSaveDescription = (updatedDescription) => {
+    console.log("Updated Description:", updatedDescription);
+    setEditedDescription(updatedDescription);
+    setIsEditingDescription(false);
+  }
+
 
   return (
     <div className={styles.container}>
@@ -21,18 +60,47 @@ export default function RecipeDetailPage({ recipe, error }) {
       <div>
         <h1 className={styles.title}>{recipe.title}</h1>
 
-        <p className={styles.instructions}>{recipe.description}</p>
+
+        {isEditingDescription ? (
+          <UpdateDescription
+            initialDescription={editedDescription}
+            onSave={handleSaveDescription}
+          />
+        ) : (
+          <p>{editedDescription}</p>
+        )}
+
+        <button className="btn"
+          onClick={() => setIsEditingDescription(!isEditingDescription)}>
+          {isEditingDescription ? 'Cancel' : 'Update Description'}
+        </button>
+
 
         <h1>Instructions:</h1>
-        {instructionsArray.length > 0 ? (
+      
+        {isEditingInstructions ? (
+          <UpdateInstructions
+            initialInstructions={instructionsArray.join('\n')} // Pass the initial instructions as a string
+            onSave={handleSaveInstructions}
+          />
+        ) : (
           <ol className={styles.instructions}>
             {instructionsArray.map((step, index) => (
               <li key={index}>{step}</li>
             ))}
           </ol>
-        ) : (
-          <div>Failed to load instructions.</div>
         )}
+
+        <button className="btn"
+          onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
+          {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
+        </button>
+
+
+
+
+
+
       </div>
     </div>
   );
