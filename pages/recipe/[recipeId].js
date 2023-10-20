@@ -4,9 +4,16 @@ import { getRecipeById } from '../api/mongodb';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
+import { run1 } from '../api/mongodb';
 
-export default function RecipeDetailPage({ recipe, error }) {
+export default function RecipeDetailPage({ recipe, error , allergens }) {
   const [tagsError, setTagsError] = useState(false);
+
+  const  ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient , amount]) => `${ingredient}: ${amount} `);
+
+  const allergensForRecipe = allergens.filter(allergen =>
+    ingredientsArray.some(ingredient => ingredient.includes(allergen))
+  );
 
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
@@ -17,6 +24,8 @@ export default function RecipeDetailPage({ recipe, error }) {
   if (error) {
     return <div>Error loading recipe details.</div>;
   }
+
+  
 
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([]);
@@ -71,6 +80,17 @@ export default function RecipeDetailPage({ recipe, error }) {
             <p>{editedDescription}</p>
           )}
 
+        <h1 className={styles.title}>Allergens:</h1>
+          {allergensForRecipe.length > 0 ? (
+            <ul>
+              {allergensForRecipe.map((allergen, index) =>(
+                <li key={index}>{allergen}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No Allergens present in this recipe.</p>
+          )}
+
           <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
             {isEditingDescription ? 'Cancel' : 'Update Description'}
           </button>
@@ -101,6 +121,13 @@ export default function RecipeDetailPage({ recipe, error }) {
             {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
           </button>
 
+          <h3 className={styles.title}>Ingredients:</h3>
+            <ul>
+              {ingredientsArray.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+
           <h1 className={styles.title}>Preparation Time:</h1>
           <p>{formatTime(recipe.prep)}</p>
           <h1 className={styles.title}>Cooking Time:</h1>
@@ -118,6 +145,8 @@ export const getServerSideProps = async ({ params }) => {
     const router = params;
     const { recipeId } = router;
     const Recipe = await getRecipeById(recipeId);
+    const docs1 = await run1();
+
     if (!Recipe || !Recipe.instructions) {
       throw new Error('Failed to load instructions.');
     }
@@ -127,6 +156,7 @@ export const getServerSideProps = async ({ params }) => {
     return {
       props: {
         recipe: Recipe,
+        allergens: docs1[0],
         error: false,
       },
     };
