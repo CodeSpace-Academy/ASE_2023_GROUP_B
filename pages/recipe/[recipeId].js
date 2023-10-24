@@ -8,6 +8,7 @@ import { run1 } from '../api/mongodb';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount} `);
 
@@ -70,6 +71,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         <div>
           <h1 className={styles.title}>{recipe.title}</h1>
 
+          {/* Display RecipeTags component */}
+          <RecipeTags tags={recipe.tags} tagsError={tagsError} selectedTags={selectedTags} clearSelectedTags={clearSelectedTags} />
+
           {isEditingDescription ? (
             <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
           ) : (
@@ -91,8 +95,28 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             {isEditingDescription ? 'Cancel' : 'Update Description'}
           </button>
 
+          <h1 className={styles.title}>Tags:</h1>
+          {tagsError ? (
+            <div className={styles.errorMessage}>Failed to load tags.</div>
+          ) : (
+            <div>
+              {/* Display selected tags */}
+              {selectedTags.length > 0 ? (
+                <p>Selected Tags: {selectedTags.join(', ')}</p>
+              ) : (
+                <p>No tags selected.</p>
+              )}
+
+              {/* Button to clear selected tags */}
+              <button className="btn" onClick={clearSelectedTags}>
+                Clear Selected Tags
+              </button>
+            </div>
+          )}
+
           <h1 className={styles.title}>Instructions:</h1>
 
+          {isEditingInstructions ? (
             <UpdateInstructions
               initialInstructions={instructionsArray.join('\n')}
               onSave={handleSaveInstructions}
@@ -101,9 +125,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <ol className={styles.instructions}>
               {editedInstructions.map((step, index) => (
                 <li key={index}>{step}</li>
-             ))}
+              ))}
             </ol>
-          )
+          )}
 
           <button className="btn" onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
             {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
@@ -159,4 +183,3 @@ export const getServerSideProps = async ({ params }) => {
     };
   }
 };
-

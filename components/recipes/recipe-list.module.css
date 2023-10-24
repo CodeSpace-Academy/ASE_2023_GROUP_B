@@ -20,8 +20,8 @@
 .card {
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #474646;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    background-color: whitesmoke;
     width: 300px;
     padding: 10px;
 }
@@ -45,7 +45,7 @@
 
 .cardTitle {
     font-size: 18px;
-    color: #FFF8F8;
+    color: #414040;
     margin: 0;
 }
 
@@ -54,5 +54,5 @@
 }
 
 .cardCategory {
-    color: #FFFFFF;
+    color: #565555;
 }
