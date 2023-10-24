@@ -1,0 +1,28 @@
+.favoriteButton {
+    background-color: rgb(249, 10, 10);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 4px 6px; 
+    cursor: pointer;
+    font-size: 10px; 
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .pulse {
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
