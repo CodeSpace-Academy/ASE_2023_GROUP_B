@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
-    "fs": "^0.0.1-security",
     "mongodb": "^6.1.0",
     "next": "13.5.4",
     "react": "^18",

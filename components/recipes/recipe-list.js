@@ -5,20 +5,23 @@ import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
 import ShowMoreButton from "../icons&Buttons/show-more";
 
 function RecipeList({ data }) {
-  const initialRecipesToShow = 50;
-  const recipesPerPage = 50;
-  const [recipesToShow, setRecipesToShow] = useState(initialRecipesToShow);
+   const [currentPage, setCurrentPage] = useState(1);
+   const recipesPerPage = 50;
 
-  const handleShowMore = () => {
-    setRecipesToShow((prev) => prev + recipesPerPage);
-  };
+   const handleShowMore = () => {
+     setCurrentPage((prevPage) => prevPage + 1);
+   };
+
+   const remainingRecipes = data.length - currentPage * recipesPerPage;
+   const displayedRecipes = data.slice(0, currentPage * recipesPerPage);
+
 
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>Recipes</h1>
 
       <div className={classes.cardContainer}>
-        {data.slice(0, recipesToShow).map((recipe, index) => (
+        {displayedRecipes.map((recipe, index) => (
           <div key={index} className={classes.card}>
             <div className={classes.cardImageContainer}>
               <img
@@ -38,13 +41,16 @@ function RecipeList({ data }) {
             </div>
           </div>
         ))}
-      
       </div>
       <br></br>
       <div>
-      {recipesToShow < data.length && (
-        <ShowMoreButton onClick={handleShowMore} />
-      )}
+        {" "}
+        {remainingRecipes > 0 && (
+          <ShowMoreButton
+            remainingRecipes={remainingRecipes}
+            onClick={handleShowMore}
+          />
+        )}
       </div>
     </div>
   );
