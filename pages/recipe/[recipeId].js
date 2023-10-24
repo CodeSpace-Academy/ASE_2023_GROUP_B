@@ -18,7 +18,7 @@ export default function RecipeDetailPage({ recipe, error , allergens }) {
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
-    }
+    } 
   }, [error]);
 
   if (error) {
