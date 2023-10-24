@@ -1,5 +1,3 @@
-// components/RecipeTags.js
-
 import React from 'react';
 import styles from './RecipeDetailPage.module.css';
 

@@ -37,7 +37,7 @@
 
         margin: 0;
         background-color: var(--color-grey-500);
-        color: #252525;
+        color: #d9f5da;
         font-family: 'Roboto', sans-serif;
     }
 
@@ -85,6 +85,5 @@
             transform: scale(0.95);
         }
 
-      
 
         
