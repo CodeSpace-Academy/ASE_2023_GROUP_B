@@ -5,6 +5,7 @@ import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../api/mongodb';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 export default function RecipeDetailPage({ recipe, error , allergens }) {
   const [tagsError, setTagsError] = useState(false);
@@ -79,6 +80,8 @@ export default function RecipeDetailPage({ recipe, error , allergens }) {
           ) : (
             <p>{editedDescription}</p>
           )}
+
+          <AddToFavoritesButton />
 
         <h1 className={styles.title}>Allergens:</h1>
           {allergensForRecipe.length > 0 ? (
