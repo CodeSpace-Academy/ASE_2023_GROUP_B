@@ -39,9 +39,9 @@ const Home = () => {
             color: "white",
           }}
         >
-          <h2 className="title">Explore food from around the world</h2>
+          <h2 className="title">Explore Food From Around the World!</h2>
           <p className="subtitle">
-            Join us to discover amazing culinary experiences!
+            Join Us to Discover Amazing Culinary Experiences!
           </p>
           <Link href="/recipe">
             <button className="btn">Explore</button>

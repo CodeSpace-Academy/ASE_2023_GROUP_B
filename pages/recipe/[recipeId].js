@@ -5,6 +5,7 @@ import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../api/mongodb';
+import RecipeTags from '@/components/home-page/recipe-tags';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);

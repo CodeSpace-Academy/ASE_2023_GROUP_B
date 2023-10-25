@@ -18,7 +18,7 @@ function RecipeList({ data }) {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Recipes</h1>
+      <h1 className={classes.title}>RECIPES</h1>
 
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (

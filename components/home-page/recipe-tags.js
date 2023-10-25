@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './RecipeDetailPage.module.css';
+import styles from './../../pages/recipe/RecipeDetailPage.module.css';
 
 const RecipeTags = ({ tags, tagsError }) => {
   return (

@@ -12,18 +12,18 @@ const MainNav = () => {
         <Image
         src="/groupb_logo.png"
         alt="GroupB Logo"
-        width={80}
-        height={80}
+        width={70}
+        height={70}
         />
       </Link>
           
         </div>
      
-      <nav>
+      <nav className={classes.nav}>
         <ul>
           <li>
             <Link className={classes.icon} href="/recipe">
-              All Recipe
+              All Recipes
             </Link>
           </li>
           <li>
