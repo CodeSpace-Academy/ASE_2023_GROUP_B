@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../icons&Buttons/add-to-favorite-btn.module.css"; 
-import { GiHearts } from "react-icons/gi";
+import { HiOutlineHeart } from "react-icons/Hi";
 
 function AddToFavoritesButton() {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -13,7 +13,11 @@ function AddToFavoritesButton() {
 
   return (
     <button onClick={toggleFavorite} className={buttonClasses}>
-      {isFavorite ? <GiHearts color="red" size={30} /> : <GiHearts color="gray" size={30} />}
+      {isFavorite ? (
+        <HiOutlineHeart color="rgba(2,111,2,0.767)" size={30} />
+      ) : (
+        <HiOutlineHeart color= "white" size={20}/>
+      )}
     </button>
   );
 }
