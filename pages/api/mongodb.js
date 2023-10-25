@@ -1,7 +1,7 @@
 import { MongoClient, ServerApiVersion } from "mongodb";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config();       
 
 const connectionString = process.env.MONGODB_CONNECTION_STRING;
 const client = new MongoClient(connectionString, {
