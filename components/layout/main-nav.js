@@ -12,8 +12,8 @@ const MainNav = () => {
         <Image
         src="/groupb_logo.png"
         alt="GroupB Logo"
-        width={70}
-        height={70}
+        width={100}
+        height={100}
         />
       </Link>
           

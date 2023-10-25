@@ -2,7 +2,7 @@
     position: sticky;
     top: 0;
     width: 100%;
-    height: 4.5rem;
+    height: 5.5rem;
     background-color: rgba(2, 111, 2, 0.767); /* Set the background color to green */
     display: flex;
     justify-content: space-between;
@@ -22,6 +22,9 @@
   
   .header .icon {
     color: white; /* Change the icon color to white */
+    padding: 10px;
+    padding-top: 5px;
+    font-weight: bold;
   }
   
   .header li {
