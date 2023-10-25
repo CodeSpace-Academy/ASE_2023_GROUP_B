@@ -3,9 +3,11 @@ import Link from "next/link";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
 import ShowMoreButton from "../icons&Buttons/show-more";
+
 import { formatDate } from "@/helpers/date-util";
 import { formatTime } from "@/helpers/time-util";
 import Sort from "./sort"; 
+import AddToFavHeart from "../icons&Buttons/add-to-favHeart"; 
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,11 +18,12 @@ function RecipeList({ data }) {
     setSortOrder(order);
   };
 
-  const handleShowMore = () => {
+const handleShowMore = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
+
   let displayedRecipes = data.slice(0, currentPage * recipesPerPage);
 
   switch (sortOrder) {
@@ -41,6 +44,7 @@ function RecipeList({ data }) {
       break;
    
   }
+
 
   return (
     <div className={classes.container}>
@@ -68,6 +72,7 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
+              <AddToFavHeart />
             </div>
           </div>
         ))}
