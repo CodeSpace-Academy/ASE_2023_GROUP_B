@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../icons&Buttons/add-to-favorite-btn.module.css"; 
-import { HiOutlineHeart } from "react-icons/Hi";
+import { HiOutlineHeart } from "react-icons/hi";
 
 function AddToFavoritesButton() {
   const [isFavorite, setIsFavorite] = useState(false);
