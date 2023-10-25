@@ -23,6 +23,10 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     }
   }, [error]);
 
+  const clearSelectedTags = () => {
+    setSelectedTags([]); // Implement the logic to clear selected tags
+  };
+
   if (error) {
     return <div>Error loading recipe details.</div>;
   }
