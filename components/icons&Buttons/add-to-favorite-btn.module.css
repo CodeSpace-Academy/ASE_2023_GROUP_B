@@ -1,13 +1,13 @@
 .favoriteButton {
-    background-color: rgb(249, 10, 10);
-    color: white;
+    background: none;
+    position: relative;
+    left:90%;
+    bottom:25px;
     border: none;
-    border-radius: 5px;
     padding: 4px 6px; 
-    cursor: pointer;
-    font-size: 10px; 
-    font-weight: bold;
+    cursor: pointer; 
     transition: background-color 0.3s;
+    
   }
   
   .pulse {
