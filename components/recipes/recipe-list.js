@@ -48,7 +48,7 @@ const handleShowMore = () => {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Recipes</h1>
+      <h1 className={classes.title}>RECIPES</h1>
 
       <Sort onSort={handleSort} />
 

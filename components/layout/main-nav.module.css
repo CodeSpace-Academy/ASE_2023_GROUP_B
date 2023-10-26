@@ -1,47 +1,90 @@
 .header {
+    position: sticky;
+    top: 0;
     width: 100%;
-    height: 6rem;
-    background-color: var(--color-grey-900); 
+    height: 5.5rem;
+    background-color: rgba(2, 111, 2, 0.767); /* Set the background color to green */
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0;
-    
-}
-
-.header ul {
+    z-index: 100;
+    box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
+  }
+  
+  .header ul {
     list-style: none;
     display: flex;
     align-items: baseline;
     margin: 0;
     padding: 0;
-    
-}
-
-.header .icon {
+  }
+  
+  .header .icon {
     color: white; /* Change the icon color to white */
-}
-.header li {
+    padding: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+  }
+  
+  .header li {
     margin: 0 var(--size-4);
-}
-
-.header a {
-    color: var(--color-grey-900);
-    font-size: var(--size-4);
-}
-
-.header a:hover,
-.header a:active,
-.header a.active {
-    color: var(--color-grey-200);
-}
-
-@media (min-width: 768px) {
+  }
+  
+  .header a {
+    color: white; /* Set the font color to white */
+    font-size: var(--size-5);
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .header a:hover,
+  .header a:active,
+  .header a.active {
+    color: var(--color-primary-700);
+    font-weight: bold;
+  }
+  
+  @media (max-width: 767px) {
+    .header {
+      background-color: green; /* Set the background color to green */
+      z-index: 100;
+    }
+  
     .header ul {
-        gap: 0.5rem;
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 6rem;
+      left: 0;
+      background-color: green; /* Set the overlay background color to green */
+      width: 100%;
     }
-
+  
+    .header ul.active {
+      display: flex;
+    }
+  
+    .header li {
+      margin: 0;
+      padding: 1rem;
+    }
+  
     .header a {
-        font-size: var(--size-5);
+      color: white;
+      font-size: var(--size-5);
     }
-}
+  
+    .header a:hover,
+    .header a:active,
+    .header a.active {
+      color: var(--color-grey-50);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .header ul {
+      gap: 0.5rem;
+    }
+  
+  }
+  

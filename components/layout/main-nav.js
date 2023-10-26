@@ -9,16 +9,26 @@ import {HiOutlineHeart} from "react-icons/hi";
 const MainNav = () => {
   return (
     <header className={classes.header}>
-      <Link href="/" title="Home">
-        <Image src="/Logo.png" alt="GroupB Logo" width={80} height={80} />
+        <div className={classes.icon}>
+        <Link className={classes.icon} href="/" title="Home">
+        <Image
+        src="/groupb_logo.png"
+        alt="GroupB Logo"
+        width={100}
+        height={100}
+        />
       </Link>
-      <nav>
+          
+        </div>
+     
+      <nav className={classes.nav}>
         <ul>
           <li>
             <Link className={classes.icon} href="/recipe">
-              All Recipe
+              All Recipes
             </Link>
           </li>
+
           <li>
             <Link
               className={classes.icon}
@@ -28,6 +38,7 @@ const MainNav = () => {
               <FaUser />
             </Link>
           </li>
+
           <li>
             <Link
               className={classes.icon}
@@ -37,6 +48,7 @@ const MainNav = () => {
               <FaEnvelope />
             </Link>
           </li>
+
           <li>
             <Link
               className={classes.icon}
