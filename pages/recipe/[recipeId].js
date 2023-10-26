@@ -6,6 +6,7 @@ import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../api/mongodb';
 import RecipeTags from '@/components/home-page/recipe-tags';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
@@ -20,7 +21,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
-    }
+    } 
   }, [error]);
 
   const clearSelectedTags = () => {
@@ -85,7 +86,10 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <p>{editedDescription}</p>
           )}
 
-          <h1 className={styles.title}>Allergens:</h1>
+          <AddToFavoritesButton />
+
+        <h1 className={styles.title}>Allergens:</h1>
+
           {allergensForRecipe.length > 0 ? (
             <ul>
               {allergensForRecipe.map((allergen, index) => (
