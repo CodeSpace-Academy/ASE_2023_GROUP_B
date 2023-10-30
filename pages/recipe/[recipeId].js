@@ -1,19 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import styles from '../recipe/RecipeDetailPage.module.css';
-import { getRecipeById } from '../api/mongodb';
+import { getRecipeById } from '../../database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { run1 } from '../api/mongodb';
+import { run1 } from '../../database/allergensModule';
 import RecipeTags from '@/components/home-page/recipe-tags';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
   const [selectedTags, setSelectedTags] = useState([]);
-
   const ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount} `);
-
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
@@ -25,7 +23,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   }, [error]);
 
   const clearSelectedTags = () => {
-    setSelectedTags([]); // Implement the logic to clear selected tags
+    setSelectedTags([]); 
   };
 
   if (error) {
