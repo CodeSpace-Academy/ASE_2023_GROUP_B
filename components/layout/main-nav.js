@@ -5,6 +5,7 @@ import classes from "./main-nav.module.css";
 import { FaUser, FaEnvelope, FaHome } from "react-icons/fa";
 
 const MainNav = () => {
+
   return (
     <header className={classes.header}>
         <div className={classes.icon}>

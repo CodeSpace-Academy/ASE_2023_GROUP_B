@@ -3,6 +3,7 @@ import Link from "next/link";
 import classes from "../recipes/recipe-list.module.css";
 import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
 import ShowMoreButton from "../icons&Buttons/show-more";
+import SearchBar from "../search/SearchBar";
 
 function RecipeList({ data }) {
    const [currentPage, setCurrentPage] = useState(1);
@@ -19,6 +20,11 @@ function RecipeList({ data }) {
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>Recipes</h1>
+
+      
+            <SearchBar  />
+            <br></br>
+          
 
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
