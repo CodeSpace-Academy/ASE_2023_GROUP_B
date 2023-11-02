@@ -1,18 +1,23 @@
 import Link from "next/link";
 import Head from "next/head";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment } from "react";
 
 const Home = () => {
-  
+
   return (
     <Fragment>
       <Head>
-        <title>All Recipes</title>
+        <title>Jahimost-V</title>
         <meta
           name="description"
           content="Explore food from around the world..."
         />
-        <link rel="icon" type="image/png" href="/recipe-book (1).png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
       </Head>
 
       <main className="homeContainer">
@@ -34,9 +39,9 @@ const Home = () => {
             color: "white",
           }}
         >
-          <h2 className="title">Explore food from around the world</h2>
+          <h2 className="title">Explore Food From Around the World!</h2>
           <p className="subtitle">
-            Join us to discover amazing culinary experiences!
+            Join Us to Discover Amazing Culinary Experiences!
           </p>
           <Link href="/recipe">
             <button className="btn">Explore</button>

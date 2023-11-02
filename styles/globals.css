@@ -16,7 +16,7 @@
         --color-primary-400: #732392;
         --color-primary-500: #5a097a;
         --color-primary-600: #480264;
-        --color-primary-700: #3d0264;
+        --color-primary-700: #06f776b9;
 
         --color-success-100: #a2f0bc;
         --color-success-500: #12bd4b;
@@ -37,7 +37,7 @@
 
         margin: 0;
         background-color: var(--color-grey-500);
-        color: #252525;
+        color: #d9f5da;
         font-family: 'Roboto', sans-serif;
     }
 
@@ -85,6 +85,5 @@
             transform: scale(0.95);
         }
 
-      
 
         
