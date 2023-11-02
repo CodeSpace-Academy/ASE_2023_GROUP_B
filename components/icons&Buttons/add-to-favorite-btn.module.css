@@ -1,0 +1,29 @@
+.favoriteButton {
+    background: none;
+    position: relative;
+    left:90%;
+    bottom:25px;
+    border: none;
+    padding: 4px 6px; 
+    cursor: pointer; 
+    transition: background-color 0.3s;
+    
+  }
+  
+  .pulse {
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  

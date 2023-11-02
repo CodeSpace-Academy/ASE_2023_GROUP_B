@@ -1,31 +1,34 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import styles from './RecipeDetailPage.module.css';
-import { getRecipeById } from '../api/mongodb';
+import styles from '../recipe/RecipeDetailPage.module.css';
+import { getRecipeById } from '../../database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { run1 } from '../api/mongodb';
+import { run1 } from '../../database/allergensModule';
+import RecipeTags from '@/components/home-page/recipe-tags';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
-export default function RecipeDetailPage({ recipe, error , allergens }) {
+export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
-
-  const  ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient , amount]) => `${ingredient}: ${amount} `);
-
-  const allergensForRecipe = allergens.filter(allergen =>
-    ingredientsArray.some(ingredient => ingredient.includes(allergen))
+  const [selectedTags, setSelectedTags] = useState([]);
+  const ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount} `);
+  const allergensForRecipe = allergens.filter((allergen) =>
+    ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
 
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
-    }
+    } 
   }, [error]);
+
+  const clearSelectedTags = () => {
+    setSelectedTags([]); 
+  };
 
   if (error) {
     return <div>Error loading recipe details.</div>;
   }
-
-  
 
   const [isEditingInstructions, setIsEditingInstructions] = useState(false);
   const [editedInstructions, setEditedInstructions] = useState([]);
@@ -62,10 +65,8 @@ export default function RecipeDetailPage({ recipe, error , allergens }) {
   const instructionsArray = Array.isArray(recipe.instructions)
     ? recipe.instructions
     : typeof recipe.instructions === 'string'
-    ? recipe.instructions.split('\n')
-    : [];
-
-  const tags = Array.isArray(recipe.tags) ? recipe.tags.join(', ') : recipe.tags;
+      ? recipe.instructions.split('\n')
+      : [];
 
   return (
     <Fragment>
@@ -74,16 +75,22 @@ export default function RecipeDetailPage({ recipe, error , allergens }) {
         <div>
           <h1 className={styles.title}>{recipe.title}</h1>
 
+          {/* Display RecipeTags component */}
+          <RecipeTags tags={recipe.tags} tagsError={tagsError} selectedTags={selectedTags} clearSelectedTags={clearSelectedTags} />
+
           {isEditingDescription ? (
             <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
           ) : (
             <p>{editedDescription}</p>
           )}
 
+          <AddToFavoritesButton />
+
         <h1 className={styles.title}>Allergens:</h1>
+
           {allergensForRecipe.length > 0 ? (
             <ul>
-              {allergensForRecipe.map((allergen, index) =>(
+              {allergensForRecipe.map((allergen, index) => (
                 <li key={index}>{allergen}</li>
               ))}
             </ul>
@@ -99,7 +106,19 @@ export default function RecipeDetailPage({ recipe, error , allergens }) {
           {tagsError ? (
             <div className={styles.errorMessage}>Failed to load tags.</div>
           ) : (
-            <p>{tags}</p>
+            <div>
+              {/* Display selected tags */}
+              {selectedTags.length > 0 ? (
+                <p>Selected Tags: {selectedTags.join(', ')}</p>
+              ) : (
+                <p>No tags selected.</p>
+              )}
+
+              {/* Button to clear selected tags */}
+              <button className="btn" onClick={clearSelectedTags}>
+                Clear Selected Tags
+              </button>
+            </div>
           )}
 
           <h1 className={styles.title}>Instructions:</h1>
@@ -122,11 +141,11 @@ export default function RecipeDetailPage({ recipe, error , allergens }) {
           </button>
 
           <h3 className={styles.title}>Ingredients:</h3>
-            <ul>
-              {ingredientsArray.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
+          <ul>
+            {ingredientsArray.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
+            ))}
+          </ul>
 
           <h1 className={styles.title}>Preparation Time:</h1>
           <p>{formatTime(recipe.prep)}</p>
@@ -153,6 +172,7 @@ export const getServerSideProps = async ({ params }) => {
     if (!Recipe || !Recipe.tags) {
       throw new Error('Failed to load tags');
     }
+
     return {
       props: {
         recipe: Recipe,
