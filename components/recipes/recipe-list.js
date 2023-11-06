@@ -7,11 +7,12 @@ import ShowMoreButton from "../icons&Buttons/show-more";
 import { formatDate } from "@/helpers/date-util";
 import { formatTime } from "@/helpers/time-util";
 import Sort from "./sort";
-import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
+import FavoriteRecipes from "./favoritesRecipes";
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState("default");
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]); // State to store favorite recipes
   const recipesPerPage = 50;
 
   const handleSort = (order) => {
@@ -20,6 +21,17 @@ function RecipeList({ data }) {
 
   const handleShowMore = () => {
     setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const toggleFavorite = (recipeId) => {
+    // Check if the recipe is already in favorites
+    if (favoriteRecipes.includes(recipeId)) {
+      // If it is, remove it from favorites
+      setFavoriteRecipes(favoriteRecipes.filter(id => id !== recipeId));
+    } else {
+      // If it's not, add it to favorites
+      setFavoriteRecipes([...favoriteRecipes, recipeId]);
+    }
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
@@ -86,7 +98,14 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-              <AddToFavHeart />
+
+              <button
+                onClick={() => toggleFavorite(recipe._id)}
+                className={classes.favoriteButton}
+              >
+                {favoriteRecipes.includes(recipe._id) ? "Remove from Favorites" : "Add to Favorites"}
+              </button>
+              
             </div>
           </div>
         ))}
@@ -100,6 +119,12 @@ function RecipeList({ data }) {
           />
         )}
       </div>
+
+      {/* Render the FavoriteRecipes component if there are favorites */}
+      {favoriteRecipes.length > 0 && (
+        <FavoriteRecipes favoriteRecipes={favoriteRecipes} data={data} />
+      )}
+
     </div>
   );
 }

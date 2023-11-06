@@ -1,0 +1,40 @@
+.favoritePage {
+    padding: 20px;
+  }
+  
+  .favoriteRecipes {
+    margin-top: 20px;
+  }
+  
+  .favoriteRecipe {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .favoriteRecipe a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+  }
+  
+  .favoriteRecipe a:hover {
+    color: #0070f3;
+  }
+  
+  .recipeImageContainer {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+  }
+  
+  .recipeImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .recipeDescription {
+    color: #666;
+  }
