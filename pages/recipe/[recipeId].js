@@ -6,7 +6,6 @@ import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../../database/allergensModule';
 import RecipeTags from '@/components/home-page/recipe-tags';
-import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
@@ -71,20 +70,29 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   return (
     <Fragment>
       <div className={styles.container}>
-        <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} />
+
         <div>
-          <h1 className={styles.title}>{recipe.title}</h1>
+            {recipe.images.map((image, index) => (
+              <img key={index} src={image} alt={recipe.id} width={200} height={200} />
+            ))}
+        </div>
+        <div>
+          <h1>{recipe.title}</h1>
 
           {/* Display RecipeTags component */}
           <RecipeTags tags={recipe.tags} tagsError={tagsError} selectedTags={selectedTags} clearSelectedTags={clearSelectedTags} />
 
+        <h1  className={styles.title}>Description:</h1>
           {isEditingDescription ? (
             <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
           ) : (
             <p>{editedDescription}</p>
           )}
 
-          <AddToFavoritesButton />
+          <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
+            {isEditingDescription ? 'Cancel' : 'Update Description'}
+          </button>
+
 
         <h1 className={styles.title}>Allergens:</h1>
 
@@ -98,9 +106,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <p>No Allergens present in this recipe.</p>
           )}
 
-          <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
-            {isEditingDescription ? 'Cancel' : 'Update Description'}
-          </button>
+
 
           <h1 className={styles.title}>Tags:</h1>
           {tagsError ? (
