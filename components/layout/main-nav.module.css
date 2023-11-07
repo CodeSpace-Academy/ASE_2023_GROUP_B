@@ -11,6 +11,8 @@
     z-index: 100;
     box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
   }
+
+ 
   
   .header ul {
     list-style: none;
@@ -22,13 +24,21 @@
   
   .header .icon {
     color: white; /* Change the icon color to white */
-    padding: 10px;
+    padding: 2px;
     padding-top: 5px;
     font-weight: bold;
   }
   
+  .header .logo{
+    position: relative;
+    bottom:20px;
+    right:100px;
+      }
+
   .header li {
     margin: 0 var(--size-4);
+    position: relative;
+    left:100px;
   }
   
   .header a {
