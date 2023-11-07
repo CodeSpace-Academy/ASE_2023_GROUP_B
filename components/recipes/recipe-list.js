@@ -8,6 +8,7 @@ import { formatDate } from "@/helpers/date-util";
 import { formatTime } from "@/helpers/time-util";
 import Sort from "./sort";
 import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
+import SearchBar from "../search/SearchBar";
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -49,6 +50,8 @@ function RecipeList({ data }) {
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
+      <SearchBar />
+      <br/>
       <Sort onSort={handleSort} />
       <br />
       <div className={classes.cardContainer}>
