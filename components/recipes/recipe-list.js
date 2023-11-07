@@ -14,9 +14,8 @@ function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
-
   const totalPageCount = Math.ceil(data.length / recipesPerPage);
-
+  
   const handleSort = (order) => {
     setSortOrder(order);
   };
