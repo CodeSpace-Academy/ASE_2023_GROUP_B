@@ -1,24 +1,70 @@
-/* RecipeDetailPage.module.css */
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: #474646;
-    color: #fff8f8;
-    padding: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #474646;
+  color: #fff8f8;
+  padding: 20px;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #fff8f8;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #fff8f8;
+  font-style: italic;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  margin-left: 10px;
+}
+
+.sub {
+  font-size: 20px;
+
+  margin-bottom: 20px;
+  color: #58d4279a;
+  font-style: italic;
+}
+
+.leftColumn {
+  flex: 1;
+  border: solid;
+  background-color: rgba(238, 255, 250, 0.144);
+  border-radius: 90px;
+  padding: 10px;
+  padding-left: 50px;
+  margin-top: 10px;
+  align-items: center;
+  height: 700px;
+}
+
+.rightColumn {
+  flex: 2;
+  padding: 10px;
 }
 
 .instructions {
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    color: #fff8f8;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  color: #fff8f8;
+  flex-direction: column;
 }
+
+.imageWrapper {
+  align-self: flex-start;
+  margin-top: 20px;
+  /* Adjust the margin as needed */
+  margin-left: 20px;
+  /* Adjust the margin as needed */
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  flex-grow: 1;
+  
+}
+
+.errorMessage {
+  color: red;
+  font-weight: bold;
+}
+
