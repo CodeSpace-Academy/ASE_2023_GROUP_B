@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaCalendar, FaHourglass, FaClock } from "react-icons/fa";
@@ -9,39 +10,52 @@ import { formatTime } from "@/helpers/time-util";
 import Sort from "./sort";
 import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
 import SearchBar from "../search/SearchBar";
+import Pagination from './pagination';
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [sortOrder, setSortOrder] = useState("default");
-  const recipesPerPage = 50;
-
+  const [sortOrder, setSortOrder] = useState('default');
+  const recipesPerPage = 100;
+  const totalPageCount = Math.ceil(data.length / recipesPerPage);
+  
   const handleSort = (order) => {
     setSortOrder(order);
   };
 
-  const handleShowMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPageCount) {
+      setCurrentPage(page);
+    }
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
-  let displayedRecipes = data.slice(0, currentPage * recipesPerPage);
+  
+  let displayedRecipes = data.slice(
+    (currentPage - 1) * recipesPerPage,
+    currentPage * recipesPerPage
+  );
+
+  if (remainingRecipes < recipesPerPage) {
+    displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
+  }
+
 
   switch (sortOrder) {
-    case "newest":
+    case 'newest':
       displayedRecipes.sort(
         (a, b) => new Date(b.published) - new Date(a.published)
       );
       break;
-    case "cook-asc":
+    case 'cook-asc':
       displayedRecipes.sort((a, b) => a.cook - b.cook);
       break;
-    case "cook-desc":
+    case 'cook-desc':
       displayedRecipes.sort((a, b) => b.cook - a.cook);
       break;
-    case "prep-asc":
+    case 'prep-asc':
       displayedRecipes.sort((a, b) => a.prep - b.prep);
       break;
-    case "prep-desc":
+    case 'prep-desc':
       displayedRecipes.sort((a, b) => b.prep - a.prep);
       break;
   }
@@ -72,17 +86,17 @@ function RecipeList({ data }) {
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-                <FaCalendar style={{ fontSize: "1.5em" }} />
+                <FaCalendar style={{ fontSize: '1.5em' }} />
                 {formatDate(recipe.published)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: "1.5em" }} />{" "}
+                <FaHourglass style={{ fontSize: '1.5em' }} />{' '}
                 {formatTime(recipe.prep)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: "1.5em" }} />{" "}
+                <FaClock style={{ fontSize: '1.5em' }} />{' '}
                 {formatTime(recipe.cook)}
               </p>
 
@@ -96,12 +110,20 @@ function RecipeList({ data }) {
       </div>
       <br />
       <div>
-        {remainingRecipes > 0 && (
-          <ShowMoreButton
-            remainingRecipes={remainingRecipes}
-            onClick={handleShowMore}
+        {totalPageCount > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPageCount={totalPageCount}
+            handlePageChange={handlePageChange}
           />
         )}
+
+        <div className={classes.pageInfo}>
+          <p>
+            {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
+            Page {currentPage} of {totalPageCount}.
+          </p>
+        </div>
       </div>
     </div>
   );

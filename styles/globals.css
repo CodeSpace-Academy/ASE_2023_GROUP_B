@@ -1,5 +1,5 @@
 * {
-        box-sizing: border-box;
+        margin: auto;
     }
 
     body {
@@ -35,7 +35,7 @@
         --size-20: 5rem;
         --size-40: 10rem;
 
-        margin: 0;
+      
         background-color: var(--color-grey-500);
         color: #d9f5da;
         font-family: 'Roboto', sans-serif;
