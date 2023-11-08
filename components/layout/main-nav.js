@@ -10,7 +10,7 @@ const MainNav = () => {
   return (
     <header className={classes.header}>
         <div className={classes.icon}>
-        <Link className={classes.icon} href="/" title="Home">
+        <Link className={classes.logo} href="/" title="Home">
         <Image
         src="/groupb_logo.png"
         alt="GroupB Logo"
