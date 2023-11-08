@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from '../recipes/recipe-list.module.css';
-import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
-import Pagination from './pagination';
-import { formatDate } from '@/helpers/date-util';
-import { formatTime } from '@/helpers/time-util';
-import Sort from './sort';
-import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
 
+import React, { useState } from "react";
+import Link from "next/link";
+import { FaCalendar, FaHourglass, FaClock } from "react-icons/fa";
+import classes from "../recipes/recipe-list.module.css";
+import ViewRecipeBtn from "../icons&Buttons/view-recipe-btn";
+import ShowMoreButton from "../icons&Buttons/show-more";
+import { formatDate } from "@/helpers/date-util";
+import { formatTime } from "@/helpers/time-util";
+import Sort from "./sort";
+import AddToFavHeart from "../icons&Buttons/add-to-favHeart";
+import SearchBar from "../search/SearchBar";
+import Pagination from './pagination';
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,6 +64,8 @@ function RecipeList({ data }) {
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
+      <SearchBar />
+      <br/>
       <Sort onSort={handleSort} />
       <br />
       <div className={classes.cardContainer}>
