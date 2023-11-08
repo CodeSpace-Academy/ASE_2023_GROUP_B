@@ -86,17 +86,26 @@ function RecipeList({ data }) {
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-                <FaCalendar style={{ fontSize: '1.5em' }} />
+
+                <FaCalendar style={{ fontSize: "1.5em" }} />
+                 Date Published: <br></br>
+
                 {formatDate(recipe.published)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: '1.5em' }} />{' '}
+
+                <FaHourglass style={{ fontSize: "1.5em" }} />{" "}
+                Prep-Time: <br></br>
+
                 {formatTime(recipe.prep)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: '1.5em' }} />{' '}
+
+                <FaClock style={{ fontSize: "1.5em" }} />{" "}
+                Cook-Time: <br></br>
+
                 {formatTime(recipe.cook)}
               </p>
 
