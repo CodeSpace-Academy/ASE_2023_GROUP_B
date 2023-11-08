@@ -1,4 +1,4 @@
-n.container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,4 +60,35 @@ n.container {
 
 .cardCategory {
     color: #565555;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color:green;
+}
+
+.pageInfo{
+display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  color:green;
+}
+.pagination span {
+  cursor: pointer;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.pagination span:hover {
+  background-color: #ddd;
+}
+
+.pagination span.active {
+  background-color: #4caf50;
+  color: white;
 }
