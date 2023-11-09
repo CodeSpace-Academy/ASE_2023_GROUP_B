@@ -7,20 +7,23 @@ export default function FavoritePage() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   return (
-    <section>
-      <Link href={`/recipe`} passHref>
-        <IoIosArrowBack title="Back to recipes" className={classes.favIcon} />
-      </Link>
+    <div>
+      <h1>Favorite</h1>
+    </div>
+    // <section>
+    //   <Link href={`/recipe`} passHref>
+    //     <IoIosArrowBack title="Back to recipes" className={classes.favIcon} />
+    //   </Link>
 
-      <h1 className={classes.fav}>Favorite</h1>
-      
-      {favoriteRecipes.length === 0 && (
-        <p className={classes.message}>
-          You have not favorited any recipes yet. Start adding your favorites!
-        </p>
-      )}
+    //   <h1 className={classes.fav}>Favorite</h1>
 
-      {/* Display favorited recipes here */}
-    </section>
+    //   {favoriteRecipes.length === 0 && (
+    //     <p className={classes.message}>
+    //       You have not favorited any recipes yet. Start adding your favorites!
+    //     </p>
+    //   )}
+
+    //   {/* Display favorited recipes here */}
+    // </section>
   );
 }
