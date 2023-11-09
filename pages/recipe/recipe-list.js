@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from '../recipes/recipe-list.module.css';
-import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
-import Pagination from './pagination';
+import classes from './recipe-list.module.css';
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import Pagination from '../../components/recipes/pagination';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import Sort from './sort';
-import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
-
+import Sort from '../../components/recipes/sort';
+import AddToFavHeart from '../../components/icons&Buttons/add-to-favHeart';
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(data.length / recipesPerPage);
-  
+
   const handleSort = (order) => {
     setSortOrder(order);
   };
@@ -27,7 +26,7 @@ function RecipeList({ data }) {
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
-  
+
   let displayedRecipes = data.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
@@ -36,7 +35,6 @@ function RecipeList({ data }) {
   if (remainingRecipes < recipesPerPage) {
     displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
   }
-
 
   switch (sortOrder) {
     case 'newest':

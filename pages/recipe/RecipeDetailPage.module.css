@@ -22,3 +22,65 @@
     margin-bottom: 10px;
     color: #fff8f8;
 }
+/* FavoritePage */
+
+.fav{
+    display: flex;
+  justify-content: center;
+
+}
+
+.message{
+display: flex;
+  justify-content: center;
+
+}
+
+.back-link {
+  margin-bottom: 10px;
+}
+
+.back-link a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333333;
+}
+
+.back-link a:hover {
+  color: #313336; 
+}
+
+/* FavoritePage */
+
+.fav{
+    display: flex;
+  justify-content: center;
+  color: green;
+
+}
+
+.message{
+display: flex;
+  justify-content: center;
+
+}
+
+.back-link {
+  margin-bottom: 10px;
+}
+
+.back-link a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #333333;
+}
+
+.favIcon{
+   position: fixed;
+   top:120px; 
+   color: green;
+   font-size: 20px;
+   margin-left: 10px;
+}
