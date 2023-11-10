@@ -5,12 +5,26 @@ import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../../database/allergensModule';
-import RecipeTags from '@/components/home-page/recipe-tags';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount} `);
+  const [isInstructionsVisible, setInstructionsVisible] = useState(false);
+
+  const ingredientsArray = recipe && recipe.ingredients
+    ? Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`)
+    : [];
+
+  if (!recipe.ingredients) {
+    return (
+      <div>
+        <h1>Recipe not found</h1>
+        <p>This recipe does not have any ingredients.</p>
+      </div>
+    );
+  }
+
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
@@ -18,12 +32,8 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
-    } 
+    }
   }, [error]);
-
-  const clearSelectedTags = () => {
-    setSelectedTags([]); 
-  };
 
   if (error) {
     return <div>Error loading recipe details.</div>;
@@ -54,7 +64,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   };
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
-  const [editedDescription, setEditedDescription] = useState(recipe.description);
+  const [editedDescription, setEditedDescription] = useState(
+    recipe.description
+  );
 
   const handleSaveDescription = (updatedDescription) => {
     setEditedDescription(updatedDescription);
@@ -67,35 +79,37 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
       ? recipe.instructions.split('\n')
       : [];
 
+  const tags = Array.isArray(recipe.tags)
+    ? recipe.tags.join(', ')
+    : recipe.tags;
+
   return (
     <Fragment>
       <div className={styles.container}>
+        <div className={styles.containerContent}>
+        <img src={recipe.images[0]} alt={recipe.id} width={200} height={200} />
+      
+          <h1 className={styles.title}>{recipe.title}</h1>
 
-        <div>
-            {recipe.images.map((image, index) => (
-              <img key={index} src={image} alt={recipe.id} width={200} height={200} />
-            ))}
-        </div>
-        <div>
-          <h1>{recipe.title}</h1>
+          <AddToFavoritesButton />
 
-          {/* Display RecipeTags component */}
-          <RecipeTags tags={recipe.tags} tagsError={tagsError} selectedTags={selectedTags} clearSelectedTags={clearSelectedTags} />
-
-        <h1  className={styles.title}>Description:</h1>
           {isEditingDescription ? (
-            <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
+            <UpdateDescription
+              initialDescription={editedDescription}
+              onSave={handleSaveDescription}
+            />
           ) : (
             <p>{editedDescription}</p>
           )}
 
-          <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
+          <button
+            className="btn"
+            onClick={() => setIsEditingDescription(!isEditingDescription)}
+          >
             {isEditingDescription ? 'Cancel' : 'Update Description'}
           </button>
 
-
-        <h1 className={styles.title}>Allergens:</h1>
-
+          <h1 className={styles.title}>Allergens:</h1>
           {allergensForRecipe.length > 0 ? (
             <ul>
               {allergensForRecipe.map((allergen, index) => (
@@ -106,45 +120,43 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             <p>No Allergens present in this recipe.</p>
           )}
 
-
-
           <h1 className={styles.title}>Tags:</h1>
           {tagsError ? (
             <div className={styles.errorMessage}>Failed to load tags.</div>
           ) : (
-            <div>
-              {/* Display selected tags */}
-              {selectedTags.length > 0 ? (
-                <p>Selected Tags: {selectedTags.join(', ')}</p>
-              ) : (
-                <p>No tags selected.</p>
-              )}
+            <p>{tags}</p>
+          )}
 
-              {/* Button to clear selected tags */}
-              <button className="btn" onClick={clearSelectedTags}>
-                Clear Selected Tags
+          <button
+            className="btn"
+            onClick={() => setInstructionsVisible(!isInstructionsVisible)}
+          >
+            {isInstructionsVisible ? 'Hide Instructions' : 'View Instructions'}
+          </button>
+
+          {isInstructionsVisible && (
+            <div>
+              <h1 className={styles.title}>Instructions:</h1>
+              {isEditingInstructions ? (
+                <UpdateInstructions
+                  initialInstructions={instructionsArray.join('\n')}
+                  onSave={handleSaveInstructions}
+                />
+              ) : (
+                <ol className={styles.instructions}>
+                  {editedInstructions.map((step, index) => (
+                    <li key={index}>{step}</li>
+                  ))}
+                </ol>
+              )}
+              <button
+                className="btn"
+                onClick={() => setIsEditingInstructions(!isEditingInstructions)}
+              >
+                {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
               </button>
             </div>
           )}
-
-          <h1 className={styles.title}>Instructions:</h1>
-
-          {isEditingInstructions ? (
-            <UpdateInstructions
-              initialInstructions={instructionsArray.join('\n')}
-              onSave={handleSaveInstructions}
-            />
-          ) : (
-            <ol className={styles.instructions}>
-              {editedInstructions.map((step, index) => (
-                <li key={index}>{step}</li>
-              ))}
-            </ol>
-          )}
-
-          <button className="btn" onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
-            {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
-          </button>
 
           <h3 className={styles.title}>Ingredients:</h3>
           <ul>
@@ -159,11 +171,12 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           <p>{formatTime(recipe.cook)}</p>
           <h1 className={styles.title}>Total Time:</h1>
           <p>{formatTime(recipe.cook + recipe.prep)}</p>
+          </div>
         </div>
-      </div>
+
     </Fragment>
   );
-}
+};
 
 export const getServerSideProps = async ({ params }) => {
   try {
@@ -172,12 +185,14 @@ export const getServerSideProps = async ({ params }) => {
     const Recipe = await getRecipeById(recipeId);
     const docs1 = await run1();
 
+
     if (!Recipe || !Recipe.instructions) {
       throw new Error('Failed to load instructions.');
     }
     if (!Recipe || !Recipe.tags) {
       throw new Error('Failed to load tags');
     }
+
 
     return {
       props: {
@@ -186,12 +201,12 @@ export const getServerSideProps = async ({ params }) => {
         error: false,
       },
     };
+
   } catch (error) {
-    console.error(error);
     return {
       props: {
         recipe: null,
-        error: error,
+        error: 'Failed to load recipe.',
       },
     };
   }
