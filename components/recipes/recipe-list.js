@@ -4,12 +4,13 @@ import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../recipes/recipe-list.module.css';
 import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
 import ShowMoreButton from '../icons&Buttons/show-more';
+import SearchBar from '../search/SearchBar';
+import Pagination from './pagination';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from './sort';
 import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
-import SearchBar from '../search/SearchBar';
-import Pagination from './pagination';
+
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -64,6 +65,7 @@ function RecipeList({ data }) {
 
       <SearchBar />
       <br />
+
       <Sort onSort={handleSort} />
       <br />
       <div className={classes.cardContainer}>
@@ -85,6 +87,7 @@ function RecipeList({ data }) {
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
+
                 <FaCalendar size="1.0em" />
                 <span>{formatDate(recipe.published)}</span>
               </p>
@@ -97,6 +100,7 @@ function RecipeList({ data }) {
               <p className={classes.cardCategory}>
                 <FaClock style={{ fontSize: '1.0em' }} />
                 <span>{formatTime(recipe.cook)}</span>
+
               </p>
             </div>
             <br />
