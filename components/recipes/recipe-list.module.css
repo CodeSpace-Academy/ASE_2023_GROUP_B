@@ -6,14 +6,37 @@
 }
 
 .title {
+    font-size: 27px;
     margin-bottom: 20px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cardTitle {
+    font-size: 18px;
+    color: #414040;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .cardContainer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+}
+.cardCategory {
+    color: #565555;
+    word-spacing: 5px;
+    align-items: center;
+    margin: 5px;
+}
+.cardCategory span {
+    margin-left: 5px;
+    font-size:large;
+}
+
+.cardCategory svg {
+    margin-right: 10px;
+    fill: #565555; 
 }
 
 .card {
@@ -33,6 +56,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
 .cardImage {
@@ -60,6 +84,9 @@
     color: #565555;
 }
 
+
+/pagination/
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -67,12 +94,6 @@
   color:green;
 }
 
-.pageInfo{
-display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  color:green;
-}
 .pagination span {
   cursor: pointer;
   padding: 5px 10px;
