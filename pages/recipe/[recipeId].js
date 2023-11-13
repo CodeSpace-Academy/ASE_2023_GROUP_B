@@ -5,7 +5,6 @@ import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../../database/allergensModule';
-import RecipeTags from '@/components/home-page/recipe-tags';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import MyCarousel from '@/components/home-page/carousel';
 
