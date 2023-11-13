@@ -10,7 +10,6 @@ import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn
 import MyCarousel from '@/components/home-page/carousel';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
-    
   const [tagsError, setTagsError] = useState(false);
 
   const ingredientsArray = Object.entries(recipe.ingredients).map(
@@ -23,7 +22,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   const handleTagClick = (tag) => {
     const isSelected = selectedTags.includes(tag);
     if (isSelected) {
-      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag)
+      );
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
@@ -38,7 +39,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   const clearSelectedTags = () => {
     setSelectedTags([]);
   };
-  
+
   if (error) {
     return <div>Error loading recipe details.</div>;
   }
@@ -83,78 +84,86 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     ? recipe.instructions.split('\n')
     : [];
 
-   return (
+  return (
     <Fragment>
       <div className={styles.container}>
         <div className={styles.leftColumn}>
           <MyCarousel images={recipe.images} />
-           <br/>
+          <br />
 
-         <h1 className={styles.title}>{recipe.title}</h1>
-      </div>
-      <h1 className={styles.title}>Allergens:</h1>
-  
-            {allergensForRecipe.length > 0 ? (
-              <ul>
-                {allergensForRecipe.map((allergen, index) => (
-                  <li key={index}>{allergen}</li>
-                ))}
-              </ul>
+          <h1 className={styles.title}>{recipe.title}</h1>
+        </div>
+        <h1 className={styles.title}>Allergens:</h1>
+
+        {allergensForRecipe.length > 0 ? (
+          <ul>
+            {allergensForRecipe.map((allergen, index) => (
+              <li key={index}>{allergen}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No Allergens present in this recipe.</p>
+        )}
+
+        <h1 className={styles.title}>Tags:</h1>
+        {tagsError ? (
+          <div className={styles.errorMessage}>Failed to load tags.</div>
+        ) : (
+          <div className={styles.tagButtonsContainer}>
+            {recipe.tags.map((tag, index) => (
+              <button
+                key={index}
+                className={`${styles.tagButton} ${
+                  selectedTags.includes(tag) ? styles.selectedTag : ''
+                }`}
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <h1 className={styles.title}>Selected Tags:</h1>
+        {tagsError ? (
+          <div className={styles.errorMessage}>Failed to load tags.</div>
+        ) : (
+          <div>
+            {selectedTags.length > 0 ? (
+              <p>Selected Tags: {selectedTags.join(', ')}</p>
             ) : (
-              <p>No Allergens present in this recipe.</p>
+              <p>No tags selected.</p>
             )}
-            
-            <h1 className={styles.title}>Tags:</h1>
-          {tagsError ? (
-            <div className={styles.errorMessage}>Failed to load tags.</div>
-          ) : (
-            <div className={styles.tagButtonsContainer}>
-              {recipe.tags.map((tag, index) => (
-                <button
-                  key={index}
-                  className={`${styles.tagButton} ${selectedTags.includes(tag) ? styles.selectedTag : ''}`}
-                  onClick={() => handleTagClick(tag)}
-                >
-                  {tag}
-                </button>
-              ))}
-            </div>
-          )}
-  
-            <h1 className={styles.title}>Selected Tags:</h1>
-            {tagsError ? (
-              <div className={styles.errorMessage}>Failed to load tags.</div>
-            ) : (
-              <div>
-                                     
-                {selectedTags.length > 0 ? (
-                  <p>Selected Tags: {selectedTags.join(', ')}</p>
-                ) : (
-                  <p>No tags selected.</p>
-                )}
-  
-                {/* Button to clear selected tags */}
-                <button className="btn" onClick={clearSelectedTags}>
-                  Clear Selected Tags
-                </button>
-              </div>
-            )}
-  
-            {isEditingDescription ? (
-              <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
-            ) : (
-              <p>{editedDescription}</p>
-            )}
-            
-            <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
-              {isEditingDescription ? 'Cancel' : 'Update Description'}
+
+            {/* Button to clear selected tags */}
+            <button className="btn" onClick={clearSelectedTags}>
+              Clear Selected Tags
             </button>
-             <br/>           
-                  
-                     <AddToFavoritesButton />
+          </div>
+        )}
+
+        {isEditingDescription ? (
+          <UpdateDescription
+            initialDescription={editedDescription}
+            onSave={handleSaveDescription}
+          />
+        ) : (
+          <p>{editedDescription}</p>
+        )}
+
+        <button
+          className="btn"
+          onClick={() => setIsEditingDescription(!isEditingDescription)}
+        >
+          {isEditingDescription ? 'Cancel' : 'Update Description'}
+        </button>
+        <br />
+
+        <AddToFavoritesButton />
         <div className={styles.rightColumn}>
           <div>
-            <h1 className={styles.title}>{recipe.title}</h1> <AddToFavoritesButton />
+            <h1 className={styles.title}>{recipe.title}</h1>{' '}
+            <AddToFavoritesButton />
             <div>
               <h1 className={styles.sub}>Preparation Time:</h1>
               <p>{formatTime(recipe.prep)}</p>
@@ -163,16 +172,13 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
               <h3 className={styles.sub}>Total Time:</h3>
               <p>{formatTime(recipe.cook + recipe.prep)}</p>
             </div>
-            
             <h3 className={styles.title}>Ingredients:</h3>
             <ul>
               {ingredientsArray.map((ingredient, index) => (
                 <li key={index}>{ingredient}</li>
               ))}
             </ul>
-    
             <h3 className={styles.sub}>Instructions:</h3>
-
             {isEditingInstructions ? (
               <UpdateInstructions
                 initialInstructions={instructionsArray.join('\n')}
@@ -185,17 +191,19 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
                 ))}
               </ol>
             )}
-  
-            <button className="btn" onClick={() => setIsEditingInstructions(!isEditingInstructions)}>
+            <button
+              className="btn"
+              onClick={() => setIsEditingInstructions(!isEditingInstructions)}
+            >
               {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
             </button>
-  
           </div>
         </div>
-      </Fragment>
-    );
-  }
-  
+      </div>
+    </Fragment>
+  );
+}
+
 export const getServerSideProps = async ({ params }) => {
   try {
     const router = params;
