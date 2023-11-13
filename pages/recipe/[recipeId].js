@@ -10,6 +10,7 @@ import MyCarousel from '@/components/home-page/carousel';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
+  const [selectedTags, setSelectedTags] = useState([]); 
 
   const ingredientsArray = Object.entries(recipe.ingredients).map(
     ([ingredient, amount]) => `${ingredient}: ${amount} `
