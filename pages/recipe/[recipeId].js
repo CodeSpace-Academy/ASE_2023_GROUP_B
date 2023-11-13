@@ -7,11 +7,15 @@ import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../../database/allergensModule';
 import RecipeTags from '@/components/home-page/recipe-tags';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import MyCarousel from '@/components/home-page/carousel';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
+    
   const [tagsError, setTagsError] = useState(false);
-  const [selectedTags, setSelectedTags] = useState([]);
-  const ingredientsArray = Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount} `);
+
+  const ingredientsArray = Object.entries(recipe.ingredients).map(
+    ([ingredient, amount]) => `${ingredient}: ${amount} `
+  );
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
@@ -35,8 +39,6 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     setSelectedTags([]);
   };
   
-
-
   if (error) {
     return <div>Error loading recipe details.</div>;
   }
@@ -66,7 +68,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   };
 
   const [isEditingDescription, setIsEditingDescription] = useState(false);
-  const [editedDescription, setEditedDescription] = useState(recipe.description);
+  const [editedDescription, setEditedDescription] = useState(
+    recipe.description
+  );
 
   const handleSaveDescription = (updatedDescription) => {
     setEditedDescription(updatedDescription);
@@ -79,28 +83,27 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     ? recipe.instructions.split('\n')
     : [];
 
-    return (
-      <Fragment>
-        <div className={styles.container}>
-        <div>
-        {recipe.images.map((image, index) => (
-          <img key={index} src={image} alt={recipe.id} width={200} height={200} />
-        ))}
+   return (
+    <Fragment>
+      <div className={styles.container}>
+        <div className={styles.leftColumn}>
+          <MyCarousel images={recipe.images} />
+           <br/>
+
          <h1 className={styles.title}>{recipe.title}</h1>
       </div>
-
-            {isEditingDescription ? (
-              <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
-            ) : (
-              <p>{editedDescription}</p>
-            )}
-            <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
-              {isEditingDescription ? 'Cancel' : 'Update Description'}
-            </button>
-           
-           <div>
-           
+      <h1 className={styles.title}>Allergens:</h1>
   
+            {allergensForRecipe.length > 0 ? (
+              <ul>
+                {allergensForRecipe.map((allergen, index) => (
+                  <li key={index}>{allergen}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>No Allergens present in this recipe.</p>
+            )}
+            
             <h1 className={styles.title}>Tags:</h1>
           {tagsError ? (
             <div className={styles.errorMessage}>Failed to load tags.</div>
@@ -123,7 +126,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
               <div className={styles.errorMessage}>Failed to load tags.</div>
             ) : (
               <div>
-                
+                                     
                 {selectedTags.length > 0 ? (
                   <p>Selected Tags: {selectedTags.join(', ')}</p>
                 ) : (
@@ -137,24 +140,39 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
               </div>
             )}
   
-  
-            <AddToFavoritesButton />
-  
-          <h1 className={styles.title}>Allergens:</h1>
-  
-            {allergensForRecipe.length > 0 ? (
-              <ul>
-                {allergensForRecipe.map((allergen, index) => (
-                  <li key={index}>{allergen}</li>
-                ))}
-              </ul>
+            {isEditingDescription ? (
+              <UpdateDescription initialDescription={editedDescription} onSave={handleSaveDescription} />
             ) : (
-              <p>No Allergens present in this recipe.</p>
+              <p>{editedDescription}</p>
             )}
-  
-  
-            <h1 className={styles.title}>Instructions:</h1>
-  
+            
+            <button className="btn" onClick={() => setIsEditingDescription(!isEditingDescription)}>
+              {isEditingDescription ? 'Cancel' : 'Update Description'}
+            </button>
+             <br/>           
+                  
+                     <AddToFavoritesButton />
+        <div className={styles.rightColumn}>
+          <div>
+            <h1 className={styles.title}>{recipe.title}</h1> <AddToFavoritesButton />
+            <div>
+              <h1 className={styles.sub}>Preparation Time:</h1>
+              <p>{formatTime(recipe.prep)}</p>
+              <h3 className={styles.sub}>Cooking Time:</h3>
+              <p>{formatTime(recipe.cook)}</p>
+              <h3 className={styles.sub}>Total Time:</h3>
+              <p>{formatTime(recipe.cook + recipe.prep)}</p>
+            </div>
+            
+            <h3 className={styles.title}>Ingredients:</h3>
+            <ul>
+              {ingredientsArray.map((ingredient, index) => (
+                <li key={index}>{ingredient}</li>
+              ))}
+            </ul>
+    
+            <h3 className={styles.sub}>Instructions:</h3>
+
             {isEditingInstructions ? (
               <UpdateInstructions
                 initialInstructions={instructionsArray.join('\n')}
@@ -172,19 +190,6 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
               {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
             </button>
   
-            <h3 className={styles.title}>Ingredients:</h3>
-            <ul>
-              {ingredientsArray.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-  
-            <h1 className={styles.title}>Preparation Time:</h1>
-            <p>{formatTime(recipe.prep)}</p>
-            <h1 className={styles.title}>Cooking Time:</h1>
-            <p>{formatTime(recipe.cook)}</p>
-            <h1 className={styles.title}>Total Time:</h1>
-            <p>{formatTime(recipe.cook + recipe.prep)}</p>
           </div>
         </div>
       </Fragment>

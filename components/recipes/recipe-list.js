@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../recipes/recipe-list.module.css';
 import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
+import ShowMoreButton from '../icons&Buttons/show-more';
+import SearchBar from '../search/SearchBar';
 import Pagination from './pagination';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
@@ -15,7 +17,7 @@ function RecipeList({ data }) {
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(data.length / recipesPerPage);
-  
+
   const handleSort = (order) => {
     setSortOrder(order);
   };
@@ -27,7 +29,7 @@ function RecipeList({ data }) {
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
-  
+
   let displayedRecipes = data.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
@@ -36,7 +38,6 @@ function RecipeList({ data }) {
   if (remainingRecipes < recipesPerPage) {
     displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
   }
-
 
   switch (sortOrder) {
     case 'newest':
@@ -62,6 +63,9 @@ function RecipeList({ data }) {
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
+      <SearchBar />
+      <br />
+
       <Sort onSort={handleSort} />
       <br />
       <div className={classes.cardContainer}>
@@ -77,36 +81,39 @@ function RecipeList({ data }) {
 
             <div className={classes.cardContent}>
               <h2 className={classes.cardTitle}>{recipe.title}</h2>
+              <br />
 
               <p
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-                <FaCalendar style={{ fontSize: '1.5em' }} />
-                {formatDate(recipe.published)}
+
+                <FaCalendar size="1.0em" />
+                <span>{formatDate(recipe.published)}</span>
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: '1.5em' }} />{' '}
-                {formatTime(recipe.prep)}
+                <FaHourglass style={{ fontSize: '1.0em' }} />
+                <span>{formatTime(recipe.prep)}</span>
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: '1.5em' }} />{' '}
-                {formatTime(recipe.cook)}
-              </p>
+                <FaClock style={{ fontSize: '1.0em' }} />
+                <span>{formatTime(recipe.cook)}</span>
 
-              <Link href={`/recipe/${recipe._id}`}>
-                <ViewRecipeBtn />
-              </Link>
-              <AddToFavHeart />
+              </p>
             </div>
+            <br />
+            <Link href={`/recipe/${recipe._id}`}>
+              <ViewRecipeBtn className={classes.btn} />
+            </Link>
+            <AddToFavHeart />
           </div>
         ))}
       </div>
       <br />
       <div>
-        {totalPageCount > 1 && (
+        {totalPageCount > 1 && currentPage < totalPageCount && (
           <Pagination
             currentPage={currentPage}
             totalPageCount={totalPageCount}
@@ -116,7 +123,7 @@ function RecipeList({ data }) {
 
         <div className={classes.pageInfo}>
           <p>
-            {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
+            {remainingRecipes > 0 && `${remainingRecipes} recipes remaining.`}
             Page {currentPage} of {totalPageCount}.
           </p>
         </div>
