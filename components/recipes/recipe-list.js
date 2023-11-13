@@ -11,6 +11,12 @@ import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
 import SearchBar from '../search/SearchBar';
 import Pagination from './pagination';
 import Highlighter from 'react-highlight-words';
+import SearchBar from '../search/SearchBar';
+import Pagination from './pagination';
+import { formatDate } from '@/helpers/date-util';
+import { formatTime } from '@/helpers/time-util';
+import Sort from './sort';
+import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
 
 function RecipeList({ data }) {
   const [search, setSearch] = useState('');
@@ -63,9 +69,11 @@ function RecipeList({ data }) {
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
-
       <SearchBar search={search} setSearch={setSearch} />
       <br />
+      <SearchBar />
+      <br />
+        
       <Sort onSort={handleSort} />
       <br />
       <div className={classes.cardContainer}>
@@ -89,6 +97,9 @@ function RecipeList({ data }) {
                 autoEscape={true}
               />
 
+              <h2 className={classes.cardTitle}>{recipe.title}</h2>
+              <br />
+
               <p
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
@@ -107,19 +118,33 @@ function RecipeList({ data }) {
               <p className={classes.cardCategory}>
                 <FaClock style={{ fontSize: '1.5em' }} /> Cook-Time: <br></br>
                 {formatTime(recipe.cook)}
+
+                <FaCalendar size="1.0em" />
+                <span>{formatDate(recipe.published)}</span>
               </p>
 
-              <Link href={`/recipe/${recipe._id}`}>
-                <ViewRecipeBtn />
-              </Link>
-              <AddToFavHeart />
+              <p className={classes.cardCategory}>
+                <FaHourglass style={{ fontSize: '1.0em' }} />
+                <span>{formatTime(recipe.prep)}</span>
+              </p>
+
+              <p className={classes.cardCategory}>
+                <FaClock style={{ fontSize: '1.0em' }} />
+                <span>{formatTime(recipe.cook)}</span>
+
+              </p>
             </div>
+            <br />
+            <Link href={`/recipe/${recipe._id}`}>
+              <ViewRecipeBtn className={classes.btn} />
+            </Link>
+            <AddToFavHeart />
           </div>
         ))}
       </div>
       <br />
       <div>
-        {totalPageCount > 1 && (
+        {totalPageCount > 1 && currentPage < totalPageCount && (
           <Pagination
             currentPage={currentPage}
             totalPageCount={totalPageCount}
@@ -129,7 +154,7 @@ function RecipeList({ data }) {
 
         <div className={classes.pageInfo}>
           <p>
-            {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
+            {remainingRecipes > 0 && `${remainingRecipes} recipes remaining.`}
             Page {currentPage} of {totalPageCount}.
           </p>
         </div>
