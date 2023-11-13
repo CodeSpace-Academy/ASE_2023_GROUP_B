@@ -58,6 +58,12 @@ function RecipeList({ data }) {
     case 'prep-desc':
       displayedRecipes.sort((a, b) => b.prep - a.prep);
       break;
+    case 'steps-asc' :
+      displayedRecipes.sort((a, b) => a.instructions.length - b.instructions.length);
+      break;
+    case 'steps-desc' :
+        displayedRecipes.sort((a, b) => b.instructions.length - a.instructions.length);
+        break;
   }
 
   return (
