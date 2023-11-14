@@ -9,8 +9,8 @@ import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn
 import MyCarousel from '@/components/home-page/carousel';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
-  const [tagsError, setTagsError] = useState(false);
 
+  const [tagsError, setTagsError] = useState(false);
   const ingredientsArray = Object.entries(recipe.ingredients).map(
     ([ingredient, amount]) => `${ingredient}: ${amount} `
   );
@@ -18,27 +18,13 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
 
-  const handleTagClick = (tag) => {
-    const isSelected = selectedTags.includes(tag);
-    if (isSelected) {
-      setSelectedTags(
-        selectedTags.filter((selectedTag) => selectedTag !== tag)
-      );
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
-
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
     }
   }, [error]);
 
-  const clearSelectedTags = () => {
-    setSelectedTags([]);
-  };
-
+  
   if (error) {
     return <div>Error loading recipe details.</div>;
   }
@@ -88,81 +74,42 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
       <div className={styles.container}>
         <div className={styles.leftColumn}>
           <MyCarousel images={recipe.images} />
-          <br />
+        
+          <br/>
+          
+          <h3 className={styles.sub}>Tags:</h3>
+          {tagsError ? (
+            <div className={styles.errorMessage}>Failed to load tags.</div>
+          ) : (
+            <p>{recipe.tags}</p>
+          )}
+         
 
-          <h1 className={styles.title}>{recipe.title}</h1>
-        </div>
-        <h1 className={styles.title}>Allergens:</h1>
+          <h3 className={styles.sub}>Allergens:</h3>
 
-        {allergensForRecipe.length > 0 ? (
+          {allergensForRecipe.length > 0 ? (
+            <ul>
+              {allergensForRecipe.map((allergen, index) => (
+                <li key={index}>{allergen}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>No Allergens present in this recipe.</p>
+          )}
+          <h3 className={styles.sub}>Ingredients:</h3>
           <ul>
-            {allergensForRecipe.map((allergen, index) => (
-              <li key={index}>{allergen}</li>
+            {ingredientsArray.map((ingredient, index) => (
+              <li key={index}>{ingredient}</li>
             ))}
           </ul>
-        ) : (
-          <p>No Allergens present in this recipe.</p>
-        )}
+        </div>
 
-        <h1 className={styles.title}>Tags:</h1>
-        {tagsError ? (
-          <div className={styles.errorMessage}>Failed to load tags.</div>
-        ) : (
-          <div className={styles.tagButtonsContainer}>
-            {recipe.tags.map((tag, index) => (
-              <button
-                key={index}
-                className={`${styles.tagButton} ${
-                  selectedTags.includes(tag) ? styles.selectedTag : ''
-                }`}
-                onClick={() => handleTagClick(tag)}
-              >
-                {tag}
-              </button>
-            ))}
-          </div>
-        )}
-
-        <h1 className={styles.title}>Selected Tags:</h1>
-        {tagsError ? (
-          <div className={styles.errorMessage}>Failed to load tags.</div>
-        ) : (
-          <div>
-            {selectedTags.length > 0 ? (
-              <p>Selected Tags: {selectedTags.join(', ')}</p>
-            ) : (
-              <p>No tags selected.</p>
-            )}
-
-            {/* Button to clear selected tags */}
-            <button className="btn" onClick={clearSelectedTags}>
-              Clear Selected Tags
-            </button>
-          </div>
-        )}
-
-        {isEditingDescription ? (
-          <UpdateDescription
-            initialDescription={editedDescription}
-            onSave={handleSaveDescription}
-          />
-        ) : (
-          <p>{editedDescription}</p>
-        )}
-
-        <button
-          className="btn"
-          onClick={() => setIsEditingDescription(!isEditingDescription)}
-        >
-          {isEditingDescription ? 'Cancel' : 'Update Description'}
-        </button>
-        <br />
-
-        <AddToFavoritesButton />
         <div className={styles.rightColumn}>
           <div>
-            <h1 className={styles.title}>{recipe.title}</h1>{' '}
-            <AddToFavoritesButton />
+            <h1 className={styles.title}>{recipe.title}</h1> 
+
+            <AddToFavoritesButton recipe={recipe}/>
+            
             <div>
               <h1 className={styles.sub}>Preparation Time:</h1>
               <p>{formatTime(recipe.prep)}</p>
@@ -171,13 +118,27 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
               <h3 className={styles.sub}>Total Time:</h3>
               <p>{formatTime(recipe.cook + recipe.prep)}</p>
             </div>
-            <h3 className={styles.title}>Ingredients:</h3>
-            <ul>
-              {ingredientsArray.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
+
+            {isEditingDescription ? (
+              <UpdateDescription
+                initialDescription={editedDescription}
+                onSave={handleSaveDescription}
+              />
+            ) : (
+              <p>{editedDescription}</p>
+            )}
+
+            <button
+              className="btn"
+              onClick={() => setIsEditingDescription(!isEditingDescription)}
+            >
+              {isEditingDescription ? 'Cancel' : 'Update Description'}
+            </button>
+
+            <br/>
+
             <h3 className={styles.sub}>Instructions:</h3>
+
             {isEditingInstructions ? (
               <UpdateInstructions
                 initialInstructions={instructionsArray.join('\n')}
@@ -190,6 +151,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
                 ))}
               </ol>
             )}
+
             <button
               className="btn"
               onClick={() => setIsEditingInstructions(!isEditingInstructions)}
