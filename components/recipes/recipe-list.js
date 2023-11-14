@@ -3,19 +3,22 @@ import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../recipes/recipe-list.module.css';
 import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
-import Pagination from './pagination';
+import ShowMoreButton from '../icons&Buttons/show-more';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from './sort';
 import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
-
+import SearchBar from '../search/SearchBar';
+import Pagination from './pagination';
+import Highlighter from 'react-highlight-words';
 
 function RecipeList({ data }) {
+  const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(data.length / recipesPerPage);
-  
+
   const handleSort = (order) => {
     setSortOrder(order);
   };
@@ -27,7 +30,7 @@ function RecipeList({ data }) {
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
-  
+
   let displayedRecipes = data.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
@@ -36,7 +39,6 @@ function RecipeList({ data }) {
   if (remainingRecipes < recipesPerPage) {
     displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
   }
-
 
   switch (sortOrder) {
     case 'newest':
@@ -56,12 +58,20 @@ function RecipeList({ data }) {
     case 'prep-desc':
       displayedRecipes.sort((a, b) => b.prep - a.prep);
       break;
+    case 'steps-asc' :
+      displayedRecipes.sort((a, b) => a.instructions.length - b.instructions.length);
+      break;
+    case 'steps-desc' :
+        displayedRecipes.sort((a, b) => b.instructions.length - a.instructions.length);
+        break;
   }
 
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
+      <SearchBar search={search} setSearch={setSearch} />
+      <br />
       <Sort onSort={handleSort} />
       <br />
       <div className={classes.cardContainer}>
@@ -76,23 +86,32 @@ function RecipeList({ data }) {
             </div>
 
             <div className={classes.cardContent}>
-              <h2 className={classes.cardTitle}>{recipe.title}</h2>
+              {/* <h2 className={classes.cardTitle}>{recipe.title}</h2> */}
+
+              <Highlighter
+                className={classes.cardTitle}
+                textToHighlight={recipe.title}
+                searchWords={[search]}
+                autoEscape={true}
+              />
 
               <p
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
                 <FaCalendar style={{ fontSize: '1.5em' }} />
+                Date Published: <br></br>
                 {formatDate(recipe.published)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: '1.5em' }} />{' '}
+                <FaHourglass style={{ fontSize: '1.5em' }} /> Prep-Time:{' '}
+                <br></br>
                 {formatTime(recipe.prep)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: '1.5em' }} />{' '}
+                <FaClock style={{ fontSize: '1.5em' }} /> Cook-Time: <br></br>
                 {formatTime(recipe.cook)}
               </p>
 

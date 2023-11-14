@@ -16,9 +16,10 @@ const UpdateInstructions = ({ initialInstructions, onSave }) => {
   };
 
   return (
-    <div>
-      <textarea value={Instructions} onChange={handleInstructionsChange} />
-      <button onClick={handleSave}>Save Instructions</button>
+    <div> 
+      <textarea className='textarea'
+       value={Instructions} onChange={handleInstructionsChange} />
+      <button className='btn' onClick={handleSave}>Save Instructions</button>
     </div>
   );
 };
