@@ -15,6 +15,8 @@ function Sort({ onSort }) {
         <option value="cook-desc">Sort by Cooking Time (Descending)</option>
         <option value="prep-asc">Sort by Preparation Time (Ascending)</option>
         <option value="prep-desc">Sort by Preparation Time (Descending)</option>
+        <option value="steps-asc">Sort by Number of Steps (Ascending)</option>
+        <option value="steps-desc">Sort by Number of Steps (Descending)</option>
       </select>
     </div>
   );
