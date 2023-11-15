@@ -8,14 +8,16 @@ import { run1 } from '../../database/allergensModule';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import MyCarousel from '@/components/home-page/carousel';
 
-
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
   const [isInstructionsVisible, setInstructionsVisible] = useState(false);
 
-  const ingredientsArray = recipe && recipe.ingredients
-    ? Object.entries(recipe.ingredients).map(([ingredient, amount]) => `${ingredient}: ${amount}`)
-    : [];
+  const ingredientsArray =
+    recipe && recipe.ingredients
+      ? Object.entries(recipe.ingredients).map(
+          ([ingredient, amount]) => `${ingredient}: ${amount}`
+        )
+      : [];
 
   if (!recipe.ingredients) {
     return (
@@ -46,7 +48,6 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
       setTagsError(true);
     }
   }, [error]);
-
 
   const clearSelectedTags = () => {
     setSelectedTags([]);
@@ -103,7 +104,6 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   return (
     <Fragment>
       <div className={styles.container}>
-
         <div className={styles.leftColumn}>
           <MyCarousel images={recipe.images} />
           <br />
@@ -113,13 +113,11 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         <h1 className={styles.title}>Allergens:</h1>
 
         {allergensForRecipe.length > 0 ? (
-
           <ul>
             {allergensForRecipe.map((allergen, index) => (
               <li key={index}>{allergen}</li>
             ))}
           </ul>
-
         ) : (
           <p>No Allergens present in this recipe.</p>
         )}
@@ -216,13 +214,12 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             >
               {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
             </button>
-
           </div>
         </div>
-
+      </div>
     </Fragment>
   );
-};
+}
 
 export const getServerSideProps = async ({ params }) => {
   try {
@@ -231,14 +228,12 @@ export const getServerSideProps = async ({ params }) => {
     const Recipe = await getRecipeById(recipeId);
     const docs1 = await run1();
 
-
     if (!Recipe || !Recipe.instructions) {
       throw new Error('Failed to load instructions.');
     }
     if (!Recipe || !Recipe.tags) {
       throw new Error('Failed to load tags');
     }
-
 
     return {
       props: {
@@ -247,7 +242,6 @@ export const getServerSideProps = async ({ params }) => {
         error: false,
       },
     };
-
   } catch (error) {
     return {
       props: {
