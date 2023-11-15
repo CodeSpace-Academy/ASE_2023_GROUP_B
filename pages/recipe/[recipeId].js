@@ -88,7 +88,73 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
         <h1 className={styles.title}>Allergens:</h1>
 
+<<<<<<< Updated upstream
           {allergensForRecipe.length > 0 ? (
+=======
+        {allergensForRecipe.length > 0 ? (
+          <ul>
+            {allergensForRecipe.map((allergen, index) => (
+              <li className={styles.p} key={index}>{allergen}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className={styles.p}>No Allergens present in this recipe.</p>
+        )}
+
+        <h1 className={styles.title}>Tags:</h1>
+        {tagsError ? (
+          <div className={styles.errorMessage}>Failed to load tags.</div>
+        ) : (
+          <div className={styles.tagButtonsContainer}>
+            {recipe.tags.map((tag, index) => (
+              <button
+                key={index}
+                className={`${styles.tagButton} ${
+                  selectedTags.includes(tag) ? styles.selectedTag : ''
+                }`}
+                onClick={() => handleTagClick(tag)}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+        )}
+
+    <h1 className={styles.title}>Description:</h1>
+        {isEditingDescription ? (
+          <UpdateDescription
+            initialDescription={editedDescription}
+            onSave={handleSaveDescription}
+          />
+        ) : (
+          <p className={styles.p}>{editedDescription}</p>
+        )}
+
+        <button
+          className="btn"
+          onClick={() => setIsEditingDescription(!isEditingDescription)}
+        >
+          {isEditingDescription ? 'Cancel' : 'Update Description'}
+        </button>
+        <br />
+
+        <div>
+          <div>
+            <AddToFavoritesButton
+                recipe={recipe}
+            />
+            <div>
+              <h1 className={styles.sub}>Preparation Time:</h1>
+              <p className={styles.p}>{formatTime(recipe.prep)}</p>
+              <br/>
+              <h1 className={styles.sub}>Cooking Time:</h1>
+              <p className={styles.p}>{formatTime(recipe.cook)}</p>
+              <br/>
+              <h1 className={styles.sub}>Total Time:</h1>
+              <p className={styles.p}>{formatTime(recipe.cook + recipe.prep)}</p>
+            </div>
+            <h3 className={styles.title}>Ingredients:</h3>
+>>>>>>> Stashed changes
             <ul>
               {allergensForRecipe.map((allergen, index) => (
                 <li key={index}>{allergen}</li>

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream:components/recipes/recipe-list.js
 import React, { useState } from "react";
 import Link from "next/link";
 import { FaCalendar, FaHourglass, FaClock } from "react-icons/fa";
@@ -8,6 +9,20 @@ import { formatDate } from "@/helpers/date-util";
 import { formatTime } from "@/helpers/time-util";
 import Sort from "./sort";
 import FavoriteRecipes from "./favoritesRecipes";
+=======
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
+import classes from './recipe-list.module.css'
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import { formatDate } from '@/helpers/date-util';
+import { formatTime } from '@/helpers/time-util';
+import Sort from '../../components/recipes/sort';
+import SearchBar from '../../components/search/SearchBar';
+import Pagination from '../../components/recipes/pagination';
+import Highlighter from 'react-highlight-words';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+>>>>>>> Stashed changes:pages/recipe/recipe-list.js
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -98,6 +113,12 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
+<<<<<<< Updated upstream:components/recipes/recipe-list.js
+=======
+              <AddToFavoritesButton
+                recipe={recipe}
+              />
+>>>>>>> Stashed changes:pages/recipe/recipe-list.js
 
               <button
                 onClick={() => toggleFavorite(recipe._id)}
