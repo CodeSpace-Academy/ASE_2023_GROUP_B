@@ -3,14 +3,12 @@ import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../recipes/recipe-list.module.css';
 import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
-import ShowMoreButton from '../icons&Buttons/show-more';
 import SearchBar from '../search/SearchBar';
 import Pagination from './pagination';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from './sort';
 import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
-
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -82,26 +80,33 @@ function RecipeList({ data }) {
             <div className={classes.cardContent}>
               <h2 className={classes.cardTitle}>{recipe.title}</h2>
               <br />
-
               <p
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-
-                <FaCalendar size="1.0em" />
-                <span>{formatDate(recipe.published)}</span>
+                <FaCalendar style={{ fontSize: "1.0em" }} />
+                 Date Published: <br></br>
+                {formatDate(recipe.published)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: '1.0em' }} />
-                <span>{formatTime(recipe.prep)}</span>
+                <FaHourglass style={{ fontSize: "1.0em" }} />{" "}
+                Prep-Time: <br></br>
+                {formatTime(recipe.prep)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: '1.0em' }} />
-                <span>{formatTime(recipe.cook)}</span>
-
+                <FaClock style={{ fontSize: "1.0em" }} />{" "}
+                Cook-Time: <br></br>
+                {formatTime(recipe.cook)}
               </p>
+
+              <p className={classes.cardCategory}>
+                <FaClock style={{ fontSize: "1.0em" }} />{" "}
+                total-time: <br></br>
+                {formatTime(recipe.cook + recipe.prep)}
+              </p>
+
             </div>
             <br />
             <Link href={`/recipe/${recipe._id}`}>
