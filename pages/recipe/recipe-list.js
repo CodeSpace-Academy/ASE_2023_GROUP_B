@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from '../recipes/recipe-list.module.css';
-import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
+import classes from '../../pages/recipe/recipe-list.module.css';
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import Sort from './sort';
-import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
-import SearchBar from '../search/SearchBar';
-import Pagination from './pagination';
+import Sort from '../../components/recipes/sort';
+import SearchBar from '../../components/search/SearchBar';
+import Pagination from '../../components/recipes/pagination';
 import Highlighter from 'react-highlight-words';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 
 function RecipeList({ data }) {
@@ -129,7 +129,10 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-              <AddToFavHeart />
+
+              <AddToFavoritesButton
+                recipe={recipe}
+              />
 
             </div>
           </div>
