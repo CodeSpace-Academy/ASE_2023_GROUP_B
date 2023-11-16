@@ -39,12 +39,16 @@ function RecipeList({ data }) {
     case 'prep-desc':
       displayedRecipes.sort((a, b) => b.prep - a.prep);
       break;
-    case 'steps-asc' :
-      displayedRecipes.sort((a, b) => a.instructions.length - b.instructions.length);
+    case 'steps-asc':
+      displayedRecipes.sort(
+        (a, b) => a.instructions.length - b.instructions.length
+      );
       break;
-    case 'steps-desc' :
-        displayedRecipes.sort((a, b) => b.instructions.length - a.instructions.length);
-        break;
+    case 'steps-desc':
+      displayedRecipes.sort(
+        (a, b) => b.instructions.length - a.instructions.length
+      );
+      break;
   }
 
   return (
@@ -67,7 +71,6 @@ function RecipeList({ data }) {
             </div>
 
             <div className={classes.cardContent}>
-
               <Highlighter
                 className={classes.cardTitle}
                 textToHighlight={recipe.title}
@@ -79,31 +82,24 @@ function RecipeList({ data }) {
                 className={classes.cardCategory}
                 title={`Date: ${formatDate(recipe.published)}`}
               >
-
-                <FaCalendar style={{ fontSize: "1.0em" }} />
-                 Date Published: <br></br>
-
+                <FaCalendar style={{ fontSize: '1.0em' }} />
+                Date Published: <br></br>
                 {formatDate(recipe.published)}
               </p>
 
               <p className={classes.cardCategory}>
-
-                <FaHourglass style={{ fontSize: "1.0em" }} />{" "}
-                Prep-Time: <br></br>
-
+                <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:{' '}
+                <br></br>
                 {formatTime(recipe.prep)}
               </p>
 
               <p className={classes.cardCategory}>
-
-                <FaClock style={{ fontSize: "1.0em" }} />{" "}
-                Cook-Time: <br></br>
+                <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time: <br></br>
                 {formatTime(recipe.cook)}
               </p>
 
               <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: "1.0em" }} />{" "}
-                total-time: <br></br>
+                <FaClock style={{ fontSize: '1.0em' }} /> total-time: <br></br>
                 {formatTime(recipe.cook + recipe.prep)}
               </p>
 
@@ -111,17 +107,13 @@ function RecipeList({ data }) {
                 <ViewRecipeBtn />
               </Link>
 
-              <AddToFavoritesButton
-                recipe={recipe}
-              />
-
+              <AddToFavoritesButton recipe={recipe} />
             </div>
           </div>
         ))}
       </div>
       <br />
-      <div className={classes.pageInfo}>
-      </div>
+      <div className={classes.pageInfo}></div>
     </div>
   );
 }
