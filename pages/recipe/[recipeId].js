@@ -87,10 +87,10 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         <div>
           <MyCarousel images={recipe.images} />
           <br />
-
+</div>
           <h1 className={styles.title}>{recipe.title}</h1>
-        </div>
-        <h1 className={styles.title}>Allergens:</h1>
+        
+        <h2 className={styles.subTitle}>Allergens:</h2>
 
         {allergensForRecipe.length > 0 ? (
           <ul>
@@ -102,7 +102,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           <p className={styles.p}>No Allergens present in this recipe.</p>
         )}
 
-        <h1 className={styles.title}>Tags:</h1>
+        <br />
+
+        <h2 className={styles.subTitle}>Tags:</h2>
         {tagsError ? (
           <div className={styles.errorMessage}>Failed to load tags.</div>
         ) : (
@@ -121,7 +123,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           </div>
         )}
 
-    <h1 className={styles.title}>Description:</h1>
+      <br />
+
+    <h2 className={styles.subTitle}>Description:</h2>
         {isEditingDescription ? (
           <UpdateDescription
             initialDescription={editedDescription}
@@ -130,7 +134,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         ) : (
           <p className={styles.p}>{editedDescription}</p>
         )}
-
+        <br />
         <button
           className="btn"
           onClick={() => setIsEditingDescription(!isEditingDescription)}
@@ -143,23 +147,24 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           <div>
             <AddToFavoritesButton />
             <div>
-              <h1 className={styles.sub}>Preparation Time:</h1>
+              <h2 className={styles.sub}>Preparation Time:</h2>
               <p className={styles.p}>{formatTime(recipe.prep)}</p>
               <br/>
-              <h1 className={styles.sub}>Cooking Time:</h1>
+              <h2 className={styles.sub}>Cooking Time:</h2>
               <p className={styles.p}>{formatTime(recipe.cook)}</p>
               <br/>
               <h1 className={styles.sub}>Total Time:</h1>
               <p className={styles.p}>{formatTime(recipe.cook + recipe.prep)}</p>
             </div>
+            <br />
             <h3 className={styles.title}>Ingredients:</h3>
             <ul>
               {ingredientsArray.map((ingredient, index) => (
                 <li className={styles.p} key={index}>{ingredient}</li>
               ))}
             </ul>
-            
-            <h3 className={styles.title}>Instructions:</h3>
+            <br />
+            <h2 className={styles.title}>Instructions:</h2>
             {isEditingInstructions ? (
               <UpdateInstructions
                 initialInstructions={instructionsArray.join('\n')}
@@ -172,6 +177,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
                 ))}
               </ol>
             )}
+            <br />
             <button
               className="btn"
               onClick={() => setIsEditingInstructions(!isEditingInstructions)}

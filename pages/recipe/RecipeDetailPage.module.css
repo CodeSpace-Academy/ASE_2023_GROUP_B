@@ -1,18 +1,22 @@
 /* RecipeDetailPage.module.css */
-
 .container {
-  max-width: 800px; /* Adjust the maximum width based on your design */
-  margin: 0 auto;
+  max-width: 800px; 
+  margin: auto;
   padding: 20px;
-  background-color: rgba(15, 15, 97, 0.067); /* Set the background color to grey */
+  background-color: rgba(15, 15, 97, 0.097); 
+  box-shadow: 4px 4px 4px rgba(25, 237, 135, 0.097);
 }
 
 .title {
   font-size: 24px;
-  margin-bottom: 10px;
-  color: #321a80; /* Set font color to green */
+  margin-bottom: 15px;
+  color: #1a8028; /* Set font color to green */
 }
 
+.subTitle{
+  font-size: 20px;
+  color: #24ab36;
+}
 .sub {
   font-size: 18px;
   margin-top: 10px;
@@ -35,16 +39,16 @@
 .tagButton {
   margin: 5px;
   padding: 8px 12px;
-  background-color: #95a5a6; /* Set background color to grey */
-  color: #101211; /* Set font color to green */
-  border: 1px solid #7f8c8d; /* Add a border for a cleaner look */
+  background-color: #95a5a6;
+  color: #101211; 
+  border: 1px solid #7f8c8d; 
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .tagButton:hover {
-  background-color: #7f8c8d; /* Darker grey on hover */
+  background-color: #7f8c8d; 
 }
 
 .selectedTag {
@@ -61,8 +65,8 @@
 
 .btn {
   margin-top: 10px;
-  background-color: #080909; /* Set button background color to green */
-  color: #fff; /* Set button font color to white */
+  background-color: #080909;
+  color: #fff;
 }
 
 .instructionsSection {
@@ -75,8 +79,8 @@
 
 .instructionsButton {
   margin-top: 10px;
-  background-color: #0b0b0b; /* Set button background color to green */
-  color: #fff; /* Set button font color to white */
+  background-color: #0b0b0b; 
+  color: #fff; 
 }
 
 .instructions {
@@ -89,4 +93,4 @@
 .p{
   color:#101211;
 }
-/* Add any additional styles as needed */
+
