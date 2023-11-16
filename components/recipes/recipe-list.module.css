@@ -6,6 +6,7 @@
 }
 
 .title {
+    color: #100E0E;
     font-size: 27px;
     margin-bottom: 20px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,6 +17,11 @@
     color: #414040;
     margin: 0;
     margin-bottom: 10px;
+}
+
+.highlight{
+    font-size: large;
+    color: red;
 }
 
 .cardContainer {

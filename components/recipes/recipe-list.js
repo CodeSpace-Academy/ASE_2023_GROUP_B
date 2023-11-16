@@ -10,13 +10,16 @@ import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from './sort';
 import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
+import Highlighter from 'react-highlight-words';
 
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
+  const [filteredRecipes, setFilteredRecipes] = useState(data);
+  const [search, setSearch] = useState('');
   const recipesPerPage = 100;
-  const totalPageCount = Math.ceil(data.length / recipesPerPage);
+  const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
   const handleSort = (order) => {
     setSortOrder(order);
@@ -28,15 +31,24 @@ function RecipeList({ data }) {
     }
   };
 
+  const handleSearch = () => {
+    const lowerCaseSearchText = search.toLowerCase();
+    const filtered = data.filter((recipe) =>
+      recipe.title.toLowerCase().includes(lowerCaseSearchText)
+    );
+    setFilteredRecipes(filtered);
+    setCurrentPage(1); // Reset to the first page when searching
+  };
+
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
-  let displayedRecipes = data.slice(
+  let displayedRecipes = filteredRecipes.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
 
   if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
+    displayedRecipes = filteredRecipes.slice((currentPage - 1) * recipesPerPage);
   }
 
   switch (sortOrder) {
@@ -63,7 +75,7 @@ function RecipeList({ data }) {
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} search={search} setSearch={setSearch}/>
       <br />
 
       <Sort onSort={handleSort} />
@@ -80,7 +92,15 @@ function RecipeList({ data }) {
             </div>
 
             <div className={classes.cardContent}>
-              <h2 className={classes.cardTitle}>{recipe.title}</h2>
+              {/* <h2 className={classes.cardTitle}>{recipe.title}</h2> */}
+              
+              <Highlighter
+                highlightClassName={classes.highlight}
+                textToHighlight={recipe.title}
+                searchWords={[search]}
+                autoEscape={true}
+              />
+
               <br />
 
               <p
