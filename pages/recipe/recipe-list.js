@@ -8,7 +8,7 @@ import { formatTime } from '@/helpers/time-util';
 import Sort from '../../components/recipes/sort';
 import SearchBar from '../../components/search/SearchBar';
 import Highlighter from 'react-highlight-words';
-// import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 function RecipeList({ data }) {
   const [search, setSearch] = useState('');
@@ -107,9 +107,7 @@ function RecipeList({ data }) {
                 <ViewRecipeBtn />
               </Link>
 
-              {/* <AddToFavoritesButton
-                recipe={recipe}
-              /> */}
+              <AddToFavoritesButton recipe={recipe} />
             </div>
           </div>
         ))}
