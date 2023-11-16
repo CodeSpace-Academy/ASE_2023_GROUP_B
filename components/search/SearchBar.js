@@ -32,6 +32,7 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
   }
 
 console.log(search)
+
   return (
     
     <div className={classes.whole}>
@@ -47,6 +48,8 @@ console.log(search)
           onChange={(e)=> {setSearch(e.target.value)}}
           type="text"
           className={classes.input}
+
+          onChange={(e)=> setSearch(e.target.value) }
         />
         <span className={classes.caret}></span>
         <button type="button" onClick={handleSearch}>
