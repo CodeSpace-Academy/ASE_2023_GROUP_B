@@ -6,7 +6,7 @@ import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
 import { run1 } from '../../database/allergensModule';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
-// import MyCarousel from '@/components/home-page/carousel';
+import MyCarousel from '@/components/home-page/carousel';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
@@ -85,7 +85,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     <Fragment>
       <div className={styles.container}>
         <div>
-          {/* <MyCarousel images={recipe.images} /> */}
+          <MyCarousel images={recipe.images} />
           <br />
 
           <h1 className={styles.title}>{recipe.title}</h1>
