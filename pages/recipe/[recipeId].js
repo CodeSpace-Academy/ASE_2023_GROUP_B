@@ -141,7 +141,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
         <div>
           <div>
-            <AddToFavoritesButton />
+          <AddToFavoritesButton
+                recipe={recipe}
+              />
             <div>
               <h1 className={styles.sub}>Preparation Time:</h1>
               <p className={styles.p}>{formatTime(recipe.prep)}</p>
