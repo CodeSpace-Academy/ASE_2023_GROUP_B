@@ -27,6 +27,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
       </div>
     );
   }
+  
+  const [selectedTags, setSelectedTags] = useState([]); 
+
 
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
@@ -49,9 +52,6 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     }
   }, [error]);
 
-  const clearSelectedTags = () => {
-    setSelectedTags([]);
-  };
 
   if (error) {
     return <div>Error loading recipe details.</div>;
@@ -104,7 +104,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
   return (
     <Fragment>
       <div className={styles.container}>
-        <div className={styles.leftColumn}>
+        <div>
           <MyCarousel images={recipe.images} />
           <br />
 
@@ -115,11 +115,11 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         {allergensForRecipe.length > 0 ? (
           <ul>
             {allergensForRecipe.map((allergen, index) => (
-              <li key={index}>{allergen}</li>
+              <li className={styles.p} key={index}>{allergen}</li>
             ))}
           </ul>
         ) : (
-          <p>No Allergens present in this recipe.</p>
+          <p className={styles.p}>No Allergens present in this recipe.</p>
         )}
 
         <h1 className={styles.title}>Tags:</h1>
@@ -141,31 +141,14 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           </div>
         )}
 
-        <h1 className={styles.title}>Selected Tags:</h1>
-        {tagsError ? (
-          <div className={styles.errorMessage}>Failed to load tags.</div>
-        ) : (
-          <div>
-            {selectedTags.length > 0 ? (
-              <p>Selected Tags: {selectedTags.join(', ')}</p>
-            ) : (
-              <p>No tags selected.</p>
-            )}
-
-            {/* Button to clear selected tags */}
-            <button className="btn" onClick={clearSelectedTags}>
-              Clear Selected Tags
-            </button>
-          </div>
-        )}
-
+    <h1 className={styles.title}>Description:</h1>
         {isEditingDescription ? (
           <UpdateDescription
             initialDescription={editedDescription}
             onSave={handleSaveDescription}
           />
         ) : (
-          <p>{editedDescription}</p>
+          <p className={styles.p}>{editedDescription}</p>
         )}
 
         <button
@@ -176,26 +159,29 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         </button>
         <br />
 
-        <AddToFavoritesButton />
-        <div className={styles.rightColumn}>
+        <div>
           <div>
-            <h1 className={styles.title}>{recipe.title}</h1>{' '}
-            <AddToFavoritesButton />
+          <AddToFavoritesButton
+                recipe={recipe}
+              />
             <div>
               <h1 className={styles.sub}>Preparation Time:</h1>
-              <p>{formatTime(recipe.prep)}</p>
-              <h3 className={styles.sub}>Cooking Time:</h3>
-              <p>{formatTime(recipe.cook)}</p>
-              <h3 className={styles.sub}>Total Time:</h3>
-              <p>{formatTime(recipe.cook + recipe.prep)}</p>
+              <p className={styles.p}>{formatTime(recipe.prep)}</p>
+              <br/>
+              <h1 className={styles.sub}>Cooking Time:</h1>
+              <p className={styles.p}>{formatTime(recipe.cook)}</p>
+              <br/>
+              <h1 className={styles.sub}>Total Time:</h1>
+              <p className={styles.p}>{formatTime(recipe.cook + recipe.prep)}</p>
             </div>
             <h3 className={styles.title}>Ingredients:</h3>
             <ul>
               {ingredientsArray.map((ingredient, index) => (
-                <li key={index}>{ingredient}</li>
+                <li className={styles.p} key={index}>{ingredient}</li>
               ))}
             </ul>
-            <h3 className={styles.sub}>Instructions:</h3>
+            
+            <h3 className={styles.title}>Instructions:</h3>
             {isEditingInstructions ? (
               <UpdateInstructions
                 initialInstructions={instructionsArray.join('\n')}
@@ -204,7 +190,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
             ) : (
               <ol className={styles.instructions}>
                 {editedInstructions.map((step, index) => (
-                  <li key={index}>{step}</li>
+                  <li className={styles.p} key={index}>{step}</li>
                 ))}
               </ol>
             )}
