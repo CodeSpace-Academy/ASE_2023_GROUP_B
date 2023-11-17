@@ -9,12 +9,10 @@ import Sort from './sort';
 import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
 import SearchBar from '../search/SearchBar';
 import Pagination from './pagination';
-
 import Highlighter from 'react-highlight-words';
 
 
 function RecipeList({ data }) {
-  const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const [filteredRecipes, setFilteredRecipes] = useState(data);
