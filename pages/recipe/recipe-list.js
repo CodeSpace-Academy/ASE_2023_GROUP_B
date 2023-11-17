@@ -7,10 +7,8 @@ import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from '../../components/recipes/sort';
 import SearchBar from '../../components/search/SearchBar';
-import Pagination from '../../components/recipes/pagination';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
-
 
 function RecipeList({ data }) {
   // Check if data is not an array or is empty
@@ -23,31 +21,14 @@ function RecipeList({ data }) {
   }
 
   const [search, setSearch] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState('default');
   const recipesPerPage = 100;
-  const totalPageCount = Math.ceil(data.length / recipesPerPage);
 
   const handleSort = (order) => {
     setSortOrder(order);
   };
 
-  const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPageCount) {
-      setCurrentPage(page);
-    }
-  };
-
-  const remainingRecipes = data.length - currentPage * recipesPerPage;
-
-  let displayedRecipes = data.slice(
-    (currentPage - 1) * recipesPerPage,
-    currentPage * recipesPerPage
-  );
-
-  if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
-  }
+  let displayedRecipes = [...data];
 
   switch (sortOrder) {
     case 'newest':
@@ -116,8 +97,10 @@ function RecipeList({ data }) {
               </p>
 
               <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:
-                <br></br>
+
+                <FaHourglass style={{ fontSize: "1.0em" }} />{" "}
+                Prep-Time: <br></br>
+
                 {formatTime(recipe.prep)}
               </p>
 
@@ -141,22 +124,7 @@ function RecipeList({ data }) {
         ))}
       </div>
       <br />
-      <div>
-        {totalPageCount > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPageCount={totalPageCount}
-            handlePageChange={handlePageChange}
-          />
-        )}
-
-        <div className={classes.pageInfo}>
-          <p>
-            {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
-            Page {currentPage} of {totalPageCount}.
-          </p>
-        </div>
-      </div>
+      <div className={classes.pageInfo}></div>
     </div>
   );
 }
