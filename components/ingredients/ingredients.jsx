@@ -58,9 +58,10 @@ function Ingredients({
           if (response.ok) {
             const filterIngredientsResult = await response.json();
             // setRecipes(filterResult.recipes);
-            setFilterIngredientResults(filterIngredientsResult.recipes);
+            // setFilterIngredientResults(filterIngredientsResult.recipes);
+            setRecipes(filterIngredientsResult.recipes)
             // setCount(filterResult.recipes.length);
-            console.log(filterIngredientsResult)
+            
           } else {
             console.error("Failed to fetch recipes by ingredients");
           }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import RecipeList from '@/components/recipes/recipe-list';
 import ArrowIpIcon from '@/components/icons&Buttons/arrow-up-icon';
@@ -12,10 +12,16 @@ export default function AllRecipes(props) {
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [filterIngredientResults,setFilterIngredientResults]= useState([])
   
+  useEffect(()=>{
+
+    setRecipes(props.data)
+
+  },[])
 
   function handleDefaultIngredientFilter() {
     setSelectedIngredients([]);
   }
+
 
   return (
     <Fragment>
@@ -27,7 +33,7 @@ export default function AllRecipes(props) {
         setSelectedIngredients={setSelectedIngredients}
         selectedIngredients={selectedIngredients}
       />
-      <RecipeList data={props.data} />
+      <RecipeList data={recipes} />
       <ArrowIpIcon />
     </Fragment>
   );

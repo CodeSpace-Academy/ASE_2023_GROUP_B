@@ -9,7 +9,7 @@ export async function run(page) {
     await db.command({ ping: 1 });
     const collection = db.collection("recipes");
     const skip = (page - 1) * 100;
-    const data = await collection.find({}).skip(skip).limit(100).toArray();
+    const data = await collection.find({}).skip(skip).limit(20).toArray();
     return data;
   } catch (error) {
     console.error("Failed to fetch data from MongoDB:", error);
