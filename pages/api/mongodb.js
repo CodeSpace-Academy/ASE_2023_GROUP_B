@@ -1,41 +1,48 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
-import dotenv from "dotenv";
+import { MongoClient, ServerApiVersion } from 'mongodb';
+import dotenv from 'dotenv';
 
-dotenv.config();       
+dotenv.config();
 let client;
 
-export async function connectToMongo() {
+async function connectToMongo() {
+  if (client && client.connected) {
+    return client;
+  }
   const connectionString = process.env.MONGODB_CONNECTION_STRING;
   client = new MongoClient(connectionString, {
+    maxIdleTimeMS: 500,
     serverApi: {
       version: ServerApiVersion.v1,
       strict: true,
       deprecationErrors: true,
     },
   });
-
-  // Define a helper function to connect and handle errors
-
   try {
     await client.connect();
-    console.log("Connected to MongoDB");
+    console.log('Connected to MongoDB');
+    return client;
   } catch (error) {
-    console.error("Failed to connect to MongoDB:", error);
+    console.error('Failed to connect to MongoDB:', error);
     throw error;
   }
 }
-
-// Define a helper function to close the connection
-export async function closeMongoConnection() {
+async function closeMongoConnection() {
   try {
-    await client.close();
-    console.log("MongoDB connection closed");
+    if (client && client.connected) {
+      await client.close();
+      console.log('MongoDB connection closed');
+    }
   } catch (error) {
-    console.error("Failed to close MongoDB connection:", error);
+    console.error('Failed to close MongoDB connection:', error);
   }
 }
-
-export function getClient() {
+function getClient() {
   return client;
 }
+export { connectToMongo, closeMongoConnection, getClient };
+
+
+
+
+
 
