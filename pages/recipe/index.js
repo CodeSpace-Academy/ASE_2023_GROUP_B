@@ -19,7 +19,9 @@ export default function AllRecipes(props) {
   },[])
 
   function handleDefaultIngredientFilter() {
-    setSelectedIngredients([]);
+    if (selectedIngredients.length > 0) {
+      setSelectedIngredients([]);
+    }
   }
 
 

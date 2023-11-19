@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBar from "./search/SearchBar";
+
 import Ingredients from "./ingredients/ingredients.jsx";
 
 export default function Hero({
@@ -24,15 +24,7 @@ export default function Hero({
   return (
     <div >
       <div >
-        <div >
-          {/* <SearchBar
-            handleDefault={handleDefaultSearch}
-            onSearch={onSearch}
-            onAutocomplete={onAutocomplete}
-            setSearchQuery={setSearchQuery}
-            searchQuery={searchQuery}
-          /> */}
-        </div>
+        
         <div >
           
           

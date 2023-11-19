@@ -1,0 +1,44 @@
+/* ingredients.module.css */
+
+/* Container style */
+.ingredientsContainer {
+  width: 300px; /* Adjust width as needed */
+  margin: 20px;
+}
+
+/* Select component style */
+.selectContainer {
+  width: 100%;
+  color: #333;
+}
+
+/* Placeholder text style */
+.selectPlaceholder {
+  color: #aaa; /* Light gray color */
+}
+
+/* Selected options style */
+.selectMultiValue {
+  background-color: #e0e0e0; /* Light background color for selected options */
+  border: 1px solid #ccc; /* Border color for selected options */
+  border-radius: 4px; /* Rounded corners for selected options */
+}
+
+/* Selected options label style */
+.selectMultiValueLabel {
+  color: #333; /* Text color for selected options */
+}
+
+/* 'X' button style to remove a selected option */
+.selectMultiValueRemove {
+    color: #777; /* Color of the 'X' button */
+  }
+  
+
+/* 'X' button style to remove a selected option */
+.selectMultiValueRemove:hover {
+  
+  
+    color: #555; /* Hover color for the 'X' button */
+  
+}

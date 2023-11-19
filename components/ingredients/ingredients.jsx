@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Select from "react-select";
+import styles from "./ingredients.module.css"
+import Select, { components } from 'react-select';
 
 
 function Ingredients({
@@ -47,7 +48,7 @@ function Ingredients({
         setFilterIngredientResults([]);
       } else {
         try {
-          const response = await fetch(`/api/fff`, {
+          const response = await fetch(`/api/filterbyingredient`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -83,7 +84,7 @@ function Ingredients({
   };
 
   return (
-    <div>
+    <div className={styles.ingredientsContainer}>
       <Select
         isMulti
         options={ingredients}
@@ -91,9 +92,31 @@ function Ingredients({
           selectedIngredients.includes(ingredient.value)
         )}
         onChange={handleIngredientChange}
-        
+        className={styles.selectContainer}
         blurInputOnSelect
         placeholder="select ingredient"
+        components={{
+          MultiValue: ({ children, ...props }) => (
+            <components.MultiValue {...props} className={styles.selectMultiValue}>
+              {children}
+            </components.MultiValue>
+          ),
+          MultiValueLabel: ({ children, ...props }) => (
+            <components.MultiValueLabel {...props} className={styles.selectMultiValueLabel}>
+              {children}
+            </components.MultiValueLabel>
+          ),
+          MultiValueRemove: ({ children, ...props }) => (
+            <components.MultiValueRemove {...props} className={styles.selectMultiValueRemove}>
+              {children}
+            </components.MultiValueRemove>
+          ),
+          Placeholder: ({ children, ...props }) => (
+            <components.Placeholder {...props} className={styles.selectPlaceholder}>
+              {children}
+            </components.Placeholder>
+          ),
+        }}
       />
     </div>
   );
