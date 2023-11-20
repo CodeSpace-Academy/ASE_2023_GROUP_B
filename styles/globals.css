@@ -51,12 +51,16 @@
         text-decoration: none;
     }
 
+    .title{
+        position: relative;
+        top: 190px;
+    }
+  
     .btn {
+        position: relative;
+       bottom: 180px;
         font: inherit;
         cursor: pointer;
-    }
-
-    .btn {
         --hover-shadows: 16px 16px 33px #121212, -16px -16px 33px #303030;
         font-weight: bold;
         letter-spacing: 0.1em;
@@ -73,6 +77,7 @@
         align-items: center;
         font-size: 12px;
         padding: 5px 8px;
+        
         }
     
         .btn:hover {

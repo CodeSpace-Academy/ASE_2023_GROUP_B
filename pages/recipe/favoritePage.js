@@ -2,10 +2,10 @@ import { useContext, useEffect } from 'react';
 import FavoritesContext from '@/components/favorite/fav-context';
 import RecipeDetailPage from '../recipe/[recipeId]';
 import Link from 'next/link';
-import classes from './RecipeDetailPage.module.css'; // Correct module name
 import { IoIosArrowBack } from 'react-icons/io';
 import { getFavoritesFromMongoDB } from '../api/mongodb';
 import RecipeList from './recipe-list';
+import classes from '../../components/icons&Buttons/favorite.module.css'
 
 function FavoritesPage({ favs }) {
   // Access the FavoritesContext to get the list of favorite recipes
@@ -32,7 +32,7 @@ function FavoritesPage({ favs }) {
       <h1 className={classes.fav}>Favorite</h1>
       {favs.length === 0 && (
         <p className={classes.message}>
-          You have not favorited any recipes yet. Start adding your favorites!
+          You have no favorite recipes yet. Start adding your favorites!
         </p>
       )}
       <section>
