@@ -6,6 +6,7 @@
 }
 
 .title {
+    color: #100E0E;
     font-size: 27px;
     font-size: bold;
     color: #333;
@@ -18,6 +19,11 @@
     color: #414040;
     margin: 0;
     margin-bottom: 10px;
+}
+
+.highlight{
+    font-size: large;
+    color: red;
 }
 
 .cardContainer {

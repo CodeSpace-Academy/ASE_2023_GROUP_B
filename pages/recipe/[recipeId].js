@@ -10,11 +10,27 @@ import MyCarousel from '@/components/home-page/carousel';
 
 export default function RecipeDetailPage({ recipe, error, allergens }) {
   const [tagsError, setTagsError] = useState(false);
+  const [isInstructionsVisible, setInstructionsVisible] = useState(false);
+
+  const ingredientsArray =
+    recipe && recipe.ingredients
+      ? Object.entries(recipe.ingredients).map(
+          ([ingredient, amount]) => `${ingredient}: ${amount}`
+        )
+      : [];
+
+  if (!recipe.ingredients) {
+    return (
+      <div>
+        <h1>Recipe not found</h1>
+        <p>This recipe does not have any ingredients.</p>
+      </div>
+    );
+  }
+  
   const [selectedTags, setSelectedTags] = useState([]); 
 
-  const ingredientsArray = Object.entries(recipe.ingredients).map(
-    ([ingredient, amount]) => `${ingredient}: ${amount} `
-  );
+
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
@@ -81,6 +97,10 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
     ? recipe.instructions.split('\n')
     : [];
 
+  const tags = Array.isArray(recipe.tags)
+    ? recipe.tags.join(', ')
+    : recipe.tags;
+
   return (
     <Fragment>
       <div className={styles.container}>
@@ -141,7 +161,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
         <div>
           <div>
-            <AddToFavoritesButton />
+          <AddToFavoritesButton
+                recipe={recipe}
+              />
             <div>
               <h1 className={styles.sub}>Preparation Time:</h1>
               <p className={styles.p}>{formatTime(recipe.prep)}</p>
@@ -207,11 +229,10 @@ export const getServerSideProps = async ({ params }) => {
       },
     };
   } catch (error) {
-    console.error(error);
     return {
       props: {
         recipe: null,
-        error: error,
+        error: 'Failed to load recipe.',
       },
     };
   }
