@@ -24,7 +24,6 @@ function RecipeList({ data }) {
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('default');
   const [filteredRecipes, setFilteredRecipes] = useState(data);
-  const [search, setSearch] = useState('');
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
