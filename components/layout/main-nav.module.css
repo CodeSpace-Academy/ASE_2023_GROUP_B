@@ -9,16 +9,12 @@
     align-items: center;
     z-index: 100;
     box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
-    margin: 0;
-
-  }
+    }
  
   .header ul {
     list-style: none;
     display: flex;
     align-items: baseline;
-    margin: 0;
-    padding: 0;
   }
   
   .header .icon {
@@ -38,7 +34,7 @@
   .header li {
     margin: 0 var(--size-4);
     position: relative;
-    left: 50px;
+    left: 5px;
   }
   
   .header a {
