@@ -11,6 +11,7 @@ import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 function RecipeList({ data }) {
+  const [currentPage, setCurrentPage] = useState(1);
   // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
     return (
@@ -22,13 +23,41 @@ function RecipeList({ data }) {
 
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('default');
+  const [filteredRecipes, setFilteredRecipes] = useState(data);
   const recipesPerPage = 100;
+  const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
   const handleSort = (order) => {
     setSortOrder(order);
   };
 
-  let displayedRecipes = [...data];
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPageCount) {
+      setCurrentPage(page);
+    }
+  };
+
+  const handleSearch = () => {
+    const lowerCaseSearchText = search.toLowerCase();
+    const filtered = data.filter((recipe) =>
+      recipe.title.toLowerCase().includes(lowerCaseSearchText)
+    );
+    setFilteredRecipes(filtered);
+    setCurrentPage(1); // Reset to the first page when searching
+  };
+
+  const remainingRecipes = data.length - currentPage * recipesPerPage;
+
+  let displayedRecipes = filteredRecipes.slice(
+    (currentPage - 1) * recipesPerPage,
+    currentPage * recipesPerPage
+  );
+
+  if (remainingRecipes < recipesPerPage) {
+    displayedRecipes = filteredRecipes.slice(
+      (currentPage - 1) * recipesPerPage
+    );
+  }
 
   switch (sortOrder) {
     case 'newest':
@@ -64,7 +93,12 @@ function RecipeList({ data }) {
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
-      <SearchBar search={search} setSearch={setSearch} />
+      <SearchBar
+        onSearch={handleSearch}
+        search={search}
+        setSearch={setSearch}
+      />
+
       <br />
       <Sort onSort={handleSort} />
       <br />
@@ -80,12 +114,16 @@ function RecipeList({ data }) {
             </div>
 
             <div className={classes.cardContent}>
+              {/* <h2 className={classes.cardTitle}>{recipe.title}</h2> */}
+
               <Highlighter
-                className={classes.cardTitle}
+                highlightClassName={classes.highlight}
                 textToHighlight={recipe.title}
                 searchWords={[search]}
                 autoEscape={true}
               />
+
+              <br />
 
               <p
                 className={classes.cardCategory}
@@ -97,10 +135,8 @@ function RecipeList({ data }) {
               </p>
 
               <p className={classes.cardCategory}>
-
-                <FaHourglass style={{ fontSize: "1.0em" }} />{" "}
-                Prep-Time: <br></br>
-
+                <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:{' '}
+                <br></br>
                 {formatTime(recipe.prep)}
               </p>
 
