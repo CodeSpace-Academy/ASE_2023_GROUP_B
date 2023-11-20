@@ -31,14 +31,10 @@
 
 /* 'X' button style to remove a selected option */
 .selectMultiValueRemove {
-    color: #777; /* Color of the 'X' button */
-  }
-  
+  color: #777; /* Color of the 'X' button */
+}
 
 /* 'X' button style to remove a selected option */
 .selectMultiValueRemove:hover {
-  
-  
-    color: #555; /* Hover color for the 'X' button */
-  
+  color: #555; /* Hover color for the 'X' button */
 }

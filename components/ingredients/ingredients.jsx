@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import styles from "./ingredients.module.css"
+import { useEffect, useState } from 'react';
+import styles from './ingredients.module.css';
 import Select, { components } from 'react-select';
-
 
 function Ingredients({
   setFilterIngredientResults,
@@ -9,8 +8,7 @@ function Ingredients({
   handleDefaultIngredientFilter,
   setRecipes,
   selectedIngredients,
-  setSelectedIngredients
-  
+  setSelectedIngredients,
 }) {
   const [ingredients, setIngredients] = useState([]);
   // const [selectedIngredients, setSelectedIngredients] = useState([]);
@@ -18,7 +16,7 @@ function Ingredients({
   useEffect(() => {
     async function fetchIngredients() {
       try {
-        const response = await fetch("/api/ingredients");
+        const response = await fetch('/api/ingredients');
 
         if (response.ok) {
           const data = await response.json();
@@ -30,17 +28,15 @@ function Ingredients({
             }))
           );
         } else {
-          console.error("Failed to fetch ingredients");
+          console.error('Failed to fetch ingredients');
         }
       } catch (error) {
-        console.error("Error fetching ingredients:", error);
+        console.error('Error fetching ingredients:', error);
       }
     }
 
     fetchIngredients();
   }, []);
-  
-  
 
   useEffect(() => {
     const fetchRecipesByIngredients = async () => {
@@ -49,9 +45,9 @@ function Ingredients({
       } else {
         try {
           const response = await fetch(`/api/filterbyingredient`, {
-            method: "POST",
+            method: 'POST',
             headers: {
-              "Content-Type": "application/json",
+              'Content-Type': 'application/json',
             },
             body: JSON.stringify({ selectedIngredients }),
           });
@@ -60,14 +56,13 @@ function Ingredients({
             const filterIngredientsResult = await response.json();
             // setRecipes(filterResult.recipes);
             // setFilterIngredientResults(filterIngredientsResult.recipes);
-            setRecipes(filterIngredientsResult.recipes)
+            setRecipes(filterIngredientsResult.recipes);
             // setCount(filterResult.recipes.length);
-            
           } else {
-            console.error("Failed to fetch recipes by ingredients");
+            console.error('Failed to fetch recipes by ingredients');
           }
         } catch (error) {
-          console.error("Error fetching recipes by ingredients:", error);
+          console.error('Error fetching recipes by ingredients:', error);
         }
       }
     };
@@ -97,22 +92,34 @@ function Ingredients({
         placeholder="select ingredient"
         components={{
           MultiValue: ({ children, ...props }) => (
-            <components.MultiValue {...props} className={styles.selectMultiValue}>
+            <components.MultiValue
+              {...props}
+              className={styles.selectMultiValue}
+            >
               {children}
             </components.MultiValue>
           ),
           MultiValueLabel: ({ children, ...props }) => (
-            <components.MultiValueLabel {...props} className={styles.selectMultiValueLabel}>
+            <components.MultiValueLabel
+              {...props}
+              className={styles.selectMultiValueLabel}
+            >
               {children}
             </components.MultiValueLabel>
           ),
           MultiValueRemove: ({ children, ...props }) => (
-            <components.MultiValueRemove {...props} className={styles.selectMultiValueRemove}>
+            <components.MultiValueRemove
+              {...props}
+              className={styles.selectMultiValueRemove}
+            >
               {children}
             </components.MultiValueRemove>
           ),
           Placeholder: ({ children, ...props }) => (
-            <components.Placeholder {...props} className={styles.selectPlaceholder}>
+            <components.Placeholder
+              {...props}
+              className={styles.selectPlaceholder}
+            >
               {children}
             </components.Placeholder>
           ),
@@ -123,4 +130,3 @@ function Ingredients({
 }
 
 export default Ingredients;
-
