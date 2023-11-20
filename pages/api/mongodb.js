@@ -4,10 +4,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 let client;
 
-async function connectToMongo() {
-  if (client && client.connected) {
+export async function connectToMongo() {
+  if (client && client.connected()) {
     return client;
   }
+
   const connectionString = process.env.MONGODB_CONNECTION_STRING;
   client = new MongoClient(connectionString, {
     maxIdleTimeMS: 500,
@@ -18,10 +19,9 @@ async function connectToMongo() {
     },
   });
 
-  // Define a helper function to connect and handle errors
-
   try {
     await client.connect();
+    await client.db('devdb').command({ ping: 1 });
     console.log('Connected to MongoDB');
     return client;
   } catch (error) {
@@ -29,17 +29,19 @@ async function connectToMongo() {
     throw error;
   }
 }
-async function closeMongoConnection() {
+
+export async function closeMongoConnection() {
   try {
     if (client && client.connected) {
-      // await client.close();
+      await client.close();
       console.log('MongoDB connection closed');
     }
   } catch (error) {
     console.error('Failed to close MongoDB connection:', error);
   }
 }
-function getClient() {
+
+export function getClient() {
   return client;
 }
 

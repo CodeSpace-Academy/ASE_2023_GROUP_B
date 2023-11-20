@@ -6,7 +6,7 @@ export async function run(page) {
 
   try {
     const db = client.db("devdb");
-    await db.command({ ping: 1 });
+    await db.command({ ping: 1 });3
     const collection = db.collection("recipes");
     const skip = (page - 1) * 100;
     const data = await collection.find({}).skip(skip).limit(20).toArray();
