@@ -24,7 +24,7 @@ const Home = () => {
         <div
           className="mainContent"
           style={{
-            backgroundImage: `url('/spices-black.png')`,
+            backgroundImage: `url('/landing.jpg')`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
             backgroundRepeat: "no-repeat",
@@ -39,6 +39,8 @@ const Home = () => {
             color: "white",
           }}
         >
+            <h1 className="landingTitle">Rando Sando</h1>
+          <div className="landingContent">
           <h2 className="title">Explore Food From Around the World!</h2>
           <p className="subtitle">
             Join Us to Discover Amazing Culinary Experiences!
@@ -46,6 +48,7 @@ const Home = () => {
           <Link href="/recipe">
             <button className="btn">Explore</button>
           </Link>
+        </div>
         </div>
       </main>
     </Fragment>

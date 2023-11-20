@@ -1,19 +1,18 @@
 .header {
     position: sticky;
     top: 0;
-    width: 100%;
+    width: 100vw;
     height: 5.5rem;
     background-color: rgba(2, 111, 2, 0.767); /* Set the background color to green */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0;
     z-index: 100;
     box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
-  }
+    margin: 0;
 
+  }
  
-  
   .header ul {
     list-style: none;
     display: flex;
@@ -24,21 +23,22 @@
   
   .header .icon {
     color: white; /* Change the icon color to white */
-    padding: 2px;
+    padding: 3px;
     padding-top: 5px;
     font-weight: bold;
   }
   
   .header .logo{
     position: relative;
-    bottom:20px;
-    right:100px;
+    bottom: 10px;
+    right: 20px;
+    left: 10px;
       }
 
   .header li {
     margin: 0 var(--size-4);
     position: relative;
-    left:100px;
+    left: 50px;
   }
   
   .header a {
