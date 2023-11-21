@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import classes from "./main-nav.module.css";
-import { MdStars } from "react-icons/md";
 import { FaUser, FaEnvelope} from "react-icons/fa";
 import {HiOutlineHeart} from "react-icons/hi";
 
