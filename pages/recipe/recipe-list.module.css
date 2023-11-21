@@ -39,7 +39,7 @@
 
 .highlight{
     font-size: large;
-    color: red;
+    color: rgb(255, 0, 0);
 }
 
 .cardContainer {
@@ -101,7 +101,9 @@
 .cardCategory {
     color: #565555;
 }
-
+.favHeart {
+    padding-left: 250px;
+}
 
 /*pagination */
 
