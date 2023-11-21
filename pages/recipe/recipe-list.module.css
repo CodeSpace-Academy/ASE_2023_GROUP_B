@@ -6,12 +6,7 @@
 }
 
 .title {
-<<<<<<< HEAD:pages/recipe/recipe-list.module.css
-    color: #100E0E;
-    font-size: 27px;
-=======
     font-size: 30px;
->>>>>>> Styling:components/recipes/recipe-list.module.css
     font-size: bold;
     color: #333;
     margin-bottom: 20px;
