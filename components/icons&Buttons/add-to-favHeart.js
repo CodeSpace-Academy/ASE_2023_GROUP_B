@@ -16,7 +16,7 @@ function AddToFavoritesButton() {
       {isFavorite ? (
         <HiOutlineHeart color="rgba(2,111,2,0.767)" size={30} />
       ) : (
-        <HiOutlineHeart color= "white" size={20}/>
+        <HiOutlineHeart color= "green" size={25}/>
       )}
     </button>
   );

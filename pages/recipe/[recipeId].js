@@ -27,31 +27,18 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
       </div>
     );
   }
-  
-  const [selectedTags, setSelectedTags] = useState([]); 
 
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const allergensForRecipe = allergens.filter((allergen) =>
     ingredientsArray.some((ingredient) => ingredient.includes(allergen))
   );
-
-  const handleTagClick = (tag) => {
-    const isSelected = selectedTags.includes(tag);
-    if (isSelected) {
-      setSelectedTags(
-        selectedTags.filter((selectedTag) => selectedTag !== tag)
-      );
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
 
   useEffect(() => {
     if (error && error.message === 'Failed to load tags') {
       setTagsError(true);
     }
   }, [error]);
-
 
   if (error) {
     return <div>Error loading recipe details.</div>;
@@ -115,7 +102,9 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
         {allergensForRecipe.length > 0 ? (
           <ul>
             {allergensForRecipe.map((allergen, index) => (
-              <li className={styles.p} key={index}>{allergen}</li>
+              <li className={styles.p} key={index}>
+                {allergen}
+              </li>
             ))}
           </ul>
         ) : (
@@ -141,7 +130,7 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
           </div>
         )}
 
-    <h1 className={styles.title}>Description:</h1>
+        <h1 className={styles.title}>Description:</h1>
         {isEditingDescription ? (
           <UpdateDescription
             initialDescription={editedDescription}
@@ -161,26 +150,28 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
 
         <div>
           <div>
-          <AddToFavoritesButton
-                recipe={recipe}
-              />
+            <AddToFavoritesButton recipe={recipe} />
             <div>
               <h1 className={styles.sub}>Preparation Time:</h1>
               <p className={styles.p}>{formatTime(recipe.prep)}</p>
-              <br/>
+              <br />
               <h1 className={styles.sub}>Cooking Time:</h1>
               <p className={styles.p}>{formatTime(recipe.cook)}</p>
-              <br/>
+              <br />
               <h1 className={styles.sub}>Total Time:</h1>
-              <p className={styles.p}>{formatTime(recipe.cook + recipe.prep)}</p>
+              <p className={styles.p}>
+                {formatTime(recipe.cook + recipe.prep)}
+              </p>
             </div>
             <h3 className={styles.title}>Ingredients:</h3>
             <ul>
               {ingredientsArray.map((ingredient, index) => (
-                <li className={styles.p} key={index}>{ingredient}</li>
+                <li className={styles.p} key={index}>
+                  {ingredient}
+                </li>
               ))}
             </ul>
-            
+
             <h3 className={styles.title}>Instructions:</h3>
             {isEditingInstructions ? (
               <UpdateInstructions
@@ -188,18 +179,137 @@ export default function RecipeDetailPage({ recipe, error, allergens }) {
                 onSave={handleSaveInstructions}
               />
             ) : (
-              <ol className={styles.instructions}>
-                {editedInstructions.map((step, index) => (
-                  <li className={styles.p} key={index}>{step}</li>
-                ))}
-              </ol>
+              <p className={styles.p}>{editedDescription}</p>
             )}
+            <br />
             <button
               className="btn"
-              onClick={() => setIsEditingInstructions(!isEditingInstructions)}
+              onClick={() => setIsEditingDescription(!isEditingDescription)}
             >
-              {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
+              {isEditingDescription ? 'Cancel' : 'Update Description'}
             </button>
+            <br />
+
+            <h2 className={styles.subTitle}>Allergens:</h2>
+
+            {allergensForRecipe.length > 0 ? (
+              <ul>
+                {allergensForRecipe.map((allergen, index) => (
+                  <li className={styles.p} key={index}>
+                    {allergen}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className={styles.p}>No Allergens present in this recipe.</p>
+            )}
+            <br />
+
+            <h2 className={styles.subTitle}>Tags:</h2>
+            {tagsError ? (
+              <div className={styles.errorMessage}>Failed to load tags.</div>
+            ) : (
+              <div className={styles.tagButtonsContainer}>
+                {recipe.tags.map((tag, index) => (
+                  <button key={index} className={`${styles.tagButton}`}>
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            )}
+            <br />
+          </div>
+
+          <div className={styles.rightColumn}>
+            <div>
+              <div className={styles.FavoritesHeart}>
+                <AddToFavoritesButton />
+              </div>
+
+              <div>
+                <h2 className={styles.sub}>Preparation Time:</h2>
+                <p className={styles.p}>{formatTime(recipe.prep)}</p>
+                <br />
+                <h2 className={styles.sub}>Cooking Time:</h2>
+                <p className={styles.p}>{formatTime(recipe.cook)}</p>
+                <br />
+                <h1 className={styles.sub}>Total Time:</h1>
+                <p className={styles.p}>
+                  {formatTime(recipe.cook + recipe.prep)}
+                </p>
+              </div>
+              <br />
+
+              <div className={styles.tabs}>
+                <div
+                  className={`${styles.tab} ${
+                    activeTab === 'ingredients' ? styles.activeTab : ''
+                  }`}
+                  onClick={() => setActiveTab('ingredients')}
+                >
+                  Ingredients
+                </div>
+                <div
+                  className={`${styles.tab} ${
+                    activeTab === 'instructions' ? styles.activeTab : ''
+                  }`}
+                  onClick={() => setActiveTab('instructions')}
+                >
+                  Instructions
+                </div>
+              </div>
+
+              {/* Ingredients Tab */}
+              <div
+                className={styles.tabContent}
+                style={{
+                  display: activeTab === 'ingredients' ? 'block' : 'none',
+                }}
+              >
+                <h3 className={styles.title}>Ingredients:</h3>
+                <ul>
+                  {ingredientsArray.map((ingredient, index) => (
+                    <li className={styles.p} key={index}>
+                      {ingredient}
+                    </li>
+                  ))}
+                </ul>
+                <br />
+              </div>
+
+              {/* Instructions Tab */}
+              <div
+                className={styles.tabContent}
+                style={{
+                  display: activeTab === 'instructions' ? 'block' : 'none',
+                }}
+              >
+                <h2 className={styles.title}>Instructions:</h2>
+                {isEditingInstructions ? (
+                  <UpdateInstructions
+                    initialInstructions={instructionsArray.join('\n')}
+                    onSave={handleSaveInstructions}
+                  />
+                ) : (
+                  <ol className={styles.instructions}>
+                    {editedInstructions.map((step, index) => (
+                      <li className={styles.p} key={index}>
+                        {step}
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                <br />
+                <button
+                  className="btn"
+                  onClick={() =>
+                    setIsEditingInstructions(!isEditingInstructions)
+                  }
+                >
+                  {isEditingInstructions ? 'Cancel' : 'Update Instructions'}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

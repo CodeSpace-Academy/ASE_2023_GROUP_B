@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../icons&Buttons/add-to-favorite-btn.module.css';
+import styles from '../icons&Buttons/favorite.module.css';
 
 function AddToFavoritesButton({ recipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
