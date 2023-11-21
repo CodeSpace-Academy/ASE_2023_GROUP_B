@@ -67,16 +67,16 @@
 .tagButton {
   margin: 5px;
   padding: 8px 12px;
-  background-color: #95a5a6; /* Set background color to grey */
-  color: #101211; /* Set font color to green */
-  border: 1px solid #7f8c8d; /* Add a border for a cleaner look */
+  background-color: #95a5a6; 
+  color: #101211; 
+  border: 1px solid #7f8c8d; 
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .tagButton:hover {
-  background-color: #7f8c8d; /* Darker grey on hover */
+  background-color: #7f8c8d;
 }
 
 .descriptionSection {
@@ -89,8 +89,8 @@
 
 .btn {
   margin-top: 10px;
-  background-color: #080909; /* Set button background color to green */
-  color: #fff; /* Set button font color to white */
+  background-color: #080909; 
+  color: #fff; 
 }
 
 .instructionsSection {
@@ -103,8 +103,8 @@
 
 .instructionsButton {
   margin-top: 10px;
-  background-color: #0b0b0b; /* Set button background color to green */
-  color: #fff; /* Set button font color to white */
+  background-color: #0b0b0b; 
+  color: #fff;
 }
 
 .instructions {

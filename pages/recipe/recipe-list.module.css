@@ -37,6 +37,11 @@
     font-weight: bold;
 }
 
+.highlight{
+    font-size: large;
+    color: red;
+}
+
 .cardContainer {
     display: flex;
     flex-wrap: wrap;

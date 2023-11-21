@@ -1,22 +1,34 @@
-import React, { useState } from "react";
-import styles from "../icons&Buttons/add-to-favorite-btn.module.css";
+import React, { useState } from 'react';
+import styles from '../icons&Buttons/favorite.module.css';
 
-function AddToFavoritesButton() {
+function AddToFavoritesButton({ recipe }) {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
 
-  const toggleFavorite = () => {
+  const toggleFavorite = async () => {
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     setIsClicked(true);
-
     setTimeout(() => setIsClicked(false), 1000);
+
+    const response = await fetch('/api/backend/addFavoritesHandler', {
+      method: 'POST',
+      body: JSON.stringify({ recipe }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      console.log('failed to respond');
+    }
+    return data;
   };
 
-  const buttonClasses = isClicked ? `${styles.favoriteButton} ${styles.pulse}` : styles.favoriteButton;
+  const buttonClasses = `${styles.favoriteButton} ${isClicked ? styles.pulse : ''} ${isFavorite ? styles.favoriteFilled : styles.favoriteEmpty}`;
 
   return (
     <button onClick={toggleFavorite} className={buttonClasses}>
-      {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
       {isFavorite ? "❤️" : "🤍"}
     </button>
   );
