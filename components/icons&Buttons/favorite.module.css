@@ -29,3 +29,26 @@
     transform: scale(1);
   }
 }
+
+.favIcon{
+  position: relative;
+  color: green;
+  top:20px;
+  font-size:xx-large;
+  
+}
+
+.fav {
+  position: relative;
+  color: green;
+  top: 15%;
+  text-align: center;
+  
+}
+
+.message {
+  position: relative;
+  text-align: center;
+   top: 16%;
+   color: green;
+}
