@@ -6,19 +6,35 @@
 }
 
 .title {
-    color: #100E0E;
-    font-size: 27px;
+    font-size: 30px;
     font-size: bold;
     color: #333;
     margin-bottom: 20px;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+.iconsCol {
+    display: flex;
+    font-size: 15px;
+    background-color:white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.iconsCol1 {
+    flex: 1;
+}
+
+.iconsCol2 {
+    flex: 1;
+}
+
 .cardTitle {
-    font-size: 18px;
+    font-size: 20px;
     color: #414040;
     margin: 0;
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 .highlight{
@@ -76,12 +92,6 @@
 
 .cardContent {
     padding: 10px;
-}
-
-.cardTitle {
-    font-size: 18px;
-    color: #414040;
-    margin: 0;
 }
 
 .cardDescription {

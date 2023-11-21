@@ -1,14 +1,48 @@
-.container {
-  max-width: 800px; 
-  margin: 0 auto;
-  padding: 20px;
-  background-color: rgba(15, 15, 97, 0.067); 
+/* RecipeDetailPage.module.css */
+
+.RecipeContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343131;
+    color: #fff8f8;
+    padding: 50px;
+    background-image: url('/preview.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 150vh;
+    position: relative;
+  }
+
+.leftColumn {
+  flex: 1;
+  border: solid;
+  background-color: rgba(7, 67, 27, 0.45);
+  border-radius: 90px;
+  padding: 10px;
+  padding-left: 50px;
+  margin-top: 10px;
+  text-align: center;
+  height: 130vh;
+}
+
+.rightColumn {
+  flex: 2;
+  padding: 10px;
+  background-color: rgba(5, 105, 13, 0.344);
+  height: 135vh;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .title {
   font-size: 24px;
   margin-bottom: 10px;
-  color: #321a80;
+  color: #01a003;
+}
+
+.AddToFavoriteButton {
+  padding-right: 75px;
 }
 
 .sub {
@@ -43,10 +77,6 @@
 
 .tagButton:hover {
   background-color: #7f8c8d;
-}
-
-.selectedTag {
-  background-color: #252e29;
 }
 
 .descriptionSection {
@@ -86,5 +116,39 @@
 }
 .p{
   color:#101211;
+}
+
+/* Add this CSS to your existing stylesheet */
+
+.tabs {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+
+.activeTab {
+  border-color: #ccc;
+  background-color: green;
+}
+
+.tabContent {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+} 
+
+.FavoritesHeart {
+  width: 50px;
+  padding-bottom: 5px;
+  padding-top: 30px;
+  padding-left: 40vw;
 }
 
