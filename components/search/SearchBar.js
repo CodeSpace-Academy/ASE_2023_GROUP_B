@@ -59,7 +59,7 @@ console.log(search)
 
 
       {searchHist.length > 0 && (
-        <ul>
+        <ul style={{zIndex: 1}}>
           {searchHist.map((historyItem, index) => (
             <li key={index}>{historyItem}</li>
           ))}

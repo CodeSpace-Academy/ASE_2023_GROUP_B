@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../../pages/recipe/recipe-list.module.css';
@@ -9,9 +9,24 @@ import Sort from '../../components/recipes/sort';
 import SearchBar from '../../components/search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import Hero from "@/components/hero.jsx"
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [filterIngredientResults, setFilterIngredientResults] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    setRecipes(data);
+  }, [data]);
+
+  function handleDefaultIngredientFilter() {
+    if (selectedIngredients.length > 0) {
+      setSelectedIngredients([]);
+    }
+  }
+
   // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
     return (
@@ -42,19 +57,20 @@ function RecipeList({ data }) {
     const filtered = data.filter((recipe) =>
       recipe.title.toLowerCase().includes(lowerCaseSearchText)
     );
-    setFilteredRecipes(filtered);
+    // setFilteredRecipes(filtered);
+    setRecipes(filtered)
     setCurrentPage(1); // Reset to the first page when searching
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
-  let displayedRecipes = filteredRecipes.slice(
+  let displayedRecipes = recipes.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
 
   if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = filteredRecipes.slice(
+    displayedRecipes = recipes.slice(
       (currentPage - 1) * recipesPerPage
     );
   }
@@ -102,6 +118,16 @@ function RecipeList({ data }) {
       <br />
       <Sort onSort={handleSort} />
       <br />
+      
+      <Hero
+        handleDefaultIngredientFilter={handleDefaultIngredientFilter}
+        setFilterIngredientResults={setFilterIngredientResults}
+        setRecipes={setRecipes}
+        filterIngredientResults={filterIngredientResults}
+        setSelectedIngredients={setSelectedIngredients}
+        selectedIngredients={selectedIngredients}
+      />
+
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
           <div key={index} className={classes.card}>

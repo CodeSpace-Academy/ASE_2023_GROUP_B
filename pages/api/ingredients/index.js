@@ -1,13 +1,20 @@
-import { getIngredients, } from "@/database/filterModule";
-import { getClient } from "../mongodb";
+import { getIngredients } from "@/database/filterModule";
+import { connectToMongo } from "../mongodb";
 
 export default async (req, res) => {
- 
   if (req.method === "GET") {
-    const client = getClient()
-    const ingredients = await getIngredients(client);
+    try {
+      // Ensure MongoDB connection is established
+      const client = await connectToMongo();
 
-    res.status(200).json(ingredients);
+      // Use the MongoDB client to access the collection
+      const ingredients = await getIngredients(client);
+
+      res.status(200).json(ingredients);
+    } catch (error) {
+      console.error('Error in API route:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
   } else {
     res.status(405).end();
   }

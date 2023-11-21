@@ -1,14 +1,14 @@
+
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import dotenv from 'dotenv';
 
 dotenv.config();
 let client;
 
-export async function connectToMongo() {
-  if (client && client.connected()) {
+async function connectToMongo() {
+  if (client && client.connected) {
     return client;
   }
-
   const connectionString = process.env.MONGODB_CONNECTION_STRING;
   client = new MongoClient(connectionString, {
     maxIdleTimeMS: 500,
@@ -18,10 +18,8 @@ export async function connectToMongo() {
       deprecationErrors: true,
     },
   });
-
   try {
     await client.connect();
-    await client.db('devdb').command({ ping: 1 });
     console.log('Connected to MongoDB');
     return client;
   } catch (error) {
@@ -29,8 +27,7 @@ export async function connectToMongo() {
     throw error;
   }
 }
-
-export async function closeMongoConnection() {
+async function closeMongoConnection() {
   try {
     if (client && client.connected) {
       await client.close();
@@ -40,10 +37,10 @@ export async function closeMongoConnection() {
     console.error('Failed to close MongoDB connection:', error);
   }
 }
-
-export function getClient() {
+function getClient() {
   return client;
 }
+export { connectToMongo, closeMongoConnection, getClient };
 
 export async function AddFavoriteToMongoDB(recipe) {
   try {
