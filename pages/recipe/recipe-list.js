@@ -6,17 +6,26 @@ import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
 import Sort from '../../components/recipes/sort';
-import AddToFavHeart from '../../components/icons&Buttons/add-to-favHeart';
 import SearchBar from '../../components/search/SearchBar';
-import Pagination from '../../components/recipes/pagination';
 import Highlighter from 'react-highlight-words';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
 function RecipeList({ data }) {
-  const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  // Check if data is not an array or is empty
+  if (!Array.isArray(data) || data.length === 0) {
+    return (
+      <div className={classes.container}>
+        <h1 className={classes.title}>No recipes available.</h1>
+      </div>
+    );
+  }
+
+  const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('default');
+  const [filteredRecipes, setFilteredRecipes] = useState(data);
   const recipesPerPage = 100;
-  const totalPageCount = Math.ceil(data.length / recipesPerPage);
+  const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
   const handleSort = (order) => {
     setSortOrder(order);
@@ -28,15 +37,26 @@ function RecipeList({ data }) {
     }
   };
 
+  const handleSearch = () => {
+    const lowerCaseSearchText = search.toLowerCase();
+    const filtered = data.filter((recipe) =>
+      recipe.title.toLowerCase().includes(lowerCaseSearchText)
+    );
+    setFilteredRecipes(filtered);
+    setCurrentPage(1); // Reset to the first page when searching
+  };
+
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
-  let displayedRecipes = data.slice(
+  let displayedRecipes = filteredRecipes.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
 
   if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = data.slice((currentPage - 1) * recipesPerPage);
+    displayedRecipes = filteredRecipes.slice(
+      (currentPage - 1) * recipesPerPage
+    );
   }
 
   switch (sortOrder) {
@@ -73,7 +93,12 @@ function RecipeList({ data }) {
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
 
-      <SearchBar search={search} setSearch={setSearch} />
+      <SearchBar
+        onSearch={handleSearch}
+        search={search}
+        setSearch={setSearch}
+      />
+
       <br />
       <Sort onSort={handleSort} />
       <br />
@@ -92,7 +117,7 @@ function RecipeList({ data }) {
             <div className={classes.cardContent}>
               <br />
               <Highlighter
-                className={classes.cardTitle}
+                highlightClassName={classes.highlight}
                 textToHighlight={recipe.title}
                 searchWords={[search]}
                 autoEscape={true}
@@ -135,28 +160,14 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-              <AddToFavHeart />
+
+              <AddToFavoritesButton recipe={recipe} />
             </div>
           </div>
         ))}
       </div>
       <br />
-      <div>
-        {totalPageCount > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPageCount={totalPageCount}
-            handlePageChange={handlePageChange}
-          />
-        )}
-
-        <div className={classes.pageInfo}>
-          <p>
-            {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
-            Page {currentPage} of {totalPageCount}.
-          </p>
-        </div>
-      </div>
+      <div className={classes.pageInfo}></div>
     </div>
   );
 }
