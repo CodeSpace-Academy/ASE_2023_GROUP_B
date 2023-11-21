@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../recipes/recipe-list.module.css';
-import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import Sort from './sort';
-import AddToFavHeart from '../icons&Buttons/add-to-favHeart';
-import SearchBar from '../search/SearchBar';
-import Pagination from './pagination';
+import Sort from '../../components/recipes/sort';
+import AddToFavHeart from '../../components/icons&Buttons/add-to-favHeart';
+import SearchBar from '../../components/search/SearchBar';
+import Pagination from '../../components/recipes/pagination';
 import Highlighter from 'react-highlight-words';
-
 
 function RecipeList({ data }) {
   const [search, setSearch] = useState('');
@@ -59,10 +58,14 @@ function RecipeList({ data }) {
       displayedRecipes.sort((a, b) => b.prep - a.prep);
       break;
     case 'steps-asc':
-      displayedRecipes.sort((a, b) => a.instructions.length - b.instructions.length);
+      displayedRecipes.sort(
+        (a, b) => a.instructions.length - b.instructions.length
+      );
       break;
     case 'steps-desc':
-      displayedRecipes.sort((a, b) => b.instructions.length - a.instructions.length);
+      displayedRecipes.sort(
+        (a, b) => b.instructions.length - a.instructions.length
+      );
       break;
   }
 
@@ -103,33 +106,26 @@ function RecipeList({ data }) {
                     className={classes.cardCategory}
                     title={`Date: ${formatDate(recipe.published)}`}
                   >
-
-                    <FaCalendar style={{ fontSize: "1.0em" }} />
+                    <FaCalendar style={{ fontSize: '1.0em' }} />
                     Date Published:<br></br>
-
                     {formatDate(recipe.published)}
                   </p>
                   <br></br>
                   <p className={classes.cardCategory}>
-
-                    <FaHourglass style={{ fontSize: "1.0em" }} />{" "}
-                    Prep-Time:
-
+                    <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:
                     {formatTime(recipe.prep)}
                   </p>
-
                 </div>
                 <div className={classes.iconsCol2}>
                   <p className={classes.cardCategory}>
-
-                    <FaClock style={{ fontSize: "1.0em" }} />{" "}
-                    Cook-Time: <br></br>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time:{' '}
+                    <br></br>
                     {formatTime(recipe.cook)}
                   </p>
                   <br></br>
                   <p className={classes.cardCategory}>
-                    <FaClock style={{ fontSize: "1.0em" }} />{" "}
-                    Total-Time: <br></br>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
+                    <br></br>
                     {formatTime(recipe.cook + recipe.prep)}
                   </p>
                 </div>
@@ -140,7 +136,6 @@ function RecipeList({ data }) {
                 <ViewRecipeBtn />
               </Link>
               <AddToFavHeart />
-
             </div>
           </div>
         ))}
