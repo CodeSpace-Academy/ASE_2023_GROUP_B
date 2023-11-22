@@ -43,7 +43,7 @@ function RecipeList({ data }) {
       recipe.title.toLowerCase().includes(lowerCaseSearchText)
     );
     setFilteredRecipes(filtered);
-    setCurrentPage(1); // Reset to the first page when searching
+    setCurrentPage(1); 
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
@@ -160,8 +160,9 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-
+            <div className={classes.favHeart}>
               <AddToFavoritesButton recipe={recipe} />
+            </div>
             </div>
           </div>
         ))}
