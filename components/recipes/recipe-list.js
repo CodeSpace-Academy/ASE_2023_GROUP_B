@@ -1,32 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from '../../pages/recipe/recipe-list.module.css';
-import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import classes from './recipe-list.module.css';
+import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import Sort from '../../components/recipes/sort';
-import SearchBar from '../../components/search/SearchBar';
+import Sort from './sort';
+import SearchBar from '../search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
-import Hero from "@/components/hero.jsx"
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [filterIngredientResults, setFilterIngredientResults] = useState([]);
-  const [recipes, setRecipes] = useState([]);
-
-  useEffect(() => {
-    setRecipes(data);
-  }, [data]);
-
-  function handleDefaultIngredientFilter() {
-    if (selectedIngredients.length > 0) {
-      setSelectedIngredients([]);
-    }
-  }
-
   // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
     return (
@@ -57,20 +42,19 @@ function RecipeList({ data }) {
     const filtered = data.filter((recipe) =>
       recipe.title.toLowerCase().includes(lowerCaseSearchText)
     );
-    // setFilteredRecipes(filtered);
-    setRecipes(filtered)
-    setCurrentPage(1); // Reset to the first page when searching
+    setFilteredRecipes(filtered);
+    setCurrentPage(1);
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
-  let displayedRecipes = recipes.slice(
+  let displayedRecipes = filteredRecipes.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
 
   if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = recipes.slice(
+    displayedRecipes = filteredRecipes.slice(
       (currentPage - 1) * recipesPerPage
     );
   }
@@ -118,16 +102,7 @@ function RecipeList({ data }) {
       <br />
       <Sort onSort={handleSort} />
       <br />
-      
-      <Hero
-        handleDefaultIngredientFilter={handleDefaultIngredientFilter}
-        setFilterIngredientResults={setFilterIngredientResults}
-        setRecipes={setRecipes}
-        filterIngredientResults={filterIngredientResults}
-        setSelectedIngredients={setSelectedIngredients}
-        selectedIngredients={selectedIngredients}
-      />
-
+      <br />
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
           <div key={index} className={classes.card}>
@@ -140,47 +115,54 @@ function RecipeList({ data }) {
             </div>
 
             <div className={classes.cardContent}>
-              {/* <h2 className={classes.cardTitle}>{recipe.title}</h2> */}
-
+              <br />
               <Highlighter
                 highlightClassName={classes.highlight}
                 textToHighlight={recipe.title}
                 searchWords={[search]}
                 autoEscape={true}
               />
-
+              <br />
               <br />
 
-              <p
-                className={classes.cardCategory}
-                title={`Date: ${formatDate(recipe.published)}`}
-              >
-                <FaCalendar style={{ fontSize: '1.0em' }} />
-                Date Published: <br></br>
-                {formatDate(recipe.published)}
-              </p>
-
-              <p className={classes.cardCategory}>
-                <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:{' '}
-                <br></br>
-                {formatTime(recipe.prep)}
-              </p>
-
-              <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time: <br></br>
-                {formatTime(recipe.cook)}
-              </p>
-
-              <p className={classes.cardCategory}>
-                <FaClock style={{ fontSize: '1.0em' }} /> total-time: <br></br>
-                {formatTime(recipe.cook + recipe.prep)}
-              </p>
-
+              <div className={classes.iconsCol}>
+                <div className={classes.iconsCol1}>
+                  <p
+                    className={classes.cardCategory}
+                    title={`Date: ${formatDate(recipe.published)}`}
+                  >
+                    <FaCalendar style={{ fontSize: '1.0em' }} />
+                    Date Published:<br></br>
+                    {formatDate(recipe.published)}
+                  </p>
+                  <br></br>
+                  <p className={classes.cardCategory}>
+                    <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:
+                    {formatTime(recipe.prep)}
+                  </p>
+                </div>
+                <div className={classes.iconsCol2}>
+                  <p className={classes.cardCategory}>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time:{' '}
+                    <br></br>
+                    {formatTime(recipe.cook)}
+                  </p>
+                  <br></br>
+                  <p className={classes.cardCategory}>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
+                    <br></br>
+                    {formatTime(recipe.cook + recipe.prep)}
+                  </p>
+                </div>
+              </div>
+              <br />
+              <br />
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-
-              <AddToFavoritesButton recipe={recipe} />
+              <div className={classes.favHeart}>
+                <AddToFavoritesButton recipe={recipe} />
+              </div>
             </div>
           </div>
         ))}

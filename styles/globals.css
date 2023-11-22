@@ -1,50 +1,67 @@
 * {
-        margin: auto;
-    }
+    box-sizing: border-box;
+}
 
-    body {
-        --color-grey-50: hsl(265, 55%, 96%);
-        --color-grey-100: hsl(265, 19%, 88%);
-        --color-grey-200: hsl(265, 7%, 70%);
-        --color-grey-300: hsl(265, 6%, 66%);
-        --color-grey-900: hsl(280, 5%, 13%);
+body {
+    --color-grey-50: hsl(265, 55%, 96%);
+    --color-grey-100: hsl(265, 19%, 88%);
+    --color-grey-200: hsl(265, 7%, 70%);
+    --color-grey-300: hsl(265, 6%, 66%);
+    --color-grey-900: hsl(280, 5%, 13%);
 
-        --color-primary-50: #c8b3ce;
-        --color-primary-100: #a07aaa;
-        --color-primary-200: #884c97;
-        --color-primary-300: #843897;
-        --color-primary-400: #732392;
-        --color-primary-500: #5a097a;
-        --color-primary-600: #480264;
-        --color-primary-700: #06f776b9;
+    --color-primary-50: #c8b3ce;
+    --color-primary-100: #a07aaa;
+    --color-primary-200: #884c97;
+    --color-primary-300: #843897;
+    --color-primary-400: #732392;
+    --color-primary-500: #5a097a;
+    --color-primary-600: #480264;
+    --color-primary-700: #06f776b9;
 
-        --color-success-100: #a2f0bc;
-        --color-success-500: #12bd4b;
+    --color-success-100: #a2f0bc;
+    --color-success-500: #12bd4b;
 
-        --color-error-100: #f1acc9;
-        --color-error-500: #a10c4a;
+    --color-error-100: #f1acc9;
+    --color-error-500: #a10c4a;
 
-        --size-1: 0.25rem;
-        --size-2: 0.5rem;
-        --size-3: 0.75rem;
-        --size-4: 1rem;
-        --size-5: 1.25rem;
-        --size-6: 1.5rem;
-        --size-8: 2rem;
-        --size-16: 4rem;
-        --size-20: 5rem;
-        --size-40: 10rem;
+    --size-1: 0.25rem;
+    --size-2: 0.5rem;
+    --size-3: 0.75rem;
+    --size-4: 1rem;
+    --size-5: 1.25rem;
+    --size-6: 1.5rem;
+    --size-8: 2rem;
+    --size-16: 4rem;
+    --size-20: 5rem;
+    --size-40: 10rem;
 
-      
-        background-color: var(--color-grey-500);
-        color: #d9f5da;
-        font-family: 'Roboto', sans-serif;
-    }
+    margin: auto;
+    background-color: var(--color-grey-500);
+    color: #081109;
+    font-family: 'Roboto', sans-serif;
+}
 
     h1,
     h2,
     h3 {
         font-family: 'Oswald', 'Roboto', sans-serif;
+    }
+
+    .landingContent {
+        padding-left: 50vw;
+        text-align: center;
+        color:rgb(3, 143, 3);
+        padding-right: 2vw;
+        padding-bottom: 12vw;
+        font: 1.3em Roboto;
+        font-weight: bold;
+    }
+
+    .landingTitle{
+        color: rgb(167, 78, 5);
+        font: 5em Oswald;
+        padding-left: 50vw;
+        font-weight: bolder;
     }
 
     a {
@@ -57,7 +74,6 @@
     }
 
     .btn {
-        --hover-shadows: 16px 16px 33px #121212, -16px -16px 33px #303030;
         font-weight: bold;
         letter-spacing: 0.1em;
         border: none;
@@ -66,9 +82,7 @@
         background-color: white;
         color: rgb(84, 81, 81);
         padding: 1em 2em;
-        transition: box-shadow ease-in-out 0.3s, background-color ease-in-out 0.1s,
-        letter-spacing ease-in-out 0.1s, transform ease-in-out 0.1s;
-        box-shadow: 5px 5px 8px #C9C3C3;
+        box-shadow: 5px 5px 8px #C9C3C3, 0.8;
         justify-content: center;
         align-items: center;
         font-size: 12px;
@@ -76,12 +90,12 @@
         }
     
         .btn:hover {
-            box-shadow: var(--hover-shadows);
             border: none;
+            background-color:rgb(94, 236, 141);
+            color:#05812e;
         }
     
         .btn:active {
-            box-shadow: var(--hover-shadows), var(--accent) 0px 0px 30px 5px;
             transform: scale(0.95);
         }
 
@@ -93,38 +107,31 @@
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            resize: vertical; /* Allow vertical resizing */
-            font-family: 'Arial', sans-serif; /* Change the font as needed */
+            resize: vertical; 
+            font-family: 'Arial', sans-serif;
         }
 
         .carouselWrapper{
-            width: 100%; /* Adjust the width as needed */
+            width: 100%;
             display: flex;
             justify-content: center;
-            align-items: center;
-           
-            
-
-            
-            
+            align-items: center;   
         }
+
         .carouselItem {
-            /* Customize the styling for each carousel item */
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 300px; /* Adjust the height as needed */
-            
+            height: 300px;
         }
           
         .carousel-item img {
-            max-width: 100%; /* Ensure the image is responsive */
-            max-height: 100%; /* Ensure the image is responsive */
+            max-width: 100%; 
+            max-height: 100%;
         }
           
         .button {
-            /* Customize the styling for carousel navigation buttons */
-            background-color: #864949; /* Set the background color */
+            background-color: #864949;
             border: none;
             color: rgb(78, 42, 42);
             padding: 10px 20px;

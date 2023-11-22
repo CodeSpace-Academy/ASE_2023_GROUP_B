@@ -1,16 +1,48 @@
 /* RecipeDetailPage.module.css */
 
-.container {
-  max-width: 800px; /* Adjust the maximum width based on your design */
-  margin: 0 auto;
-  padding: 20px;
-  background-color: rgba(15, 15, 97, 0.067); /* Set the background color to grey */
+.RecipeContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343131;
+    color: #fff8f8;
+    padding: 50px;
+    background-image: url('/preview.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 150vh;
+    position: relative;
+  }
+
+.leftColumn {
+  flex: 1;
+  border: solid;
+  background-color: rgba(7, 67, 27, 0.45);
+  border-radius: 90px;
+  padding: 10px;
+  padding-left: 50px;
+  margin-top: 10px;
+  text-align: center;
+  height: 130vh;
+}
+
+.rightColumn {
+  flex: 2;
+  padding: 10px;
+  background-color: rgba(5, 105, 13, 0.344);
+  height: 135vh;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .title {
   font-size: 24px;
   margin-bottom: 10px;
-  color: #321a80; /* Set font color to green */
+  color: #01a003;
+}
+
+.AddToFavoriteButton {
+  padding-right: 75px;
 }
 
 .sub {
@@ -35,20 +67,16 @@
 .tagButton {
   margin: 5px;
   padding: 8px 12px;
-  background-color: #95a5a6; /* Set background color to grey */
-  color: #101211; /* Set font color to green */
-  border: 1px solid #7f8c8d; /* Add a border for a cleaner look */
+  background-color: #95a5a6; 
+  color: #101211; 
+  border: 1px solid #7f8c8d; 
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .tagButton:hover {
-  background-color: #7f8c8d; /* Darker grey on hover */
-}
-
-.selectedTag {
-  background-color: #252e29;
+  background-color: #7f8c8d;
 }
 
 .descriptionSection {
@@ -61,8 +89,8 @@
 
 .btn {
   margin-top: 10px;
-  background-color: #080909; /* Set button background color to green */
-  color: #fff; /* Set button font color to white */
+  background-color: #080909; 
+  color: #fff; 
 }
 
 .instructionsSection {
@@ -75,8 +103,8 @@
 
 .instructionsButton {
   margin-top: 10px;
-  background-color: #0b0b0b; /* Set button background color to green */
-  color: #fff; /* Set button font color to white */
+  background-color: #0b0b0b; 
+  color: #fff;
 }
 
 .instructions {
@@ -89,4 +117,38 @@
 .p{
   color:#101211;
 }
-/* Add any additional styles as needed */
+
+/* Add this CSS to your existing stylesheet */
+
+.tabs {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+
+.activeTab {
+  border-color: #ccc;
+  background-color: green;
+}
+
+.tabContent {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 5px 5px;
+} 
+
+.FavoritesHeart {
+  width: 50px;
+  padding-bottom: 5px;
+  padding-top: 30px;
+  padding-left: 40vw;
+}
+
