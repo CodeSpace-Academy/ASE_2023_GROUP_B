@@ -1,6 +1,6 @@
 // Pagination.js
 import React from 'react';
-import classes from '../../pages/recipe/recipe-list.module.css';
+import classes from './recipe-list.module.css';
 
 function Pagination({ currentPage, totalPageCount, handlePageChange }) {
   const pageNumbers = Array.from(

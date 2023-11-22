@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from '../../pages/recipe/recipe-list.module.css';
-import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import classes from './recipe-list.module.css';
+import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import Sort from '../../components/recipes/sort';
-import SearchBar from '../../components/search/SearchBar';
+import Sort from './sort';
+import SearchBar from '../search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
@@ -43,7 +43,7 @@ function RecipeList({ data }) {
       recipe.title.toLowerCase().includes(lowerCaseSearchText)
     );
     setFilteredRecipes(filtered);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
@@ -160,9 +160,9 @@ function RecipeList({ data }) {
               <Link href={`/recipe/${recipe._id}`}>
                 <ViewRecipeBtn />
               </Link>
-            <div className={classes.favHeart}>
-              <AddToFavoritesButton recipe={recipe} />
-            </div>
+              <div className={classes.favHeart}>
+                <AddToFavoritesButton recipe={recipe} />
+              </div>
             </div>
           </div>
         ))}
