@@ -3,10 +3,11 @@
     top: 0;
     width: 100vw;
     height: 5.5rem;
-    background-color: rgba(2, 111, 2, 0.767); /* Set the background color to green */
+    background-color: rgba(2, 111, 2, 0.767); 
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0;
     z-index: 100;
     box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
     }
@@ -15,10 +16,11 @@
     list-style: none;
     display: flex;
     align-items: baseline;
+    padding: 0;
   }
   
   .header .icon {
-    color: white; /* Change the icon color to white */
+    color: white; 
     padding: 3px;
     padding-top: 5px;
     font-weight: bold;
@@ -26,7 +28,7 @@
   
   .header .logo{
     position: relative;
-    bottom: 10px;
+    bottom: 20px;
     right: 20px;
     left: 10px;
       }
@@ -38,9 +40,9 @@
   }
   
   .header a {
-    color: white; /* Set the font color to white */
+    color: white; 
     font-size: var(--size-5);
-    text-decoration: none; /* Remove underline */
+    text-decoration: none; 
   }
   
   .header a:hover,
@@ -52,7 +54,7 @@
   
   @media (max-width: 767px) {
     .header {
-      background-color: green; /* Set the background color to green */
+      background-color: green; 
       z-index: 100;
     }
   
@@ -62,7 +64,7 @@
       position: absolute;
       top: 6rem;
       left: 0;
-      background-color: green; /* Set the overlay background color to green */
+      background-color: green;
       width: 100%;
     }
   
