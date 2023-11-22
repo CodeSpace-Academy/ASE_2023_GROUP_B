@@ -3,7 +3,7 @@ import FavoritesContext from '@/components/favorite/fav-context';
 import RecipeDetailPage from '../recipe/[recipeId]';
 import Link from 'next/link';
 import { IoIosArrowBack } from 'react-icons/io';
-import { getFavoritesFromMongoDB } from '../api/mongodb';
+import { getFavoritesFromMongoDB } from '../../database/favoritesModule';
 import RecipeList from '../../components/recipes/recipe-list';
 import classes from '../../components/icons&Buttons/favorite.module.css';
 
