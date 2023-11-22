@@ -4,16 +4,14 @@ import RecipeDetailPage from '../recipe/[recipeId]';
 import Link from 'next/link';
 import { IoIosArrowBack } from 'react-icons/io';
 import { getFavoritesFromMongoDB } from '../api/mongodb';
-import RecipeList from './recipe-list';
-import classes from '../../components/icons&Buttons/favorite.module.css'
+import RecipeList from '../../components/recipes/recipe-list';
+import classes from '../../components/icons&Buttons/favorite.module.css';
 
 function FavoritesPage({ favs }) {
   // Access the FavoritesContext to get the list of favorite recipes
   const favoriteCtx = useContext(FavoritesContext);
   const favoriteRecipes = favoriteCtx.favorites || [];
-  useEffect(() => {
-    
-  });
+  useEffect(() => {});
 
   // Convert MongoDB ObjectID to string for serialization
   const cleanedFavs = favs.map((fav) => {
