@@ -16,7 +16,7 @@ function Ingredients({
   useEffect(() => {
     async function fetchIngredients() {
       try {
-        const response = await fetch('/api/ingredients');
+        const response = await fetch('/api/ingredient');
 
         if (response.ok) {
           const data = await response.json();
@@ -44,7 +44,7 @@ function Ingredients({
         setFilterIngredientResults([]);
       } else {
         try {
-          const response = await fetch(`/api/filterbyingredient`, {
+          const response = await fetch(`/api/fff`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
