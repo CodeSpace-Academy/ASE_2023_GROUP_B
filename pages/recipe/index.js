@@ -7,18 +7,29 @@ import { run } from '../../database/recipesModule';
 export default function AllRecipes(props) {
   return (
     <Fragment>
-      <RecipeList data={props.data} />
+      <RecipeList data={props.data} error ={props.error} />
       <ArrowIpIcon />
     </Fragment>
   );
 }
 
 export async function getServerSideProps() {
+ try{
   const data = await run(1);
 
   return {
     props: {
       data: data,
-    },
+    }
   };
+ }catch(error){
+
+  return{
+    props:{
+      error : "No recipes found"
+    }
+  }
+ }
+
+
 }

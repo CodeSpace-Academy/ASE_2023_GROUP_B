@@ -10,16 +10,9 @@ import SearchBar from '../search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
-function RecipeList({ data }) {
+function RecipeList({ data , error }) {
   const [currentPage, setCurrentPage] = useState(1);
-  // Check if data is not an array or is empty
-  if (!Array.isArray(data) || data.length === 0) {
-    return (
-      <div className={classes.container}>
-        <h1 className={classes.title}>No recipes available.</h1>
-      </div>
-    );
-  }
+
 
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('default');
@@ -52,6 +45,15 @@ function RecipeList({ data }) {
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
+
+  if (!filteredRecipes || filteredRecipes.length === 0) {
+    return (
+      <div className={classes.container}>
+        <h1 className={classes.title}>No recipes available.</h1>
+    <Link href="/">Go to home page</Link>
+      </div>
+    );
+  }
 
   if (remainingRecipes < recipesPerPage) {
     displayedRecipes = filteredRecipes.slice(

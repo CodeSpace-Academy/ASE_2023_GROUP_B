@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import classes from '../search/Search.module.css';
 
 export default function SearchBar({ recipes, onSearch , search , setSearch }) {
-  // const [searchText, setSearchText] = useState('');
   const [searchHist, setSearchHist] = useState([]);
 
   useEffect(() => {
@@ -31,7 +30,6 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
     });
   }
 
-console.log(search)
 
   return (
     
@@ -49,7 +47,7 @@ console.log(search)
           type="text"
           className={classes.input}
 
-          onChange={(e)=> setSearch(e.target.value) }
+          // onChange={(e)=> setSearch(e.target.value) }
         />
         <span className={classes.caret}></span>
         <button type="button" onClick={handleSearch}>
