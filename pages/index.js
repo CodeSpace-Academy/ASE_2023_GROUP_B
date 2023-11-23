@@ -1,8 +1,26 @@
 import Link from "next/link";
 import Head from "next/head";
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
+import path from 'path';
 
-const Home = () => {
+const fs = require('fs');
+
+const Home = ({ hasEnvFile, hasKey }) => {
+
+  const [checksPath, setCheckPath] = useState(null);
+  useEffect(() => {
+    setCheckPath(window.location.href.includes('localhost:'));
+  }, []);
+
+  if (checksPath) {
+    if (!hasKey || !hasEnvFile) {
+      return (
+        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+          <p>Oops! Something Went Wrong! The .env file is missing or has no value!</p>
+        </div>
+      );
+    }
+  }
 
   return (
     <Fragment>
@@ -56,3 +74,28 @@ const Home = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps() {
+  const envFilePath = path.resolve('.env');
+
+  let hasEnvFile = false;
+  let hasKey = false;
+  try {
+    await fs.promises.access(envFilePath);
+    hasEnvFile = true;
+
+    if (hasEnvFile) {
+      const envContent = await fs.promises.readFile(envFilePath, 'utf8');
+      hasKey = envContent.includes('MONGODB_CONNECTION_STRING');
+    }
+  } catch (error) {
+    hasEnvFile = false;
+  }
+
+  return {
+    props: {
+      hasEnvFile,
+      hasKey,
+    },
+  };
+}
