@@ -45,4 +45,3 @@ function getClient() {
 }
 export { connectToMongo, closeMongoConnection, getClient };
 
-export { connectToMongo, closeMongoConnection, getClient };
