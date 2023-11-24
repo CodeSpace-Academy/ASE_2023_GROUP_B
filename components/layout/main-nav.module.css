@@ -25,6 +25,11 @@
     padding-top: 5px;
     font-weight: bold;
   }
+
+  .header .recipes {
+    letter-spacing: 0.1rem;
+    font-weight: 400;
+  }
   
   .header .logo{
     position: relative;
