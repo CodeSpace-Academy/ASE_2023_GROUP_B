@@ -8,7 +8,7 @@ import { HiOutlineHeart } from 'react-icons/hi';
 const MainNav = () => {
   return (
     <header className={classes.header}>
-      <div className={classes.icon}>
+      <div className={classes.projectIcon}>
         <Link className={classes.logo} href="/" title="Home">
           <Image
             src="/groupb_logo.png"
