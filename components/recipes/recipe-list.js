@@ -91,18 +91,20 @@ function RecipeList({ data }) {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>RECIPES</h1>
+      <div>
+        <SearchBar
+          onSearch={handleSearch}
+          search={search}
+          setSearch={setSearch}
+        />
 
-      <SearchBar
-        onSearch={handleSearch}
-        search={search}
-        setSearch={setSearch}
-      />
+        <br />
+        <Sort onSort={handleSort} />
+      </div>
 
       <br />
-      <Sort onSort={handleSort} />
       <br />
-      <br />
+
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
           <div key={index} className={classes.card}>
@@ -132,35 +134,38 @@ function RecipeList({ data }) {
                     title={`Date: ${formatDate(recipe.published)}`}
                   >
                     <FaCalendar style={{ fontSize: '1.0em' }} />
-                    Date Published:<br></br>
+                    Date Published:
+                    <br />
                     {formatDate(recipe.published)}
                   </p>
-                  <br></br>
+                  <br />
                   <p className={classes.cardCategory}>
                     <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:
+                    <br />
                     {formatTime(recipe.prep)}
                   </p>
                 </div>
                 <div className={classes.iconsCol2}>
                   <p className={classes.cardCategory}>
-                    <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time:{' '}
-                    <br></br>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time: <br />
                     {formatTime(recipe.cook)}
                   </p>
-                  <br></br>
+                  <br />
                   <p className={classes.cardCategory}>
-                    <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
-                    <br></br>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Total-Time: <br />
                     {formatTime(recipe.cook + recipe.prep)}
                   </p>
                 </div>
               </div>
               <br />
-              <br />
-              <Link href={`/recipe/${recipe._id}`}>
-                <ViewRecipeBtn />
-              </Link>
-              <div className={classes.favHeart}>
+              <div className={classes.recipeOptions}>
+                <Link
+                  href={`/recipe/${recipe._id}`}
+                  className={classes.viewRecipe}
+                >
+                  <ViewRecipeBtn />
+                </Link>
+
                 <AddToFavoritesButton recipe={recipe} />
               </div>
             </div>
