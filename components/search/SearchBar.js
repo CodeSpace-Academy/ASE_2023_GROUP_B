@@ -48,8 +48,6 @@ console.log(search)
           onChange={(e)=> {setSearch(e.target.value)}}
           type="text"
           className={classes.input}
-
-          onChange={(e)=> setSearch(e.target.value) }
         />
         <span className={classes.caret}></span>
         <button type="button" onClick={handleSearch}>
