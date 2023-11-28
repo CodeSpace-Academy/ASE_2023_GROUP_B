@@ -16,9 +16,11 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
   }, []);
 
   useEffect(() => {
+    const searchDelay = 1000;
+
     const debouncedSearchHandler = debounce((query) => {
       onSearch(query);
-    }, 500);
+    }, searchDelay);
 
     debouncedSearchHandler(debouncedSearch);
 
