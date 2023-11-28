@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { debounce } from 'lodash';
 import classes from '../search/Search.module.css';
 
 export default function SearchBar({ recipes, onSearch , search , setSearch }) {
-  // const [searchText, setSearchText] = useState('');
   const [searchHist, setSearchHist] = useState([]);
+  const [debouncedSearch, setDebouncedSearch] = useState(search);
 
   useEffect(() => {
     const hist = localStorage.getItem('searchHist');
@@ -13,9 +14,24 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
     }
   }, []);
 
+  useEffect(() => {
+    const debouncedSearchHandler = debounce((query) => {
+      onSearch(query);
+    }, 500);
+
+    debouncedSearchHandler(debouncedSearch);
+
+    // Cleanup the debounced function on component unmount
+    return () => {
+        debouncedSearchHandler.cancel();
+      };
+  }, [debouncedSearch, onSearch]);
+
+
   function handleChange(e) {
     const text = e.target.value;
     setSearch(text);
+    setDebouncedSearch(text);
   }
 
   function clear() {
@@ -31,13 +47,11 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
     });
   }
 
-console.log(search)
-
   return (
     
     <div className={classes.whole}>
 
-<button type="button" onClick={clear}>
+      <button type="button" onClick={clear}>
         clear
       </button>
       <form className={classes.form}>
@@ -45,7 +59,8 @@ console.log(search)
           required
           // pattern=".\S."
           value={search}
-          onChange={(e)=> {setSearch(e.target.value)}}
+          // onChange={(e)=> {setSearch(e.target.value)}}
+          onChange={handleChange}
           type="text"
           className={classes.input}
         />
