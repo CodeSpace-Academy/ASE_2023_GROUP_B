@@ -1,29 +1,28 @@
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import classes from "./main-nav.module.css";
-import { FaUser, FaEnvelope} from "react-icons/fa";
-import {HiOutlineHeart} from "react-icons/hi";
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import classes from './main-nav.module.css';
+import { FaUser, FaEnvelope } from 'react-icons/fa';
+import { HiOutlineHeart } from 'react-icons/hi';
 
 const MainNav = () => {
   return (
     <header className={classes.header}>
-        <div className={classes.icon}>
+      <div className={classes.projectIcon}>
         <Link className={classes.logo} href="/" title="Home">
-        <Image
-        src="/groupb_logo.png"
-        alt="GroupB Logo"
-        width={100}
-        height={100}
-        />
-      </Link>
-          
-        </div>
-     
+          <Image
+            src="/groupb_logo.png"
+            alt="GroupB Logo"
+            width={100}
+            height={100}
+          />
+        </Link>
+      </div>
+
       <nav className={classes.nav}>
         <ul>
           <li>
-            <Link className={classes.icon} href="/recipe">
+            <Link className={classes.recipes} href="/recipe">
               All Recipes
             </Link>
           </li>
@@ -54,7 +53,7 @@ const MainNav = () => {
               href="/recipe/favoritePage"
               title="Favorite"
             >
-              <HiOutlineHeart/>
+              <HiOutlineHeart />
             </Link>
           </li>
         </ul>
