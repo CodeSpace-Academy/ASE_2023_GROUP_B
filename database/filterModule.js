@@ -68,7 +68,6 @@ export async function filteringByIngredient(selectedIngredients) {
       .find(query)
       .limit(5)
       .toArray();
-    console.log(filterIngredientsResult)
     return filterIngredientsResult;
   } catch (error) {
     console.error("Error filtering recipes by ingredients:", error);

@@ -64,13 +64,13 @@ function RecipeList({ data }) {
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
-  let displayedRecipes = filteredRecipes.slice(
+  let displayedRecipes = recipes.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
 
   if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = filteredRecipes.slice(
+    displayedRecipes = recipes.slice(
       (currentPage - 1) * recipesPerPage
     );
   }
