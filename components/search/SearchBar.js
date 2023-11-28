@@ -16,20 +16,21 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
 
   useEffect(() => {
     const debouncedSearchHandler = debounce((query) => {
+      console.log('debouncedSearchHandler', query);
       onSearch(query);
     }, 500);
 
     debouncedSearchHandler(debouncedSearch);
 
     // Cleanup the debounced function on component unmount
-    return () => {
+    return () => 
         debouncedSearchHandler.cancel();
-      };
   }, [debouncedSearch, onSearch]);
 
 
   function handleChange(e) {
     const text = e.target.value;
+    console.log('handleChange', text);
     setSearch(text);
     setDebouncedSearch(text);
   }
