@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import classes from '../search/Search.module.css';
 
-export default function SearchBar({ recipes, onSearch , search , setSearch }) {
+export default function SearchBar({ recipes, onSearch, search, setSearch }) {
   const [searchHist, setSearchHist] = useState([]);
-  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [currentSearchTerm, setCurrentSearchTerm] = useState('');
 
   useEffect(() => {
     const hist = localStorage.getItem('searchHist');
@@ -16,23 +17,27 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
 
   useEffect(() => {
     const debouncedSearchHandler = debounce((query) => {
-      console.log('debouncedSearchHandler', query);
       onSearch(query);
     }, 500);
 
     debouncedSearchHandler(debouncedSearch);
 
     // Cleanup the debounced function on component unmount
-    return () => 
-        debouncedSearchHandler.cancel();
+    return () => debouncedSearchHandler.cancel();
   }, [debouncedSearch, onSearch]);
-
 
   function handleChange(e) {
     const text = e.target.value;
-    console.log('handleChange', text);
     setSearch(text);
-    setDebouncedSearch(text);
+    setCurrentSearchTerm(text);
+
+    // Cancel previous searches before triggering a new one
+    setDebouncedSearch('');
+
+    // Set a new debounced search term after a short delay
+    setTimeout(() => {
+      setDebouncedSearch(text);
+    }, 300);
   }
 
   function clear() {
@@ -49,18 +54,14 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
   }
 
   return (
-    
     <div className={classes.whole}>
-
       <button type="button" onClick={clear}>
-        clear
+        Clear
       </button>
       <form className={classes.form}>
         <input
           required
-          // pattern=".\S."
           value={search}
-          // onChange={(e)=> {setSearch(e.target.value)}}
           onChange={handleChange}
           type="text"
           className={classes.input}
@@ -70,7 +71,6 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
           Submit
         </button>
       </form>
-
 
       {searchHist.length > 0 && (
         <ul>
