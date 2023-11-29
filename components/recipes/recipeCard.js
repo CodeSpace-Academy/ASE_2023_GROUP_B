@@ -16,14 +16,14 @@ const RecipeCard = ({ recipe, search, onRemove }) => {
   return (
     <div className={classes.card}>
       <div className={classes.cardImageContainer}>
-         {recipe.images && recipe.images.length > 0 && (
+        {recipe.images && recipe.images.length > 0 && (
           <Image
+            className={classes.cardImage}
             src={cardImage}
             alt={recipe.title}
-            width={400}
-            height={300}
-            className={classes.cardImage}
-            priority={true} 
+            width={300}
+            height={200}
+            priority={true}
           />
         )}
       </div>
@@ -35,7 +35,7 @@ const RecipeCard = ({ recipe, search, onRemove }) => {
           searchWords={[search]}
           autoEscape={true}
         />
-<br/>
+        <br />
 
         <p
           className={classes.cardCategory}
