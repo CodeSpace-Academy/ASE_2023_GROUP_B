@@ -11,7 +11,7 @@ import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import Hero from "@/components/hero.jsx"
 
-function RecipeList({ data }) {
+function RecipeList({ data,onRemove }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [filterIngredientResults, setFilterIngredientResults] = useState([]);
@@ -182,7 +182,10 @@ function RecipeList({ data }) {
                 <ViewRecipeBtn />
               </Link>
               <div className={classes.favHeart}>
-                <AddToFavoritesButton recipe={recipe} />
+                <AddToFavoritesButton
+                  recipe={recipe}
+                  onRemove={() => onRemove(recipe._id)}
+                />
               </div>
             </div>
           </div>
