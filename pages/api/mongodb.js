@@ -43,5 +43,5 @@ async function closeMongoConnection() {
 function getClient() {
   return client;
 }
-
 export { connectToMongo, closeMongoConnection, getClient };
+
