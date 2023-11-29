@@ -77,6 +77,14 @@ function Ingredients({
   const handleIngredientChange = (selectedOptions) => {
     setSelectedIngredients(selectedOptions.map((option) => option.value));
   };
+  
+  const handleClearButtonClick = () => {
+    // Clear the selected ingredients
+    setSelectedIngredients([]);
+  
+    // Refresh the page to reset the state
+    window.location.reload();
+  };
 
   return (
     <div className={styles.ingredientsContainer}>
@@ -125,6 +133,7 @@ function Ingredients({
           ),
         }}
       />
+      <button onClick={handleClearButtonClick}>Clear All</button>
     </div>
   );
 }
