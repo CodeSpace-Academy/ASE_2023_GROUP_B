@@ -36,9 +36,7 @@ const RecipeCard = ({ recipe, search, onRemove }) => {
           autoEscape={true}
         />
 <br/>
- <div className={classes.iconsCol}>
-          <div className={classes.iconsCol1}>
-          </div>
+
         <p
           className={classes.cardCategory}
           title={`Date: ${formatDate(recipe.published)}`}
@@ -73,7 +71,6 @@ const RecipeCard = ({ recipe, search, onRemove }) => {
           />
         </div>
       </div>
-    </div>
     </div>
   );
 };
