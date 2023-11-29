@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import classes from '../search/Search.module.css';
 
-export default function SearchBar({ recipes, onSearch , search , setSearch }) {
+export default function SearchBar({ recipes, onSearch, search, setSearch }) {
   // const [searchText, setSearchText] = useState('');
   const [searchHist, setSearchHist] = useState([]);
 
@@ -31,13 +31,11 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
     });
   }
 
-console.log(search)
+  console.log(search);
 
   return (
-    
     <div className={classes.whole}>
-
-<button type="button" onClick={clear}>
+      <button type="button" onClick={clear}>
         clear
       </button>
       <form className={classes.form}>
@@ -45,18 +43,17 @@ console.log(search)
           required
           // pattern=".\S."
           value={search}
-          onChange={(e)=> {setSearch(e.target.value)}}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
           type="text"
           className={classes.input}
-
-          onChange={(e)=> setSearch(e.target.value) }
         />
         <span className={classes.caret}></span>
         <button type="button" onClick={handleSearch}>
           Submit
         </button>
       </form>
-
 
       {searchHist.length > 0 && (
         <ul>
