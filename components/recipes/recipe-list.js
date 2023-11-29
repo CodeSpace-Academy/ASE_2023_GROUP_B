@@ -10,7 +10,7 @@ import SearchBar from '../search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 
-function RecipeList({ data }) {
+function RecipeList({ data,onRemove }) {
   const [currentPage, setCurrentPage] = useState(1);
   // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
@@ -161,7 +161,10 @@ function RecipeList({ data }) {
                 <ViewRecipeBtn />
               </Link>
               <div className={classes.favHeart}>
-                <AddToFavoritesButton recipe={recipe} />
+                <AddToFavoritesButton
+                  recipe={recipe}
+                  onRemove={() => onRemove(recipe._id)}
+                />
               </div>
             </div>
           </div>
