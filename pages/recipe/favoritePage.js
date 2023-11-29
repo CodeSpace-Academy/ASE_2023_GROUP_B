@@ -9,7 +9,7 @@ import ArrowIpIcon from '@/components/icons&Buttons/arrow-up-icon';
 import RecipeCard from '@/components/recipes/recipeCard';
 import AllRecipes from './index';
 
-function FavoritesPage({ favs }) {
+function FavoritesPage({ favs,onRemove }) {
   // Access the FavoritesContext to get the list of favorite recipes
   const favoriteCtx = useContext(FavoritesContext);
   const favoriteRecipes = favoriteCtx.favorites || [];
@@ -35,18 +35,22 @@ function FavoritesPage({ favs }) {
           You have no favorite recipes yet. Start adding your favorites!
         </p>
       )}
+
       <section>
         {/* Display the list of favorite recipes */}
         {favoriteRecipes.map((recipe) => (
-          <RecipeDetailPage key={recipe._id} recipe={recipe} />
+          <div key={recipe._id}>
+            <RecipeDetailPage
+              recipe={recipe}
+              onRemove={() => onRemove(recipe._id)}
+            />
+            <RecipeCard 
+            recipe={recipe} 
+            onRemove={() => onRemove(recipe._id)} />
+          </div>
         ))}
       </section>
-      <section>
-        {/* Display the list of favorite recipes */}
-        {favoriteRecipes.map((recipe) => (
-          <RecipeCard key={recipe._id} recipe={recipe} />
-        ))}
-      </section>
+
       <AllRecipes data={cleanedFavs} />
       <ArrowIpIcon />
     </section>
