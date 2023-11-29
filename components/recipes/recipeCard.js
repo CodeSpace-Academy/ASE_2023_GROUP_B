@@ -11,21 +11,19 @@ import Highlighter from 'react-highlight-words';
 
 const RecipeCard = ({ recipe, search, onRemove }) => {
    const cardImage =
-     recipe.images && recipe.images.length > 0
-       ? recipe.images[0]
-       : recipe.image;
+    recipe.images && recipe.images.length > 0 ? recipe.images[0] : recipe.image;
 
   return (
     <div className={classes.card}>
       <div className={classes.cardImageContainer}>
-        {recipe.images && recipe.images.length > 0 && (
+         {recipe.images && recipe.images.length > 0 && (
           <Image
             src={cardImage}
             alt={recipe.title}
             width={400}
             height={300}
             className={classes.cardImage}
-            priority={true}
+            priority={true} 
           />
         )}
       </div>
@@ -37,7 +35,10 @@ const RecipeCard = ({ recipe, search, onRemove }) => {
           searchWords={[search]}
           autoEscape={true}
         />
-        <br />
+<br/>
+ <div className={classes.iconsCol}>
+          <div className={classes.iconsCol1}>
+          </div>
         <p
           className={classes.cardCategory}
           title={`Date: ${formatDate(recipe.published)}`}
@@ -72,6 +73,7 @@ const RecipeCard = ({ recipe, search, onRemove }) => {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 };

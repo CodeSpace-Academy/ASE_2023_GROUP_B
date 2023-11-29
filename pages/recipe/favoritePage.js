@@ -4,14 +4,15 @@ import RecipeDetailPage from '../recipe/[recipeId]';
 import Link from 'next/link';
 import { IoIosArrowBack } from 'react-icons/io';
 import { getFavoritesFromMongoDB } from '../../database/favoritesModule';
-import RecipeCard from '@/components/recipes/recipeCard';
+import RecipeList from '../../components/recipes/recipe-list';
 import classes from '../../components/icons&Buttons/favorite.module.css';
 
 function FavoritesPage({ favs }) {
   // Access the FavoritesContext to get the list of favorite recipes
   const favoriteCtx = useContext(FavoritesContext);
   const favoriteRecipes = favoriteCtx.favorites || [];
- 
+  useEffect(() => {});
+
   // Convert MongoDB ObjectID to string for serialization
   const cleanedFavs = favs.map((fav) => {
     return {
@@ -26,28 +27,25 @@ function FavoritesPage({ favs }) {
         <IoIosArrowBack title="Back to recipes" className={classes.favIcon} />
       </Link>
       <br />
-
       <h1 className={classes.fav}>Favorite</h1>
       {favs.length === 0 && (
         <p className={classes.message}>
           You have no favorite recipes yet. Start adding your favorites!
         </p>
       )}
-
       <section>
         {/* Display the list of favorite recipes */}
         {favoriteRecipes.map((recipe) => (
           <RecipeDetailPage key={recipe._id} recipe={recipe} />
         ))}
       </section>
-
       <section>
-        {/* Display the list of favorite recipes using RecipeCard */}
+        {/* Display the list of favorite recipes */}
         {favoriteRecipes.map((recipe) => (
-          <RecipeCard key={recipe._id} recipe={recipe} />
+          <RecipeList key={recipe._id} recipe={recipe} />
         ))}
       </section>
-     
+      <RecipeList data={cleanedFavs} />
     </section>
   );
 }
