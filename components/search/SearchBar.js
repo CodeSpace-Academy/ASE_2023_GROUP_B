@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { debounce } from 'lodash';
 import classes from '../search/Search.module.css';
+import { FaTimes } from 'react-icons/fa';
 
 export default function SearchBar({ recipes, onSearch, search, setSearch }) {
   const [searchHist, setSearchHist] = useState([]);
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [currentSearchTerm, setCurrentSearchTerm] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const hist = localStorage.getItem('searchHist');
@@ -46,10 +48,22 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
     setSearch('');
   }
 
+  
+  function handleChange(e) {
+    const text = e.target.value;
+    setSearch(text);
+    setIsExpanded(text.length > 0);
+  }
+
+  function clear() {
+    setSearch('');
+    setIsExpanded(false);
+  }
+
   function handleSearch() {
     onSearch(search);
     setSearchHist((prevHistory) => {
-      const updatedHist = [search, ...prevHistory].slice(0, 10);
+      const updatedHist = [search, ...prevHistory].slice(0, 5);
       localStorage.setItem('searchHist', JSON.stringify(updatedHist));
       return updatedHist;
     });
@@ -57,25 +71,29 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
 
   return (
     <div className={classes.whole}>
-      <button type="button" onClick={clear}>
-        Clear
-      </button>
       <form className={classes.form}>
         <input
           required
           value={search}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e)}
           type="text"
           className={classes.input}
         />
         <span className={classes.caret}></span>
-        <button type="button" onClick={handleSearch}>
-          Submit
-        </button>
+        {isExpanded && (
+          <>
+            <button type="button" onClick={clear} className={classes.clearButton}>
+              <FaTimes />
+            </button>
+            <button type="button" onClick={handleSearch}>
+              Submit
+            </button>
+          </>
+        )}
       </form>
 
-      {searchHist.length > 0 && (
-        <ul style={{ zIndex: 1 }}>
+      {isExpanded && searchHist.length > 0 && (
+        <ul>
           {searchHist.map((historyItem, index) => (
             <li key={index}>{historyItem}</li>
           ))}
