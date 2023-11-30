@@ -5,7 +5,6 @@ import classes from '../recipes/recipe-list.module.css';
 import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import Sort from '../../components/recipes/sort';
 import SearchBar from '../../components/search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
@@ -17,7 +16,6 @@ function RecipeList({ data, onRemove }) {
   const [filterIngredientResults, setFilterIngredientResults] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
-  const [sortOrder, setSortOrder] = useState('default');
   const [filteredRecipes, setFilteredRecipes] = useState(data);
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
@@ -41,9 +39,6 @@ function RecipeList({ data, onRemove }) {
     );
   }
 
-  const handleSort = (order) => {
-    setSortOrder(order);
-  };
 
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPageCount) {
@@ -80,8 +75,6 @@ function RecipeList({ data, onRemove }) {
         search={search}
         setSearch={setSearch}
       />
-      <br />
-      <Sort onSort={handleSort} />
       <br />
 
       <Hero
