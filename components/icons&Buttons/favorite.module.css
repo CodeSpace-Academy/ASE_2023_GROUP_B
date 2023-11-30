@@ -1,19 +1,23 @@
 .favoriteButton {
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
-  font-size: 24px; 
+  font-size: 24px;
   transition: transform 0.2s ease-in-out;
+  margin: 0;
 }
 
 .favoriteEmpty {
   color: green;
 }
 
+.favoriteMessage {
+  font-size: 12px;
+}
+
 .favoriteFilled {
   color: red;
 }
-
 .pulse {
   animation: pulse 1s infinite;
 }
@@ -30,12 +34,11 @@
   }
 }
 
-.favIcon{
+.favIcon {
   position: relative;
   color: green;
-  top:20px;
-  font-size:xx-large;
-  
+  top: 20px;
+  font-size: xx-large;
 }
 
 .fav {
@@ -43,12 +46,11 @@
   color: green;
   top: 15%;
   text-align: center;
-  
 }
 
 .message {
   position: relative;
   text-align: center;
-   top: 16%;
-   color: green;
+  top: 16%;
+  color: green;
 }

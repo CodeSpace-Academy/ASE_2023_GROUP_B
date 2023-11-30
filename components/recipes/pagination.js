@@ -1,4 +1,3 @@
-// Pagination.js
 import React from 'react';
 import classes from './recipe-list.module.css';
 
