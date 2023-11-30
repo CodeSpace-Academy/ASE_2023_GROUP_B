@@ -2,13 +2,13 @@ import { filter } from "lodash";
 import { buildPipeline } from "@/helpers/buildPipeline";
 import { connectToMongo, closeMongoConnection, getClient } from "../pages/api/mongodb";
 
-export async function run(page, filters, search, sort) {
+export async function getRecipes(page, filters, search, sort) {
   await connectToMongo();
   const client = getClient();
 
   try {
     const db = client.db("devdb");
-    await db.command({ ping: 1 });3
+    await db.command({ ping: 1 });
     const collection = db.collection("recipes");
     const pipeline = buildPipeline(filters, search, sort);
     const skip = (page - 1) * 100;
