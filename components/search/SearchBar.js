@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { FaTimes } from 'react-icons/fa';
 import classes from '../search/Search.module.css';
 
-export default function SearchBar({ recipes, onSearch , search , setSearch }) {
+export default function SearchBar({ recipes, onSearch, search, setSearch }) {
   const [searchHist, setSearchHist] = useState([]);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const hist = localStorage.getItem('searchHist');
@@ -15,48 +17,47 @@ export default function SearchBar({ recipes, onSearch , search , setSearch }) {
   function handleChange(e) {
     const text = e.target.value;
     setSearch(text);
+    setIsExpanded(text.length > 0);
   }
 
   function clear() {
     setSearch('');
+    setIsExpanded(false);
   }
 
   function handleSearch() {
     onSearch(search);
     setSearchHist((prevHistory) => {
-      const updatedHist = [search, ...prevHistory].slice(0, 10);
+      const updatedHist = [search, ...prevHistory].slice(0, 5);
       localStorage.setItem('searchHist', JSON.stringify(updatedHist));
       return updatedHist;
     });
   }
 
-
   return (
-    
     <div className={classes.whole}>
-
-<button type="button" onClick={clear}>
-        clear
-      </button>
       <form className={classes.form}>
         <input
           required
-          // pattern=".\S."
           value={search}
-          onChange={(e)=> {setSearch(e.target.value)}}
+          onChange={(e) => handleChange(e)}
           type="text"
           className={classes.input}
-
-          // onChange={(e)=> setSearch(e.target.value) }
         />
         <span className={classes.caret}></span>
-        <button type="button" onClick={handleSearch}>
-          Submit
-        </button>
+        {isExpanded && (
+          <>
+            <button type="button" onClick={clear} className={classes.clearButton}>
+              <FaTimes />
+            </button>
+            <button type="button" onClick={handleSearch}>
+              Submit
+            </button>
+          </>
+        )}
       </form>
 
-
-      {searchHist.length > 0 && (
+      {isExpanded && searchHist.length > 0 && (
         <ul>
           {searchHist.map((historyItem, index) => (
             <li key={index}>{historyItem}</li>
