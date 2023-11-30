@@ -2,15 +2,30 @@ import Link from "next/link";
 import Head from "next/head";
 import { Fragment, useState, useEffect } from "react";
 import path from 'path';
+import LoadSpinner from '@/components/loading/LoadSpinner';
+import { useRouter } from 'next/router';
+import ErrorMessage from '@/components/errorMessage/ErrorMessage';
 
 const fs = require('fs');
 
 const Home = ({ hasEnvFile, hasKey }) => {
-
   const [checksPath, setCheckPath] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
   useEffect(() => {
     setCheckPath(window.location.href.includes('localhost:'));
   }, []);
+
+  const handleExploreClick = () => {
+    setLoading(true); 
+
+    setTimeout(() => {
+      setLoading(false);
+      router.push('/recipe');
+    }, 2000);
+  };
+
 
   if (checksPath) {
     if (!hasKey || !hasEnvFile) {
@@ -64,7 +79,12 @@ const Home = ({ hasEnvFile, hasKey }) => {
             Join Us to Discover Amazing Culinary Experiences!
           </p>
           <Link href="/recipe">
-            <button className="btn">Explore</button>
+            <button className="btn" onClick={handleExploreClick} disabled={loading}>
+            {loading ? <LoadSpinner /> : 'Explore'}
+            </button>
+            <div style={{ textAlign: 'center', marginTop: '50px' }}>
+          <ErrorMessage />
+        </div>
           </Link>
         </div>
         </div>

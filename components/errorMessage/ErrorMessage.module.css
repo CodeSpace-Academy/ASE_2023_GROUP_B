@@ -1,0 +1,15 @@
+/* ErrorMessage.css */
+.error-message {
+    text-align: center;
+    margin-top: 50px;
+    color: #ff0000; /* Red color for error messages */
+  }
+  
+  .error-message h2 {
+    font-size: 1.5em;
+  }
+  
+  .error-message p {
+    font-size: 1em;
+  }
+  
