@@ -71,35 +71,8 @@ function RecipeList({ data, onRemove }) {
     displayedRecipes = recipes.slice((currentPage - 1) * recipesPerPage);
   }
 
-  switch (sortOrder) {
-    case 'newest':
-      displayedRecipes.sort(
-        (a, b) => new Date(b.published) - new Date(a.published)
-      );
-      break;
-    case 'cook-asc':
-      displayedRecipes.sort((a, b) => a.cook - b.cook);
-      break;
-    case 'cook-desc':
-      displayedRecipes.sort((a, b) => b.cook - a.cook);
-      break;
-    case 'prep-asc':
-      displayedRecipes.sort((a, b) => a.prep - b.prep);
-      break;
-    case 'prep-desc':
-      displayedRecipes.sort((a, b) => b.prep - a.prep);
-      break;
-    case 'steps-asc':
-      displayedRecipes.sort(
-        (a, b) => a.instructions.length - b.instructions.length
-      );
-      break;
-    case 'steps-desc':
-      displayedRecipes.sort(
-        (a, b) => b.instructions.length - a.instructions.length
-      );
-      break;
-  }
+
+
   return (
     <div className={classes.container}>
       <SearchBar
@@ -108,6 +81,7 @@ function RecipeList({ data, onRemove }) {
         setSearch={setSearch}
       />
       <br />
+      <Sort onSort={handleSort} />
       <br />
 
       <Hero
