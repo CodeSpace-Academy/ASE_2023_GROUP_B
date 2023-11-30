@@ -9,28 +9,17 @@ import Sort from '../../components/recipes/sort';
 import SearchBar from '../../components/search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
-import Hero from "@/components/hero.jsx"
+
 
 function RecipeList({ data,onRemove }) {
+
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [filterIngredientResults, setFilterIngredientResults] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [sortOrder, setSortOrder] = useState('default');
   const [filteredRecipes, setFilteredRecipes] = useState(data);
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
-
-  useEffect(() => {
-    setRecipes(data);
-  }, [data]);
-
-  function handleDefaultIngredientFilter() {
-    if (selectedIngredients.length > 0) {
-      setSelectedIngredients([]);
-    }
-  }
 
   // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
@@ -117,14 +106,7 @@ function RecipeList({ data,onRemove }) {
       <br />
       <br />
 
-      <Hero
-        handleDefaultIngredientFilter={handleDefaultIngredientFilter}
-        setFilterIngredientResults={setFilterIngredientResults}
-        setRecipes={setRecipes}
-        filterIngredientResults={filterIngredientResults}
-        setSelectedIngredients={setSelectedIngredients}
-        selectedIngredients={selectedIngredients}
-      />
+      
 
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (

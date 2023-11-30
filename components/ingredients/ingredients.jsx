@@ -81,8 +81,6 @@ function Ingredients({
   const handleClearButtonClick = () => {
     // Clear the selected ingredients
     setSelectedIngredients([]);
-  
-    // Refresh the page to reset the state
     window.location.reload();
   };
 
