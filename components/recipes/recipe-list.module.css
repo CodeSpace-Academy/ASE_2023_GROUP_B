@@ -29,6 +29,15 @@
     flex: 1;
 }
 
+.recipeOptions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.viewRecipe {
+    margin: 0;
+}
+
 .cardTitle {
     font-size: 20px;
     color: #414040;
@@ -102,7 +111,11 @@
     color: #565555;
 }
 .favHeart {
-    padding-left: 250px;
+    margin: 0;
+}
+
+.viewRecipeBtn {
+    margin: 0;
 }
 
 /*pagination */

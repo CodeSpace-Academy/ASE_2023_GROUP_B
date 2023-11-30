@@ -33,8 +33,9 @@ export async function AddFavoriteToMongoDB(recipe) {
 
 export async function addFavoritesFromMongoDB(recipe) {
   try {
-    const db = await connectToMongo();
-    await db.db('devdb').collection('favorites').insertOne(recipe);
+    const db = await connectToCollection('devdb', 'favorites');
+    await db.insertOne(recipe);
+    console.log('Favorite added to MongoDB.');
   } catch (error) {
     console.error('Error adding favorite from MongoDB:', error);
     throw error;

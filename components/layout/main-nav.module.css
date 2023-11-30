@@ -21,7 +21,6 @@
 
   .projectIcon{
     margin: 27px 0 0 10px;
-
   }
 
   .nav {
@@ -59,11 +58,11 @@
     text-decoration: none; 
   }
   
-  .header a:hover,
-  .header a:active,
-  .header a.active {
-    color: var(--color-primary-700);
-    font-weight: bold;
+  .header .icon:hover,
+  .header .recipes:hover,
+  .header .icon:active,
+  .header .icon.active {
+    opacity: 0.8;
   }
   
   @media (max-width: 767px) {
