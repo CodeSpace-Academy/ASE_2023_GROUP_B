@@ -4,7 +4,7 @@
   cursor: pointer;
   font-size: 24px;
   transition: transform 0.2s ease-in-out;
-  left: 90px;
+  margin: 0;
 }
 
 .favoriteEmpty {
