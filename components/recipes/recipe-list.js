@@ -75,35 +75,8 @@ function RecipeList({ data }) {
     );
   }
 
-  switch (sortOrder) {
-    case 'newest':
-      displayedRecipes.sort(
-        (a, b) => new Date(b.published) - new Date(a.published)
-      );
-      break;
-    case 'cook-asc':
-      displayedRecipes.sort((a, b) => a.cook - b.cook);
-      break;
-    case 'cook-desc':
-      displayedRecipes.sort((a, b) => b.cook - a.cook);
-      break;
-    case 'prep-asc':
-      displayedRecipes.sort((a, b) => a.prep - b.prep);
-      break;
-    case 'prep-desc':
-      displayedRecipes.sort((a, b) => b.prep - a.prep);
-      break;
-    case 'steps-asc':
-      displayedRecipes.sort(
-        (a, b) => a.instructions.length - b.instructions.length
-      );
-      break;
-    case 'steps-desc':
-      displayedRecipes.sort(
-        (a, b) => b.instructions.length - a.instructions.length
-      );
-      break;
-  }
+
+
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>RECIPES</h1>
@@ -114,7 +87,6 @@ function RecipeList({ data }) {
       />
       <br />
       <Sort onSort={handleSort} />
-      <br />
       <br />
 
       <Hero
