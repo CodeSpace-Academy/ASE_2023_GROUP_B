@@ -9,10 +9,16 @@ import Sort from '../../components/recipes/sort';
 import SearchBar from '../../components/search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+<<<<<<< HEAD
 
 
 function RecipeList({ data,onRemove }) {
 
+=======
+import Hero from '@/components/hero.jsx';
+
+function RecipeList({ data, onRemove }) {
+>>>>>>> main
   const [currentPage, setCurrentPage] = useState(1);
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
@@ -29,8 +35,6 @@ function RecipeList({ data,onRemove }) {
       </div>
     );
   }
-
-  
 
   const handleSort = (order) => {
     setSortOrder(order);
@@ -59,43 +63,13 @@ function RecipeList({ data,onRemove }) {
   );
 
   if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = recipes.slice(
-      (currentPage - 1) * recipesPerPage
-    );
+    displayedRecipes = recipes.slice((currentPage - 1) * recipesPerPage);
   }
 
-  switch (sortOrder) {
-    case 'newest':
-      displayedRecipes.sort(
-        (a, b) => new Date(b.published) - new Date(a.published)
-      );
-      break;
-    case 'cook-asc':
-      displayedRecipes.sort((a, b) => a.cook - b.cook);
-      break;
-    case 'cook-desc':
-      displayedRecipes.sort((a, b) => b.cook - a.cook);
-      break;
-    case 'prep-asc':
-      displayedRecipes.sort((a, b) => a.prep - b.prep);
-      break;
-    case 'prep-desc':
-      displayedRecipes.sort((a, b) => b.prep - a.prep);
-      break;
-    case 'steps-asc':
-      displayedRecipes.sort(
-        (a, b) => a.instructions.length - b.instructions.length
-      );
-      break;
-    case 'steps-desc':
-      displayedRecipes.sort(
-        (a, b) => b.instructions.length - a.instructions.length
-      );
-      break;
-  }
+
+
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>RECIPES</h1>
       <SearchBar
         onSearch={handleSearch}
         search={search}
@@ -103,7 +77,6 @@ function RecipeList({ data,onRemove }) {
       />
       <br />
       <Sort onSort={handleSort} />
-      <br />
       <br />
 
       
@@ -135,39 +108,43 @@ function RecipeList({ data,onRemove }) {
                     title={`Date: ${formatDate(recipe.published)}`}
                   >
                     <FaCalendar style={{ fontSize: '1.0em' }} />
-                    Date Published:<br></br>
+                    Date Published:
+                    <br />
                     {formatDate(recipe.published)}
                   </p>
-                  <br></br>
+                  <br />
                   <p className={classes.cardCategory}>
                     <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:
+                    <br />
                     {formatTime(recipe.prep)}
                   </p>
                 </div>
                 <div className={classes.iconsCol2}>
                   <p className={classes.cardCategory}>
-                    <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time:{' '}
-                    <br></br>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time: <br />
                     {formatTime(recipe.cook)}
                   </p>
-                  <br></br>
+                  <br />
                   <p className={classes.cardCategory}>
-                    <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
-                    <br></br>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Total-Time: <br />
                     {formatTime(recipe.cook + recipe.prep)}
                   </p>
                 </div>
               </div>
               <br />
               <br />
-              <Link href={`/recipe/${recipe._id}`}>
-                <ViewRecipeBtn />
-              </Link>
-              <div className={classes.favHeart}>
-                <AddToFavoritesButton
-                  recipe={recipe}
-                  onRemove={() => onRemove(recipe._id)}
-                />
+              <div className={classes.recipeOptions}>
+                <div className={classes.viewRecipeBtn}>
+                  <Link href={`/recipe/${recipe._id}`}>
+                    <ViewRecipeBtn />
+                  </Link>
+                </div>
+                <div className={classes.favHeart}>
+                  <AddToFavoritesButton
+                    recipe={recipe}
+                    onRemove={() => onRemove(recipe._id)}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -179,5 +156,3 @@ function RecipeList({ data,onRemove }) {
   );
 }
 export default RecipeList;
-     
-  

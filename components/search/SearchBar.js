@@ -75,7 +75,7 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
       </form>
 
       {searchHist.length > 0 && (
-        <ul style={{zIndex: 1}}>
+        <ul style={{ zIndex: 1 }}>
           {searchHist.map((historyItem, index) => (
             <li key={index}>{historyItem}</li>
           ))}
