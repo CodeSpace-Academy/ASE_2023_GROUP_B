@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
-import classes from './recipe-list.module.css';
-import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
+import classes from '../recipes/recipe-list.module.css';
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import Sort from './sort';
-import SearchBar from '../search/SearchBar';
+import Sort from '../../components/recipes/sort';
+import SearchBar from '../../components/search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import Hero from '@/components/hero.jsx';
 
-function RecipeList({ data }) {
+function RecipeList({ data, onRemove }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [filterIngredientResults, setFilterIngredientResults] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState('');
+  const [sortOrder, setSortOrder] = useState('default');
+  const [filteredRecipes, setFilteredRecipes] = useState(data);
+  const recipesPerPage = 100;
+  const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
+
+  useEffect(() => {
+    setRecipes(data);
+  }, [data]);
+
+  function handleDefaultIngredientFilter() {
+    if (selectedIngredients.length > 0) {
+      setSelectedIngredients([]);
+    }
+  }
+
   // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
     return (
@@ -20,12 +40,6 @@ function RecipeList({ data }) {
       </div>
     );
   }
-
-  const [search, setSearch] = useState('');
-  const [sortOrder, setSortOrder] = useState('default');
-  const [filteredRecipes, setFilteredRecipes] = useState(data);
-  const recipesPerPage = 100;
-  const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
   const handleSort = (order) => {
     setSortOrder(order);
@@ -43,20 +57,18 @@ function RecipeList({ data }) {
       recipe.title.toLowerCase().includes(lowerCaseSearchText)
     );
     setFilteredRecipes(filtered);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page when searching
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
-  let displayedRecipes = filteredRecipes.slice(
+  let displayedRecipes = recipes.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
 
   if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = filteredRecipes.slice(
-      (currentPage - 1) * recipesPerPage
-    );
+    displayedRecipes = recipes.slice((currentPage - 1) * recipesPerPage);
   }
 
   switch (sortOrder) {
@@ -88,22 +100,24 @@ function RecipeList({ data }) {
       );
       break;
   }
-
   return (
     <div className={classes.container}>
-      <div>
-        <SearchBar
-          onSearch={handleSearch}
-          search={search}
-          setSearch={setSearch}
-        />
-
-        <br />
-        <Sort onSort={handleSort} />
-      </div>
-
+      <SearchBar
+        onSearch={handleSearch}
+        search={search}
+        setSearch={setSearch}
+      />
       <br />
       <br />
+
+      <Hero
+        handleDefaultIngredientFilter={handleDefaultIngredientFilter}
+        setFilterIngredientResults={setFilterIngredientResults}
+        setRecipes={setRecipes}
+        filterIngredientResults={filterIngredientResults}
+        setSelectedIngredients={setSelectedIngredients}
+        selectedIngredients={selectedIngredients}
+      />
 
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
@@ -115,7 +129,6 @@ function RecipeList({ data }) {
                 className={classes.cardImage}
               />
             </div>
-
             <div className={classes.cardContent}>
               <br />
               <Highlighter
@@ -126,7 +139,6 @@ function RecipeList({ data }) {
               />
               <br />
               <br />
-
               <div className={classes.iconsCol}>
                 <div className={classes.iconsCol1}>
                   <p
@@ -158,15 +170,17 @@ function RecipeList({ data }) {
                 </div>
               </div>
               <br />
-              <div className={classes.recipeOptions}>
-                <Link
-                  href={`/recipe/${recipe._id}`}
-                  className={classes.viewRecipe}
-                >
+              <br />
+              <div>
+                <Link href={`/recipe/${recipe._id}`}>
                   <ViewRecipeBtn />
                 </Link>
-
-                <AddToFavoritesButton recipe={recipe} />
+                <div className={classes.favHeart}>
+                  <AddToFavoritesButton
+                    recipe={recipe}
+                    onRemove={() => onRemove(recipe._id)}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -177,5 +191,4 @@ function RecipeList({ data }) {
     </div>
   );
 }
-
 export default RecipeList;

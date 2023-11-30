@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { debounce } from 'lodash';
 import classes from '../search/Search.module.css';
 
 export default function SearchBar({ recipes, onSearch, search, setSearch }) {
-  // const [searchText, setSearchText] = useState('');
   const [searchHist, setSearchHist] = useState([]);
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [currentSearchTerm, setCurrentSearchTerm] = useState('');
 
   useEffect(() => {
     const hist = localStorage.getItem('searchHist');
@@ -13,9 +15,31 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
     }
   }, []);
 
+  useEffect(() => {
+    const searchDelay = 1000;
+
+    const debouncedSearchHandler = debounce((query) => {
+      onSearch(query);
+    }, searchDelay);
+
+    debouncedSearchHandler(debouncedSearch);
+
+    // Cleanup the debounced function on component unmount
+    return () => debouncedSearchHandler.cancel();
+  }, [debouncedSearch, onSearch]);
+
   function handleChange(e) {
     const text = e.target.value;
     setSearch(text);
+    setCurrentSearchTerm(text);
+
+    // Cancel previous searches before triggering a new one
+    setDebouncedSearch('');
+
+    // Set a new debounced search term after a short delay
+    setTimeout(() => {
+      setDebouncedSearch(text);
+    }, 300);
   }
 
   function clear() {
@@ -31,21 +55,16 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
     });
   }
 
-  console.log(search);
-
   return (
     <div className={classes.whole}>
       <button type="button" onClick={clear}>
-        clear
+        Clear
       </button>
       <form className={classes.form}>
         <input
           required
-          // pattern=".\S."
           value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
+          onChange={handleChange}
           type="text"
           className={classes.input}
         />
@@ -56,7 +75,7 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
       </form>
 
       {searchHist.length > 0 && (
-        <ul>
+        <ul style={{ zIndex: 1 }}>
           {searchHist.map((historyItem, index) => (
             <li key={index}>{historyItem}</li>
           ))}
