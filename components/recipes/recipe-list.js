@@ -171,10 +171,12 @@ function RecipeList({ data, onRemove }) {
               </div>
               <br />
               <br />
-              <div>
-                <Link href={`/recipe/${recipe._id}`}>
-                  <ViewRecipeBtn />
-                </Link>
+              <div className={classes.recipeOptions}>
+                <div className={classes.viewRecipeBtn}>
+                  <Link href={`/recipe/${recipe._id}`}>
+                    <ViewRecipeBtn />
+                  </Link>
+                </div>
                 <div className={classes.favHeart}>
                   <AddToFavoritesButton
                     recipe={recipe}
