@@ -1,53 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import RecipeList from '@/components/recipes/recipe-list';
 import ArrowIpIcon from '@/components/icons&Buttons/arrow-up-icon';
-import { getRecipes } from '../../database/recipesModule';
-import { useState, useEffect } from "react";
-import Sort from "../../components/recipes/sort"; // Adjust the import path accordingly
+import Sort from "../../components/recipes/sort";
 
-function AllRecipes({ data }) {
+export default  function AllRecipes({ data, _sort }) {
   const [sortedData, setSortedData] = useState(data);
-  const [sortOrder, setSortOrder] = useState("default");
+  const [sortOrder, setSortOrder] = useState(_sort || "default");
 
   const handleSort = (order) => {
     setSortOrder(order);
   };
 
   useEffect(() => {
-    sortData();
-  }, [sortOrder, data]);
+    fetchRecipes();
+  }, [sortOrder]);
 
-  const sortData = () => {
-    let sorted = [...data];
-
-    switch (sortOrder) {
-      case "newest":
-        sorted.sort((a, b) => new Date(b.published) - new Date(a.published));
-        break;
-      case "cook-asc":
-        sorted.sort((a, b) => a.cook - b.cook);
-        break;
-      case "cook-desc":
-        sorted.sort((a, b) => b.cook - a.cook);
-        break;
-      case "prep-asc":
-        sorted.sort((a, b) => a.prep - b.prep);
-        break;
-      case "prep-desc":
-        sorted.sort((a, b) => b.prep - a.prep);
-        break;
-      case "steps-asc":
-        sorted.sort((a, b) => a.instructions.length - b.instructions.length);
-        break;
-      case "steps-desc":
-        sorted.sort((a, b) => b.instructions.length - a.instructions.length);
-        break;
-      default:
-        // Default sorting logic if needed
-        break;
+  const fetchRecipes = async () => {
+    try {
+      const newData = await fetch(`/api/recipes?page=1&sort=${sortOrder}`).then((res) => res.json());
+      setSortedData(newData);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
     }
-
-    setSortedData(sorted);
   };
 
   return (
@@ -59,14 +33,28 @@ function AllRecipes({ data }) {
   );
 }
 
-export async function getServerSideProps() {
-  const data = await getRecipes(1); // Replace with your data fetching logic
+export async function getServerSideProps({ query }) {
+  const { sort } = query;
+  const sortOrder = sort || "default";
 
-  return {
-    props: {
-      data: data,
-    },
-  };
+  try {
+    // If sorting criteria is not selected, fetch all recipes without sorting
+    const data = await getRecipes(1, sortOrder);
+
+    return {
+      props: {
+        data,
+        _sort: sortOrder,
+      },
+    };
+  } catch (error) {
+    console.error("Failed to fetch data during server-side rendering:", error);
+
+    return {
+      props: {
+        data: [],
+        _sort: sortOrder,
+      },
+    };
+  }
 }
-
-export default AllRecipes;

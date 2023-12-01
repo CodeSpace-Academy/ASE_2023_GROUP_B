@@ -2,7 +2,7 @@ import { filter } from "lodash";
 import { buildPipeline } from "@/helpers/buildPipeline";
 import { connectToMongo, closeMongoConnection, getClient } from "../pages/api/mongodb";
 
-export async function getRecipes(page, filters, search, sort) {
+export async function getRecipes(page, sort) {
   await connectToMongo();
   const client = getClient();
 
@@ -10,6 +10,11 @@ export async function getRecipes(page, filters, search, sort) {
     const db = client.db("devdb");
     await db.command({ ping: 1 });
     const collection = db.collection("recipes");
+
+    const filters = {}; 
+    const search = ''; 
+
+    
     const pipeline = buildPipeline(filters, search, sort);
     const skip = (page - 1) * 100;
     const data = await collection.aggregate(pipeline).skip(skip).limit(100).toArray();
