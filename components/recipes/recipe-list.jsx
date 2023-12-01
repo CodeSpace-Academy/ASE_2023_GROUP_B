@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../recipes/recipe-list.module.css';
-import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import SearchBar from '../../components/search/SearchBar';
+import SearchBar from '../search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
-import Hero from '@/components/hero.jsx';
+import Hero from '@/components/hero/Hero';
 
 function RecipeList({ data, onRemove }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +39,6 @@ function RecipeList({ data, onRemove }) {
     );
   }
 
-
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPageCount) {
       setCurrentPage(page);
@@ -65,8 +64,6 @@ function RecipeList({ data, onRemove }) {
   if (remainingRecipes < recipesPerPage) {
     displayedRecipes = recipes.slice((currentPage - 1) * recipesPerPage);
   }
-
-
 
   return (
     <div className={classes.container}>
