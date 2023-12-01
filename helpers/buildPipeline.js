@@ -1,59 +1,53 @@
-// buildpipeline.js
+
+// Import necessary dependencies
+import { filter } from "lodash";
 
 export function buildPipeline(filters, search, sort) {
-    const pipeline = [];
-  
-    // // Add $addFields stage to calculate numofInstructions
-    // pipeline.push({
-    //   $addFields: {
-    //     numofInstructions: {
-    //       $size: '$instructions'
-    //     },
-    //   }
-    // });
-  
-    // // Add $match stage to filter based on numofInstructions
-    // const matchStage = {
-    //   $match: {
-    //     $and: [
-    //       { numofInstructions: { $gte: 1 } },
-    //       { numofInstructions: { $lte: 72 } }
-    //     ]
-    //   }
-    // };
-  
-    // // Add additional filters if provided
-    // if (filters) {
-    //     if (filters.category) {
-    //         pipeline.push({
-    //           $match: { category: filters.category }
-    //         });
-    // }
-  
-    // // Add search stage if search query is provided
-    // if (search) {
-    //     pipeline.push({
-    //         $match: { $text: { $search: search } }
-    //       });
-    //     }
-    // }
-  
-    // pipeline.push(matchStage);
-  
-    // Add $sort stage to sort the data
-    if (sort) {
+  const pipeline = [];
+
+  // Add filtering and searching logic if needed
+
+  if (sort) {
+    let sortObj = {};
+
+    switch (sort) {
+      case "newest":
+        sortObj = { published: -1 };
+        break;
+      case "cook-asc":
+        sortObj = { cook: 1 };
+        break;
+      case "cook-desc":
+        sortObj = { cook: -1 };
+        break;
+      case "prep-asc":
+        sortObj = { prep: 1 };
+        break;
+      case "prep-desc":
+        sortObj = { prep: -1 };
+        break;
+      case "steps-asc":
+        sortObj = { "instructions.length": 1 };
+        break;
+      case "steps-desc":
+        sortObj = { "instructions.length": -1 };
+        break;
+      
+    }
+
+    if (Object.keys(sortObj).length > 0) {
       pipeline.push({
-        $sort: sort
-      });
-    } else {
-      // Default sort if not provided
-      pipeline.push({
-        $sort: {
-          published: -1,
-        }
+        $sort: sortObj,
       });
     }
-  
-    return pipeline;
+  } else {
+   
+    pipeline.push({
+      $sort: {
+        published: -1, 
+      },
+    });
   }
-  
+
+  return pipeline;
+}
