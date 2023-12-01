@@ -21,6 +21,7 @@ export default  function AllRecipes({ data, _sort }) {
       setSortedData(newData);
     } catch (error) {
       console.error("Failed to fetch data:", error);
+
     }
   };
 
@@ -57,4 +58,4 @@ export async function getServerSideProps({ query }) {
       },
     };
   }
-}
+} ``
