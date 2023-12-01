@@ -1,9 +1,10 @@
+// Pagination.js
 import React from 'react';
-import classes from './recipe-list.module.css';
+import classes from '../recipes/recipe-list.module.css';
 
-function Pagination({ currentPage, totalPageCount, handlePageChange }) {
+function Pagination({ currentPage, totalCount, handlePageChange }) {
   const pageNumbers = Array.from(
-    { length: totalPageCount },
+    { length: totalCount },
     (_, index) => index + 1
   );
 
@@ -23,7 +24,7 @@ function Pagination({ currentPage, totalPageCount, handlePageChange }) {
         </span>
       ))}
 
-      {currentPage < totalPageCount && (
+      {currentPage < totalCount && (
         <span onClick={() => handlePageChange(currentPage + 1)}>Next</span>
       )}
     </div>

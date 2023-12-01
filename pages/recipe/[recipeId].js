@@ -4,7 +4,7 @@ import { getRecipeById } from '../../database/recipesModule';
 import { formatTime } from '@/helpers/time-util';
 import UpdateDescription from '@/components/Updates/UpdateDescription';
 import UpdateInstructions from '@/components/Updates/UpdateInstructions';
-import { run1 } from '../../database/allergensModule';
+import { getAllergens } from '../../database/allergensModule';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import MyCarousel from '@/components/home-page/carousel';
 
@@ -245,7 +245,7 @@ export default function RecipeDetailPage({ recipe, error, allergens, onRemove })
       const router = params;
       const { recipeId } = router;
       const Recipe = await getRecipeById(recipeId);
-      const docs1 = await run1();
+      const docs1 = await getAllergens();
   
   
       if (!Recipe || !Recipe.instructions) {
