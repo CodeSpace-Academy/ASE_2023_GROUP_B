@@ -48,7 +48,12 @@ h2,
 h3 {
   font-family: 'Poppins';
 }
-
+.Container{
+  margin-top: 10px;
+  align-items: center; 
+  display: flex;
+  justify-content: space-between;
+}
 .landingContent {
   padding-left: 50vw;
   text-align: center;
