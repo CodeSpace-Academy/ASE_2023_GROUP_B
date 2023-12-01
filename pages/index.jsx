@@ -2,14 +2,18 @@ import Link from "next/link";
 import Head from "next/head";
 import { Fragment, useState, useEffect } from "react";
 import path from 'path';
+import LoadSpinner from "@/utils/loading/LoadingSpinner";
 
 const fs = require('fs');
 
 const Home = ({ hasEnvFile, hasKey }) => {
 
+  const [loading, setLoading] = useState(true);
+
   const [checksPath, setCheckPath] = useState(null);
   useEffect(() => {
     setCheckPath(window.location.href.includes('localhost:'));
+    setLoading(false);
   }, []);
 
   if (checksPath) {
@@ -20,6 +24,16 @@ const Home = ({ hasEnvFile, hasKey }) => {
         </div>
       );
     }
+  }
+
+  useEffect(() => {
+    if (checksPath) {
+      setLoading(!hasKey || !hasEnvFile);
+    }
+  }, [checksPath, hasKey, hasEnvFile]);
+
+  if (loading) {
+    return <LoadSpinner />;
   }
 
   return (

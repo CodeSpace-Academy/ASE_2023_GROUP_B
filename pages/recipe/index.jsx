@@ -3,19 +3,17 @@ import RecipeList from '@/components/recipes/recipe-list';
 import ArrowIpIcon from '@/components/icons&Buttons/arrow-up-icon';
 import { getRecipes } from '../../database/recipesModule';
 import { useState, useEffect } from "react";
-import Sort from "../../components/recipes/sort"; // Adjust the import path accordingly
+import Sort from "../../components/recipes/sort"; 
+import LoadSpinner from '@/utils/loading/LoadingSpinner';
 
 function AllRecipes({ data }) {
   const [sortedData, setSortedData] = useState(data);
   const [sortOrder, setSortOrder] = useState("default");
+  const [loading, setLoading] = useState(true);
 
   const handleSort = (order) => {
     setSortOrder(order);
   };
-
-  useEffect(() => {
-    sortData();
-  }, [sortOrder, data]);
 
   const sortData = () => {
     let sorted = [...data];
@@ -48,6 +46,14 @@ function AllRecipes({ data }) {
 
     setSortedData(sorted);
   };
+  
+  useEffect(() => {
+    sortData();
+  }, [sortOrder, data]);
+
+  if (loading) {
+    return <LoadSpinner />;
+  }
 
   return (
     <div>
@@ -59,7 +65,7 @@ function AllRecipes({ data }) {
 }
 
 export async function getServerSideProps() {
-  const data = await getRecipes(1); // Replace with your data fetching logic
+  const data = await getRecipes(1);
 
   return {
     props: {

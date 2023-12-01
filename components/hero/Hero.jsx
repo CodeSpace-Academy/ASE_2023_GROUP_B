@@ -16,7 +16,7 @@ export default function Hero({
 }) {
   return (
     <div className={styles.heroContainer}>
-      <div className={styles.blurBackground}></div>
+      <div className={styles.background}></div>
       <div>
         <div>
           <Ingredients
