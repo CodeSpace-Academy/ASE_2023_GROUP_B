@@ -43,7 +43,6 @@ function AllRecipes({ data }) {
         sorted.sort((a, b) => b.instructions.length - a.instructions.length);
         break;
       default:
-        // Default sorting logic if needed
         break;
     }
 

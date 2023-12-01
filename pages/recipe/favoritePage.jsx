@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import FavoritesContext from '@/components/favorite/fav-context';
-import RecipeDetailPage from '../recipe/[recipeId]';
+import RecipeDetailPage from './[recipeId]';
 import Link from 'next/link';
 import { IoIosArrowBack } from 'react-icons/io';
 import { getFavoritesFromMongoDB } from '../../database/favoritesModule';
