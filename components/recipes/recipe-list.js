@@ -29,16 +29,7 @@ function RecipeList({ data, onRemove }) {
       setSelectedIngredients([]);
     }
   }
-
-  // Check if data is not an array or is empty
-  if (!Array.isArray(data) || data.length === 0) {
-    return (
-      <div className={classes.container}>
-        <h1 className={classes.title}>No recipes available.</h1>
-      </div>
-    );
-  }
-
+  
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPageCount) {
       setCurrentPage(page);
