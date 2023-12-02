@@ -9,6 +9,9 @@ import SearchBar from '../search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import Hero from '@/components/hero/Hero';
+import StepFilterForm from "@/components/instructions/StepFilterForm";
+import { fetchFilterBySteps } from "@/components/instructions/steps";
+
 
 function RecipeList({ data, onRemove }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,10 +19,23 @@ function RecipeList({ data, onRemove }) {
   const [filterIngredientResults, setFilterIngredientResults] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
-  const [filteredRecipes, setFilteredRecipes] = useState(data);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
+  const handleFilterBySteps = async (numOfSteps) => {
+    try {
+      const filterStepsResult = await fetchFilterBySteps(numOfSteps);
+      setFilteredRecipes(filterStepsResult.recipes);
+    } catch (error) {
+      console.error("Error filtering recipes by steps:", error);
+    }
+  };
+
+  const handleFilteredRecipes = (recipes) => {
+    setFilteredRecipes(recipes);
+  };
+    
   useEffect(() => {
     setRecipes(data);
   }, [data]);
@@ -29,7 +45,15 @@ function RecipeList({ data, onRemove }) {
       setSelectedIngredients([]);
     }
   }
-  
+
+  if (!Array.isArray(data) || data.length === 0) {
+    return (
+      <div className={classes.container}>
+        <h1 className={classes.title}>No recipes available.</h1>
+      </div>
+    );
+  }
+
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPageCount) {
       setCurrentPage(page);
@@ -64,6 +88,10 @@ function RecipeList({ data, onRemove }) {
         setSearch={setSearch}
       />
       <br />
+      
+      <StepFilterForm onFilterBySteps={handleFilterBySteps} onFilteredRecipes={handleFilteredRecipes} />
+      
+      <br />
 
       <Hero
         handleDefaultIngredientFilter={handleDefaultIngredientFilter}
@@ -71,8 +99,8 @@ function RecipeList({ data, onRemove }) {
         setRecipes={setRecipes}
         filterIngredientResults={filterIngredientResults}
         setSelectedIngredients={setSelectedIngredients}
-        selectedIngredients={selectedIngredients}
       />
+      <br />
 
       <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
