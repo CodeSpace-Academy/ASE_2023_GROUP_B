@@ -6,20 +6,7 @@ import Pagination from './pagination';
 import RecipeCard from './recipeCard';
 
 function RecipeList({ data, onRemove }) {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [filterIngredientResults, setFilterIngredientResults] = useState([]);
-  const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState('');
-  const [filteredRecipes, setFilteredRecipes] = useState(data);
-  const recipesPerPage = 100;
-  const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
-
-  useEffect(() => {
-    setRecipes(data);
-  }, [data]);
-
-  // Check if data is not an array or is empty
+    // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <div className={classes.container}>
@@ -27,6 +14,18 @@ function RecipeList({ data, onRemove }) {
       </div>
     );
   }
+const [currentPage, setCurrentPage] = useState(1);
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [filterIngredientResults, setFilterIngredientResults] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+  const [search, setSearch] = useState('');
+  const [filteredRecipes, setFilteredRecipes] = useState(data);
+  const recipesPerPage = 100;
+  const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
+  
+  // useEffect(() => {
+  //   setRecipes(data);
+  // }, [data]);
 
   function handleDefaultIngredientFilter() {
     if (selectedIngredients.length > 0) {
@@ -43,21 +42,30 @@ function RecipeList({ data, onRemove }) {
     setCurrentPage(1);
   };
 
-    const handlePageChange = (page) => {
-      if (page >= 1 && page <= totalPageCount) {
-        setCurrentPage(page);
-      }
-    };
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPageCount) {
+      setCurrentPage(page);
+    }
+  };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
- let displayedRecipes = filteredRecipes.slice(
-   (currentPage - 1) * recipesPerPage,
-   currentPage * recipesPerPage
- );
+  let displayedRecipes = filteredRecipes.slice(
+    (currentPage - 1) * recipesPerPage,
+    currentPage * recipesPerPage
+  );
 
+  if (remainingRecipes < recipesPerPage) {
+    displayedRecipes = filteredRecipes.slice(
+      (currentPage - 1) * recipesPerPage
+    );
+  }
+
+ 
   return (
     <div className={classes.container}>
+      <h1 className={classes.title}>RECIPES</h1>
+
       <SearchBar
         onSearch={handleSearch}
         search={search}
@@ -74,7 +82,7 @@ function RecipeList({ data, onRemove }) {
         selectedIngredients={selectedIngredients}
       />
 
-        <div className={classes.cardContainer}>
+      <div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
           <div key={index} className={classes.cardContent}>
             <RecipeCard recipe={recipe} search={search} />
@@ -82,7 +90,6 @@ function RecipeList({ data, onRemove }) {
         ))}
       </div>
       <br />
-
       <div>
         {totalPageCount > 1 && (
           <Pagination
@@ -91,7 +98,6 @@ function RecipeList({ data, onRemove }) {
             handlePageChange={handlePageChange}
           />
         )}
-
         <div className={classes.pageInfo}>
           <p>
             {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
@@ -102,4 +108,5 @@ function RecipeList({ data, onRemove }) {
     </div>
   );
 }
+
 export default RecipeList;

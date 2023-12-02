@@ -17,7 +17,7 @@ export async function getRecipes(page, sort) {
     
     const pipeline = buildPipeline(filters, search, sort);
     const skip = (page - 1) * 100;
-    const data = await collection.aggregate(pipeline).skip(skip).limit(500).toArray();
+    const data = await collection.aggregate(pipeline).skip(skip).limit(300).toArray();
 
     return data;
   } catch (error) {

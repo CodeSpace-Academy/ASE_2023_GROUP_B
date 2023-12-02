@@ -1,4 +1,3 @@
-// pages/api/recipes.js
 import { getRecipes } from '../../database/recipesModule';
 
 export default async function handler(req, res) {
