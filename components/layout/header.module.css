@@ -1,0 +1,95 @@
+/* Default styles for larger screens */
+.header {
+  position: sticky;
+  top: 0;
+  width: 100vw;
+  height: 5.5rem;
+  background-color: rgba(2, 111, 2, 0.767); 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  z-index: 100;
+  box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
+}
+
+.projectIcon {
+  margin: -10px 0 0 10px;
+}   
+
+.logo {
+  text-decoration: none;
+  padding: 10px;
+  padding-top: 15px;
+}
+
+.nav {
+  display: flex;
+  padding-left: 40%;
+}
+
+.nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  padding-left: 100px;
+}
+
+.nav li {
+  font-size: 1rem;
+  justify-content: space-between;
+}
+
+.recipes,
+.icon {
+  text-decoration: none;
+  color: #09efae;
+  font-weight: bold;
+  transition: color 0.3s ease; 
+  letter-spacing: 0.1rem;
+  padding-left: 50px;
+}
+
+header .recipes {
+  font-weight: 400;
+}
+
+.recipes:hover,
+.icon:hover {
+  color: rgb(152, 193, 171);
+}
+
+/* Media query for tablet screens */
+@media (max-width: 768px) {
+  .nav {
+    padding-left: 20%;
+  }
+
+  .nav ul {
+    padding-left: 50px;
+  }
+
+  .recipes,
+  .icon {
+    padding-left: 20px;
+  }
+}
+
+/* Media query for mobile screens */
+@media (max-width: 480px) {
+  .header {
+    height: 4rem;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .logo {
+    padding-left: 10px;
+  }
+
+  .projectIcon {
+    margin-left: 5px;
+  }
+}

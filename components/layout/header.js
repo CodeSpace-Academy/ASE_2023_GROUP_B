@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import classes from './main-nav.module.css';
+import classes from './header.module.css';
 import { FaUser, FaEnvelope } from 'react-icons/fa';
 import { HiOutlineHeart } from 'react-icons/hi';
 
-const MainNav = () => {
+const Header = () => {
   return (
     <header className={classes.header}>
       <div className={classes.projectIcon}>
@@ -22,11 +22,10 @@ const MainNav = () => {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <Link className={classes.recipes} href="/recipe">
-              All Recipes
+            <Link className={classes.recipes} href="/recipe" title="All Recipes">
+           All Recipes
             </Link>
           </li>
-
           <li>
             <Link
               className={classes.icon}
@@ -62,4 +61,4 @@ const MainNav = () => {
   );
 };
 
-export default MainNav;
+export default Header;

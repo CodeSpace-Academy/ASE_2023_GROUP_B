@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 
-import MainNav from './main-nav';
+import Header from './header';
 
 function Layout(props) {
   return (
     <Fragment>
-      <MainNav />
+      <Header />
       <main>{props.children}</main>
     </Fragment>
   );

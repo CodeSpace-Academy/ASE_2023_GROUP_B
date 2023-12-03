@@ -1,3 +1,4 @@
+/* Default styles for larger screens */
 .container {
     display: flex;
     flex-direction: column;
@@ -7,16 +8,16 @@
 
 .title {
     font-size: 30px;
-    font-size: bold;
+    font-weight: bold;
     color: #333;
     margin-bottom: 20px;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .iconsCol {
     display: flex;
     font-size: 15px;
-    background-color:white;
+    background-color: white;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
@@ -46,7 +47,7 @@
     font-weight: bold;
 }
 
-.highlight{
+.highlight {
     font-size: large;
     color: rgb(255, 0, 0);
 }
@@ -56,20 +57,22 @@
     flex-wrap: wrap;
     gap: 20px;
 }
+
 .cardCategory {
     color: #565555;
     word-spacing: 5px;
     align-items: center;
     margin: 5px;
 }
+
 .cardCategory span {
     margin-left: 5px;
-    font-size:large;
+    font-size: large;
 }
 
 .cardCategory svg {
     margin-right: 10px;
-    fill: #565555; 
+    fill: #565555;
 }
 
 .card {
@@ -89,7 +92,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    
 }
 
 .cardImage {
@@ -110,6 +112,7 @@
 .cardCategory {
     color: #565555;
 }
+
 .favHeart {
     margin: 0;
 }
@@ -118,29 +121,86 @@
     margin: 0;
 }
 
-/*pagination */
-
+/* Pagination styles */
 .pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  color:green;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    color: green;
 }
 
 .pagination span {
-  cursor: pointer;
-  padding: 5px 10px;
-  margin: 0 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 .pagination span:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 .pagination span.active {
-  background-color: #4caf50;
-  color: white;
+    background-color: #4caf50;
+    color: white;
+}
+
+/* Media query for tablet screens */
+@media (max-width: 768px) {
+    .iconsCol {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .iconsCol1,
+    .iconsCol2 {
+        flex: auto;
+        margin-bottom: 10px;
+    }
+
+    .recipeOptions {
+        flex-direction:row;
+        align-items: center;
+    }
+
+    .cardContainer {
+        width: 100%;
+    }
+}
+
+/* Media query for mobile screens */
+@media (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+
+    .iconsCol {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .iconsCol1,
+    .iconsCol2 {
+        flex: auto;
+        margin-bottom: 10px;
+    }
+
+    .recipeOptions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cardContainer {
+        width: 100%;
+    }
+
+    .pagination {
+        margin-top: 10px;
+    }
+
+    .pagination span {
+        padding: 5px 8px;
+    }
 }

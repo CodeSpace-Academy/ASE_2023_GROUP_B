@@ -9,6 +9,7 @@ import SearchBar from '../search/SearchBar';
 import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import Hero from '@/components/hero/Hero';
+import Footer from '@/components/layout/footer';
 
 function RecipeList({ data, onRemove }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -154,6 +155,7 @@ function RecipeList({ data, onRemove }) {
       </div>
       <br />
       <div className={classes.pageInfo}></div>
+      <Footer />
     </div>
   );
 }
