@@ -33,12 +33,12 @@ export default function AllRecipes({ data, _sort }) {
   return (
     <div>
       <Sort onSort={handleSort} />
-      <RecipeList data={sortedData} />
+      
       {loading ? (
         <div className="loading-spinner"></div>
       ) : (
         <>
-          
+          <RecipeList data={sortedData} />
           <ArrowIpIcon />
           <Footer/>
         </>
