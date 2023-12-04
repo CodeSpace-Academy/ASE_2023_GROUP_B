@@ -48,29 +48,21 @@ export async function getIngredients() {
 }
 
 export async function filteringByIngredient(selectedIngredients) {
-  
-  
   const client = getClient();
-  
   try {
-    
     await connectToMongo();
-    const recipesCollection =client.db("devdb").collection("recipes")
-
-  const query = {};
-
-  if (selectedIngredients && selectedIngredients.length > 0) {
-    query.$or = selectedIngredients.map((ingredient) => ({
-      [`ingredients.${ingredient}`]: { $exists: true },
-    }));
-  }
-    const filterIngredientsResult = await recipesCollection
-      .find(query)
-      .limit(5)
-      .toArray();
+    const recipesCollection = client.db("devdb").collection("recipes");
+    const query = {};
+    if (selectedIngredients && selectedIngredients.length > 0) {
+      query.$or = selectedIngredients.map((ingredient) => ({
+        [`ingredients.${ingredient}`]: { $exists: true },
+      }));
+    }
+    const filterIngredientsResult = await recipesCollection.find(query).limit(5).toArray();
     return filterIngredientsResult;
   } catch (error) {
     console.error("Error filtering recipes by ingredients:", error);
     throw error;
   }
 }
+

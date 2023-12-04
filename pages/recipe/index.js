@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import RecipeList from '@/components/recipes/recipe-list';
 import ArrowIpIcon from '@/components/icons&Buttons/arrow-up-icon';
 import Sort from "@/components/recipes/sort";
+import { getRecipes } from "@/database/recipesModule";
+
 
 export default  function AllRecipes({ data, _sort }) {
   const [sortedData, setSortedData] = useState(data);
