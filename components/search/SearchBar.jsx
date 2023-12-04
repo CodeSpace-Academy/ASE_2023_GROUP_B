@@ -57,7 +57,7 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
 
   return (
     <div className={classes.whole}>
-      <button type="button" onClick={clear}>
+      <button className="btn" type="button" onClick={clear}>
         Clear
       </button>
       <form className={classes.form}>
@@ -69,7 +69,7 @@ export default function SearchBar({ recipes, onSearch, search, setSearch }) {
           className={classes.input}
         />
         <span className={classes.caret}></span>
-        <button type="button" onClick={handleSearch}>
+        <button className="btn" type="button" onClick={handleSearch}>
           Submit
         </button>
       </form>
