@@ -144,3 +144,28 @@
   background-color: #4caf50;
   color: white;
 }
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+    }
+
+    .title {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .iconsCol {
+        font-size: 14px;
+    }
+
+    /* ... (adjust other styles as needed for a better mobile experience) */
+
+    .card {
+        width: 85%;
+    }
+
+    .pagination {
+        margin-top: 10px;
+    }
+}

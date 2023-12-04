@@ -1,7 +1,9 @@
 .header {
   position: sticky;
   top: 0;
-  width: 100vw;
+  left: 0;
+  right: 0;
+  margin: auto;
   height: 5.5rem;
   background-color: rgba(2, 111, 2, 0.767);
   display: flex;
@@ -22,8 +24,6 @@
 .projectIcon {
   margin: 27px 0 0 10px;
 }
-
-
 
 .nav {
   margin-left: 60%;
@@ -67,17 +67,18 @@
   opacity: 0.8;
 }
 
-
 @media (max-width: 768px) {
   .header {
     background-color: green;
     z-index: 100;
   }
 
-  
+  .recipes {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-  
- 
   .header a {
     color: white;
     font-size: var(--size-5);
@@ -92,7 +93,6 @@
   /* Burger Menu for mobile View */
 
   .burgerMenu {
-    display: flex;
     flex-direction: column;
     align-items: flex-end;
     position: fixed;

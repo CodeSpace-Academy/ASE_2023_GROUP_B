@@ -40,11 +40,9 @@ const MainNav = () => {
 
           <div className={classes.menu}>
             <ul>
-              <li>
-                <Link className={classes.recipes} href="/recipe">
-                  All Recipes
-                </Link>
-              </li>
+              <Link className={classes.recipes} href="/recipe">
+                All Recipes
+              </Link>
 
               <li>
                 <Link
