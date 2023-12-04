@@ -6,6 +6,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { getFavoritesFromMongoDB } from '../../database/favoritesModule';
 import RecipeList from '../../components/recipes/recipe-list';
 import classes from '../../components/icons&Buttons/favorite.module.css';
+import RecipeCard from '@/components/recipes/recipeCard';
 
 function FavoritesPage({ favs }) {
   // Access the FavoritesContext to get the list of favorite recipes
@@ -42,7 +43,7 @@ function FavoritesPage({ favs }) {
       <section>
         {/* Display the list of favorite recipes */}
         {favoriteRecipes.map((recipe) => (
-          <RecipeList key={recipe._id} recipe={recipe} />
+          <RecipeCard key={recipe._id} recipe={recipe} />
         ))}
       </section>
       <RecipeList data={cleanedFavs} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import classes from "./main-nav.module.css";
@@ -6,10 +6,36 @@ import { FaUser, FaEnvelope } from "react-icons/fa";
 import { HiOutlineHeart } from "react-icons/hi";
 
 const MainNav = () => {
+  const [favoritesCount, setFavoritesCount] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  useEffect(() => {
+    // Fetch the count of favorites when the component mounts
+    const fetchFavoritesCount = async () => {
+      try {
+        const response = await fetch('/api/backend/favoritesCount');
+        const data = await response.json();
+        setFavoritesCount(data.count);
+      } catch (error) {
+        console.error('Error fetching favorites count:', error);
+      }
+    };
+
+    fetchFavoritesCount();
+  }, []);
+
+  const updateFavoritesCount = async () => {
+    try {
+      const response = await fetch('/api/backend/favoritesCount');
+      const data = await response.json();
+      setFavoritesCount(data.count);
+    } catch (error) {
+      console.error('Error updating favorites count:', error);
+    }
   };
 
   return (
@@ -28,7 +54,7 @@ const MainNav = () => {
       <nav className={classes.nav}>
         <div
           className={`${classes.burgerMenu} ${
-            isOpen ? classes.burgerMenuOpen : ""
+            isOpen ? classes.burgerMenuOpen : ''
           }`}
           onClick={toggleMenu}
         >
@@ -67,12 +93,20 @@ const MainNav = () => {
               </li>
 
               <li>
+                {/* Display the favorite icon with the count */}
                 <Link
-                  className={classes.icon}
+                  className={classes.Favicon}
                   href="/recipe/favoritePage"
                   title="Favorite"
                 >
-                  <HiOutlineHeart />
+                  <div>
+                    <HiOutlineHeart />
+                    {favoritesCount > 0 && (
+                      <span className={classes.favoritesCount}>
+                        {favoritesCount}
+                      </span>
+                    )}
+                  </div>
                 </Link>
               </li>
             </ul>
