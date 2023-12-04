@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import RecipeList from '@/components/recipes/recipe-list';
 import ArrowIpIcon from '@/components/icons&Buttons/arrow-up-icon';
 import Sort from "../../components/recipes/sort";
+import Footer from '@/components/footer/footer';
 
-export default  function AllRecipes({ data, _sort }) {
+export default function AllRecipes({ data, _sort }) {
   const [sortedData, setSortedData] = useState(data);
   const [sortOrder, setSortOrder] = useState(_sort || "default");
+  const [loading, setLoading] = useState(false);
 
   const handleSort = (order) => {
     setSortOrder(order);
@@ -17,19 +19,30 @@ export default  function AllRecipes({ data, _sort }) {
 
   const fetchRecipes = async () => {
     try {
+      setLoading(true);
+
       const newData = await fetch(`/api/recipes?page=1&sort=${sortOrder}`).then((res) => res.json());
       setSortedData(newData);
     } catch (error) {
       console.error("Failed to fetch data:", error);
-
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
       <Sort onSort={handleSort} />
-      <RecipeList data={sortedData} />
-      <ArrowIpIcon />
+      
+      {loading ? (
+        <div className="loading-spinner"></div>
+      ) : (
+        <>
+          <RecipeList data={sortedData} />
+          <ArrowIpIcon />
+          <Footer/>
+        </>
+      )}
     </div>
   );
 }
