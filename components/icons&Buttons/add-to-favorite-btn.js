@@ -19,12 +19,14 @@ function AddToFavoritesButton({ recipe, onRemove, updateFavoritesCount }) {
   }, [isFavorite, recipe._id]);
 
   const toggleFavorite = async () => {
-    // Check if the user wants to unfavorite the recipe
-    const confirmed = window.confirm(
-      'Are you sure you want to unfavorite this recipe?'
-    );
-    if (!confirmed) {
-      return;
+    if (isFavorite) {
+      // Check if the user wants to unfavorite the recipe
+      const confirmed = window.confirm(
+        'Are you sure you want to unfavorite this recipe?'
+      );
+      if (!confirmed) {
+        return;
+      }
     }
 
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
@@ -51,7 +53,7 @@ function AddToFavoritesButton({ recipe, onRemove, updateFavoritesCount }) {
       setMessage('Failed to toggle favorite');
     }
   };
-
+  
   const addFavorite = async () => {
     try {
       const response = await fetch('/api/backend/addFavoritesHandler', {
