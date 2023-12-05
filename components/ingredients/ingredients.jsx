@@ -4,14 +4,12 @@ import Select, { components } from 'react-select';
 
 function Ingredients({
   setFilterIngredientResults,
-  filterIngredientsResults,
   handleDefaultIngredientFilter,
   setRecipes,
   selectedIngredients,
   setSelectedIngredients,
 }) {
   const [ingredients, setIngredients] = useState([]);
-  // const [selectedIngredients, setSelectedIngredients] = useState([]);
 
   useEffect(() => {
     async function fetchIngredients() {
@@ -54,10 +52,7 @@ function Ingredients({
 
           if (response.ok) {
             const filterIngredientsResult = await response.json();
-            // setRecipes(filterResult.recipes);
-            // setFilterIngredientResults(filterIngredientsResult.recipes);
             setRecipes(filterIngredientsResult.recipes);
-            // setCount(filterResult.recipes.length);
           } else {
             console.error('Failed to fetch recipes by ingredients');
           }
@@ -78,8 +73,34 @@ function Ingredients({
     setSelectedIngredients(selectedOptions.map((option) => option.value));
   };
 
+  const handleResetFilters = async () => {
+    // Reset selected ingredients
+    setSelectedIngredients([]);
+
+    // Fetch unfiltered recipes
+    try {
+      const response = await fetch('/api/all-recipes'); // Replace with the actual endpoint for fetching all recipes
+      if (response.ok) {
+        const data = await response.json();
+        setRecipes(data.recipes);
+        setFilterIngredientResults([]);
+      } else {
+        console.error('Failed to fetch unfiltered recipes');
+      }
+    } catch (error) {
+      console.error('Error fetching unfiltered recipes:', error);
+    }
+  };
+
+  const handleClearInputIngredients = () => {
+    // Clear input ingredients
+    setSelectedIngredients([]);
+  };
+
   return (
     <div className={styles.ingredientsContainer}>
+      
+
       <Select
         isMulti
         options={ingredients}
@@ -123,8 +144,12 @@ function Ingredients({
               {children}
             </components.Placeholder>
           ),
+
         }}
       />
+      <br/>
+      <button className="btn" onClick={handleClearInputIngredients}>Clear Input Ingredients</button>
+      <button className="btn" onClick={handleResetFilters}>Reset Filters</button>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-/* .container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,8 +6,8 @@
 }
 
 .title {
-    font-size: 2rem; /* Adjust as needed for consistent typography scaling *
-    font-weight: bold;
+    font-size: 30px;
+    font-size: bold;
     color: #333;
     margin-bottom: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -39,7 +39,7 @@
 }
 
 .cardTitle {
-    font-size: 2.5rem; /* Adjust as needed for consistent typography scaling *
+    font-size: 20px;
     color: #414040;
     margin: 0;
     margin-bottom: 10px;
@@ -117,12 +117,17 @@
     margin: 0;
 }
 
-/* Pagination styles *
+.viewRecipeBtn {
+    margin: 0;
+}
+
+/*pagination */
+
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    color: #4caf50; /* Adjust for color consistency *
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  color:green;
 }
 
 .pagination span {
@@ -143,118 +148,27 @@
     color: white;
 }
 
-/* Media query for tablet screens *
 @media (max-width: 768px) {
-    .iconsCol {
-        flex-direction: column;
-        align-items: center;
+    .container {
+        margin: 10px;
     }
 
-    .iconsCol1,
-    .iconsCol2 {
-        flex: auto;
-        margin-bottom: 10px;
-    }
-
-    .recipeOptions {
-        flex-direction:row;
-        align-items: center;
-    }
-
-    .cardContainer {
-        width: 100%;
-    }
-}
-
-/* Media query for mobile screens *
-@media (max-width: 480px) {
     .title {
-        font-size: 1.5rem;
+        font-size: 24px;
+        margin-bottom: 15px;
     }
 
     .iconsCol {
-        flex-direction: column;
-        align-items: center;
+        font-size: 14px;
     }
 
-    .iconsCol1,
-    .iconsCol2 {
-        flex: auto;
-        margin-bottom: 10px;
-    }
+    /* ... (adjust other styles as needed for a better mobile experience) */
 
-    .recipeOptions {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .cardContainer {
-        width: 100%;
+    .card {
+        width: 85%;
     }
 
     .pagination {
         margin-top: 10px;
     }
-
-    .pagination span {
-        padding: 5px 8px;
-    }
 }
- */
-
- /* RecipeList Component Styles */
-
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-  }
-  
-  .title {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  /* Card Container Styles */
-  .cardContainer {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .cardContent {
-    padding: 10px;
-  }
-  
-  /* Pagination Styles */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    color: #4caf50;
-  }
-  
-  .pagination span {
-    cursor: pointer;
-    padding: 5px 10px;
-    margin: 0 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-  }
-  
-  .pagination span:hover {
-    background-color: #ddd;
-  }
-  
-  .pagination span.active {
-    background-color: #4caf50;
-    color: white;
-  }
-  
-  
-  
