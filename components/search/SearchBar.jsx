@@ -3,48 +3,6 @@ import { debounce } from 'lodash';
 import classes from '../search/Search.module.css';
 import { FaTimes } from 'react-icons/fa';
 
-export default function SearchBar({ recipes, onSearch, search, setSearch }) {
-
-  const [searchHist, setSearchHist] = useState([]);
-  const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [currentSearchTerm, setCurrentSearchTerm] = useState('');
-
-  useEffect(() => {
-    const hist = localStorage.getItem('searchHist');
-
-    if (hist) {
-      setSearchHist(JSON.parse(hist));
-    }
-  }, []);
-
-  useEffect(() => {
-    const searchDelay = 1000;
-
-    const debouncedSearchHandler = debounce((query) => {
-      onSearch(query);
-    }, searchDelay);
-
-    debouncedSearchHandler(debouncedSearch);
-
-    // Cleanup the debounced function on component unmount
-    return () => debouncedSearchHandler.cancel();
-  }, [debouncedSearch, onSearch]);
-
-  function handleChange(e) {
-    const text = e.target.value;
-    setSearch(text);
-    setCurrentSearchTerm(text);
-
-    // Cancel previous searches before triggering a new one
-    setDebouncedSearch('');
-
-    // Set a new debounced search term after a short delay
-    setTimeout(() => {
-      setDebouncedSearch(text);
-    }, 300);
-  }
-
-
 export default function SearchBar({ onSearch, search, setSearch }) {
   const [searchHistory, setSearchHistory] = useState([]);
   const [debouncedSearch, setDebouncedSearch] = useState('');
@@ -62,43 +20,9 @@ export default function SearchBar({ onSearch, search, setSearch }) {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const searchDelay = 1000;
-
-  //   const debouncedSearchHandler = debounce((query) => {
-  //     onSearch(query);
-  //   }, searchDelay);
-
-  //   debouncedSearchHandler(debouncedSearch);
-
-  //   // Cleanup the debounced function on component unmount
-  //   return () => debouncedSearchHandler.cancel();
-  // }, [debouncedSearch, onSearch]);
-
-  // function handleChange(e) {
-  //   const text = e.target.value;
-  //   setSearch(text);
-  //   setCurrentSearchTerm(text);
-
-  //   // Cancel previous searches before triggering a new one
-  //   setDebouncedSearch('');
-
-  //   // Set a new debounced search term after a short delay
-  //   setTimeout(() => {
-  //     setDebouncedSearch(text);
-  //   }, 300);
-  // }
-
   function clear() {
     setSearch('');
   }
-
-  
-  // function handleChange(e) {
-  //   const text = e.target.value;
-  //   setSearch(text);
-  //   setIsExpanded(text.length > 0);
-  // }
 
   const handleChange = (e) => {
     const text = e.target.value;
@@ -176,5 +100,5 @@ return (
   );
           }
 
-}
+
   
