@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { debounce } from 'lodash';
-import classes from '../search/Search.module.css';
-import { FaTimes } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
+import classes from '../recipes/recipe-list.module.css';
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import { formatDate } from '@/helpers/date-util';
+import { formatTime } from '@/helpers/time-util';
+import SearchBar from '../../components/search/SearchBar';
+import Highlighter from 'react-highlight-words';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import Hero from '@/components/hero.jsx';
 
 export default function SearchBar({ onSearch, search, setSearch }) {
   const [searchHistory, setSearchHistory] = useState([]);
@@ -98,8 +105,8 @@ export default function SearchBar({ onSearch, search, setSearch }) {
       });
     }
   };
-
-  return (
+  
+return (
     <div className={classes.whole}>
       <form className={classes.form}>
         <input
