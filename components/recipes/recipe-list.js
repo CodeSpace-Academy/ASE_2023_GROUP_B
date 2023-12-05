@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { FaCalendar, FaHourglass, FaClock } from 'react-icons/fa';
 import classes from '../recipes/recipe-list.module.css';
-import SearchBar from '../search/SearchBar';
-import Hero from '@/components/hero/Hero';
-import Pagination from './pagination';
-import RecipeCard from './recipeCard';
+import ViewRecipeBtn from '../../components/icons&Buttons/view-recipe-btn';
+import { formatDate } from '@/helpers/date-util';
+import { formatTime } from '@/helpers/time-util';
+import SearchBar from '../../components/search/SearchBar';
+import Highlighter from 'react-highlight-words';
+import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
+import Hero from '@/components/hero.jsx';
 
 function RecipeList({ data, onRemove, error  }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,7 +44,6 @@ function RecipeList({ data, onRemove, error  }) {
       setCurrentPage(page);
     }
   };
-
 
   const fetchRecipesByFilters = async (search) => {
     try {
@@ -103,49 +107,114 @@ function RecipeList({ data, onRemove, error  }) {
   }
 
   return (
-    <div className={classes.container}>
-      <h1 className={classes.title}>RECIPES</h1>
+    <div className={classes.whole}>
+      <form className={classes.form}>
+        <input
+          required
+          value={search || ''}
+          onClick={() => setShowSearchButton(true)}
+          onChange={handleChange}
+          type="text"
+          className={classes.input}
+        />
+        <span className={classes.caret}></span>
+        {isLongQuery && showSearchButton && (
+          <>
+            <button type="button" onClick={clear} className={classes.clearButton}>
+              <FaTimes />
+            </button>
+            <button type="button" onClick={handleSearch}>
+              Submit
+            </button>
+          </>
+        )}
+      </form>
 
-      <SearchBar
-        onSearch={handleSearch}
-        search={search}
-        setSearch={setSearch}
-      />
-      <br />
+      { showSearchButton && searchHistory.length > 0 && !isLongQuery && (
+        <ul>
+          {searchHistory.map((historyItem, index) => (
+            <li key={index}>{historyItem}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
 
-      <Hero
-        handleDefaultIngredientFilter={handleDefaultIngredientFilter}
-        setFilterIngredientResults={setFilterIngredientResults}
-        setRecipes={setRecipes}
-        filterIngredientResults={filterIngredientResults}
-        setSelectedIngredients={setSelectedIngredients}
-        selectedIngredients={selectedIngredients}
-      />
 
-      <div className={classes.cardContainer}>
+<div className={classes.cardContainer}>
         {displayedRecipes.map((recipe, index) => (
-          <div key={index} className={classes.cardContent}>
-            <RecipeCard recipe={recipe} search={search} />
+          <div key={index} className={classes.card}>
+            <div className={classes.cardImageContainer}>
+              <img
+                src={recipe.images[0]}
+                alt={recipe.title}
+                className={classes.cardImage}
+              />
+            </div>
+            <div className={classes.cardContent}>
+              <br />
+
+              <Highlighter
+                highlightClassName={classes.highlight}
+                textToHighlight={recipe.title}
+                searchWords={[search]}
+                autoEscape={true}
+              />
+              <br />
+              <br />
+              <div className={classes.iconsCol}>
+                <div className={classes.iconsCol1}>
+                  <p
+                    className={classes.cardCategory}
+                    title={Date: ${formatDate(recipe.published)}}
+                  ></div>
+
+<FaCalendar style={{ fontSize: '1.0em' }} />
+                    Date Published:
+                    <br />
+                    {formatDate(recipe.published)}
+                  </p>
+                  <br />
+                  <p className={classes.cardCategory}>
+                    <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:
+                    <br />
+                    {formatTime(recipe.prep)}
+                  </p>
+                </div>
+                <div className={classes.iconsCol2}>
+                  <p className={classes.cardCategory}>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time: <br />
+                    {formatTime(recipe.cook)}
+                  </p>
+                  <br />
+                  <p className={classes.cardCategory}>
+                    <FaClock style={{ fontSize: '1.0em' }} /> Total-Time: <br />
+                    {formatTime(recipe.cook + recipe.prep)}
+                  </p>
+                </div>
+              </div>
+              <br />
+              <br />
+              <div className={classes.recipeOptions}>
+                <div className={classes.viewRecipeBtn}>
+                  <Link href={/recipe/${recipe._id}}>
+                    <ViewRecipeBtn />
+                  </Link>
+                </div>
+                <div className={classes.favHeart}>
+                  <AddToFavoritesButton
+                    recipe={recipe}
+                    onRemove={() => onRemove(recipe._id)}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         ))}
       </div>
-
       <br />
-      <div className={classes.pageInfo}>
-      {totalPageCount > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPageCount={totalPageCount}
-            handlePageChange={handlePageChange}
-          />
-        )}
-        <div className={classes.pageInfo}>
-          <p>
-            {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
-            Page {currentPage} of {totalPageCount}.
-          </p>
-      </div>
-      </div>
+      <div className={classes.pageInfo}></div>
     </div>
   );
 }
