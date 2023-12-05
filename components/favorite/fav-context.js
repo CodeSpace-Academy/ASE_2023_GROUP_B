@@ -12,49 +12,49 @@ export function FavoritesContextProvider(props) {
     });
   };
 
-  const isRecipeInFavorites = (recipeId) => {
-    return (userFavorites || []).some(
-      (recipe) => recipe && recipe._id === recipeId
-    );
-  };
+   const isRecipeInFavorites = (recipeId) => {
+     return userFavorites.some((recipe) => recipe._id === recipeId);
+   };
 
   const addChangeListener = (listener) => {
     setChangeListeners((prevListeners) => [...prevListeners, listener]);
   };
 
-  const removeChangeListener = (listener) => {
-    setChangeListeners((prevListeners) =>
-      prevListeners.filter((l) => l !== listener)
+   const removeChangeListener = (listener) => {
+     setChangeListeners((prevListeners) =>
+       prevListeners.filter((l) => l !== listener)
+     );
+   };
+
+    const updateFavorites = (newFavorites) => {
+      setUserFavorites(newFavorites);
+      notifyChangeListeners();
+    };
+
+  const addFavorite = (recipe) => {
+    const updatedFavorites = [...userFavorites, recipe];
+    updateFavorites(updatedFavorites);
+  };
+
+  const removeFavorite = (recipeId) => {
+    const updatedFavorites = userFavorites.filter(
+      (favorite) => favorite._id !== recipeId
     );
+    updateFavorites(updatedFavorites);
   };
 
-  const addFavoritesHandler = (recipe) => {
-    setUserFavorites((prevUserFavorites) => [...prevUserFavorites, recipe]);
-    notifyChangeListeners();
-  };
-
-  const updateFavoritesHandler = (recipes) => {
-    setUserFavorites(recipes);
-    notifyChangeListeners();
-  };
-
-  const removeFavoritesHandler = (recipeId) => {
-    setUserFavorites((prevUserFavorites) => {
-      return prevUserFavorites.filter((favorite) => favorite._id !== recipeId);
-    });
-    notifyChangeListeners();
-  };
 
   const context = {
     userFavorites,
     totalFavorites: userFavorites.length,
-    addFavorite: addFavoritesHandler,
-    updateFavorites: updateFavoritesHandler,
-    removeFavorite: removeFavoritesHandler,
+    addFavorite,
+    updateFavorites,
+    removeFavorite,
     recipeIsFavorite: isRecipeInFavorites,
     addChangeListener,
     removeChangeListener,
   };
+
 
   return (
     <FavoritesContext.Provider value={context}>

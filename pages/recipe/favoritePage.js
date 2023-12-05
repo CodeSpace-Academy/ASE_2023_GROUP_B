@@ -14,6 +14,11 @@ function FavoritesPage({ favs }) {
   const favoriteRecipes = favoriteCtx.favorites || [];
   useEffect(() => {});
 
+   const handleRemoveFavorite = (recipeId) => {
+     // Remove the favorite from context when unfavourited
+     favoriteCtx.removeFavorite(recipeId);
+   };
+
   // Convert MongoDB ObjectID to string for serialization
   const cleanedFavs = favs.map((fav) => {
     return {
@@ -37,13 +42,21 @@ function FavoritesPage({ favs }) {
       <section>
         {/* Display the list of favorite recipes */}
         {favoriteRecipes.map((recipe) => (
-          <RecipeDetailPage key={recipe._id} recipe={recipe} />
+          <RecipeDetailPage
+            key={recipe._id}
+            recipe={recipe}
+            onRemove={() => handleRemoveFavorite(recipe._id)}
+          />
         ))}
       </section>
       <section>
         {/* Display the list of favorite recipes */}
         {favoriteRecipes.map((recipe) => (
-          <RecipeCard key={recipe._id} recipe={recipe} />
+          <RecipeCard
+            key={recipe._id}
+            recipe={recipe}
+            onRemove={() => handleRemoveFavorite(recipe._id)}
+          />
         ))}
       </section>
       <RecipeList data={cleanedFavs} />

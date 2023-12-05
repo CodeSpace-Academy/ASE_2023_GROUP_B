@@ -27,6 +27,11 @@ function AddToFavoritesButton({ recipe, onRemove, updateFavoritesCount }) {
       if (!confirmed) {
         return;
       }
+      // Remove the favorite
+      removeFavorite(recipe._id);
+    } else {
+      // Add the favorite
+      await addFavorite();
     }
 
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
@@ -46,7 +51,7 @@ function AddToFavoritesButton({ recipe, onRemove, updateFavoritesCount }) {
       }
 
       if (updateFavoritesCount) {
-        updateFavoritesCount(); // Call updateFavoritesCount if it's defined
+        updateFavoritesCount(); 
       }
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -67,6 +72,9 @@ function AddToFavoritesButton({ recipe, onRemove, updateFavoritesCount }) {
       const data = await response.json();
       if (!response.ok) {
         console.log('Failed to add favorite');
+      } else {
+        // Update local state and notify change listeners
+        favoriteCtx.addFavorite(recipe);
       }
       return data;
     } catch (error) {
