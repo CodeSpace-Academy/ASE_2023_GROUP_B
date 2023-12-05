@@ -10,7 +10,7 @@ import Highlighter from 'react-highlight-words';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import Hero from '@/components/hero.jsx';
 
-function RecipeList({ data, onRemove }) {
+function RecipeList({ data, onRemove, error  }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [filterIngredientResults, setFilterIngredientResults] = useState([]);
@@ -34,7 +34,7 @@ function RecipeList({ data, onRemove }) {
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <div className={classes.container}>
-        <h1 className={classes.title}>No recipes available.</h1>
+        {/* <h1 className={classes.title}>No matching recipes.</h1> */}
       </div>
     );
   }
@@ -46,26 +46,67 @@ function RecipeList({ data, onRemove }) {
     }
   };
 
+
+  const fetchRecipesByFilters = async (search) => {
+    try {
+      const response = await fetch(`/api/search`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          search,
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+
+          console.log(result.recipes)
+        
+          setFilteredRecipes(result.recipes);
+          // console.log(searchResult.recipes)
+      } else {
+        throw Error
+      }
+
+    } catch (error) {
+      throw Error
+    }
+  }
+
+  useEffect(() => {
+
+    fetchRecipesByFilters(search)
+  }, [search])
+
   const handleSearch = () => {
-    const lowerCaseSearchText = search.toLowerCase();
-    const filtered = data.filter((recipe) =>
-      recipe.title.toLowerCase().includes(lowerCaseSearchText)
-    );
-    setFilteredRecipes(filtered);
-    setCurrentPage(1); // Reset to the first page when searching
-  };
+    if(search.length>=4){
+      fetchRecipesByFilters(search)
+    }
+  }
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
-  let displayedRecipes = recipes.slice(
+   let displayedRecipes = filteredRecipes.slice(
     (currentPage - 1) * recipesPerPage,
     currentPage * recipesPerPage
   );
 
-  if (remainingRecipes < recipesPerPage) {
-    displayedRecipes = recipes.slice((currentPage - 1) * recipesPerPage);
+  if (!filteredRecipes || filteredRecipes.length === 0) {
+    return (
+      <div className={classes.container}>
+        <h1 className={classes.title}>No recipes available.</h1>
+    <Link href="/">Go to home page</Link>
+      </div>
+    );
   }
 
+  if (remainingRecipes < recipesPerPage) {
+    displayedRecipes = filteredRecipes.slice(
+      (currentPage - 1) * recipesPerPage
+    );
+  }
 
 
   return (

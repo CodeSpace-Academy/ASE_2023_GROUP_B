@@ -74,3 +74,29 @@ export async function filteringByIngredient(selectedIngredients) {
     throw error;
   }
 }
+
+export async function searching(search) {
+
+  const client = getClient();
+  const query = {};
+
+  try {
+    await connectToMongo();
+    const recipesCollection =client.db("devdb").collection("recipes")
+    
+    if (search && search.length > 0) {
+      query.$or = [{ title: { $regex: search, $options: "i" } }];
+    }
+    
+    const result = await recipesCollection
+      .find(query)
+      .limit(100)
+      .toArray();
+
+    return result;
+  } catch (error) {
+    throw new Error(
+      "could not filter recipes according to the filters selected",
+    );
+  }
+}
