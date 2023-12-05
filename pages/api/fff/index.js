@@ -17,9 +17,10 @@ const handler = async (req, res) => {
     );
     console.log(filterIngredientsResult)
     res.status(200).json({ recipes: filterIngredientsResult });
-  } catch (error) {
-    console.error("Error filtering recipes by ingredients:", error);
-    res.status(500).json({ error: "Internal server error" });
+    
+  }  catch (error) {
+    console.error('Error in API route:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 

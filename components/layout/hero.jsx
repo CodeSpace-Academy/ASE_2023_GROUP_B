@@ -1,9 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import Ingredients from "../ingredients/ingredients.jsx";
+import Ingredients from '../ingredients/ingredients.jsx';
 
 export default function Hero({
-  
   setFilterIngredientResults,
   filterIngredientResults,
   handleDefaultIngredientFilter,
@@ -15,16 +14,11 @@ export default function Hero({
   onAutocomplete,
   setSearchQuery,
   searchQuery,
-  
 }) {
-  
   return (
-    <div >
-      <div >
-        
-        <div >
-          
-          
+    <div>
+      <div>
+        <div>
           <Ingredients
             filterIngredientResults={filterIngredientResults}
             setFilterIngredientResults={setFilterIngredientResults}
@@ -33,8 +27,6 @@ export default function Hero({
             selectedIngredients={selectedIngredients}
             setSelectedIngredients={setSelectedIngredients}
           />
-
-          
         </div>
       </div>
     </div>

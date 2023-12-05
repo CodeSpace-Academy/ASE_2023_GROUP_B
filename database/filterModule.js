@@ -43,7 +43,7 @@ export async function getIngredients() {
     console.error("Error fetching unique ingredients:", error);
     throw error;
   } finally {
-    await closeMongoConnection(); // Close the MongoDB connection when done
+    await closeMongoConnection();
   }
 }
 
@@ -58,7 +58,7 @@ export async function filteringByIngredient(selectedIngredients) {
         [`ingredients.${ingredient}`]: { $exists: true },
       }));
     }
-    const filterIngredientsResult = await recipesCollection.find(query).limit(5).toArray();
+    const filterIngredientsResult = await recipesCollection.find(query).toArray();
     return filterIngredientsResult;
   } catch (error) {
     console.error("Error filtering recipes by ingredients:", error);
@@ -66,3 +66,23 @@ export async function filteringByIngredient(selectedIngredients) {
   }
 }
 
+async function getTags() {
+  try {
+    // Connect to MongoDB
+    await client.connect();
+
+    // Access your database and collection
+    const database = client.db("your-database-name");
+    const collection = database.collection("your-collection-name");
+
+    // Perform a query to retrieve tags
+    const tags = await collection.distinct("tagName");
+
+    return tags;
+  } finally {
+    // Close the MongoDB connection
+    await client.close();
+  }
+}
+
+export { getTags };

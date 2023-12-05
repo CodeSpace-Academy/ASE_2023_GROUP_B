@@ -5,11 +5,11 @@ import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-import classes from './recipe-list.module.css';
+//import classes from './recipe-list.module.css';
 import Highlighter from 'react-highlight-words';
+import classes from './recipeCard.module.css';
 
-const RecipeCard = ({ recipe, search,onRemove}) => {
-  
+const RecipeCard = ({ recipe, search, onRemove }) => {
   return (
     <div className={classes.card}>
       <div className={classes.cardImageContainer}>
@@ -28,39 +28,44 @@ const RecipeCard = ({ recipe, search,onRemove}) => {
           autoEscape={true}
         />
         <br />
+        <div className={classes.categoryContainer}>
+          <p
+            className={classes.cardCategory}
+            title={`Date: ${formatDate(recipe.published)}`}
+          >
+            <br />
+            <FaCalendar style={{ fontSize: '1.0em' }} />
+            Date Published: {formatDate(recipe.published)}
+          </p>
 
-        <p
-          className={classes.cardCategory}
-          title={`Date: ${formatDate(recipe.published)}`}
-        >
-          <FaCalendar style={{ fontSize: '1.0em' }} />
-          Date Published: {formatDate(recipe.published)}
-        </p>
+          <p className={classes.cardCategory}>
+            <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:{' '}
+            {formatTime(recipe.prep)}
+          </p>
 
-        <p className={classes.cardCategory}>
-          <FaHourglass style={{ fontSize: '1.0em' }} /> Prep-Time:{' '}
-          {formatTime(recipe.prep)}
-        </p>
+          <p className={classes.cardCategory}>
+            <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time:{' '}
+            {formatTime(recipe.cook)}
+          </p>
 
-        <p className={classes.cardCategory}>
-          <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time:{' '}
-          {formatTime(recipe.cook)}
-        </p>
-
-        <p className={classes.cardCategory}>
-          <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
-          {formatTime(recipe.cook + recipe.prep)}
-        </p>
-
-        <Link href={`/recipe/${recipe._id}`}>
-          <ViewRecipeBtn />
-        </Link>
-
-        <div className={classes.favHeart}>
-          <AddToFavoritesButton
-            recipe={recipe}
-            onRemove={() => onRemove(recipe._id)}
-          />
+          <p className={classes.cardCategory}>
+            <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
+            {formatTime(recipe.cook + recipe.prep)}
+          </p>
+        </div>
+        <br />
+         <div className={classes.cardButtons}>
+          <Link href={`/recipe/${recipe._id}`}>
+            <ViewRecipeBtn />
+          </Link>
+    
+          <div className={classes.favHeart}>
+            <AddToFavoritesButton
+              recipe={recipe}
+              onRemove={() => onRemove(recipe._id)}
+            />
+          </div>
+          <br />
         </div>
       </div>
     </div>

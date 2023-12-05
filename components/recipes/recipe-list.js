@@ -5,6 +5,7 @@ import Hero from '@/components/hero/Hero';
 import Footer from '@/components/layout/footer';
 import Pagination from './pagination';
 import RecipeCard from './recipeCard';
+import Loading from '@/components/loading/Loading'; // Import your Loading component
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,11 +14,14 @@ function RecipeList({ data }) {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState('');
   const [filteredRecipes, setFilteredRecipes] = useState(data);
+  const [isLoading, setIsLoading] = useState(true); // New loading state
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
   useEffect(() => {
+    setIsLoading(true); 
     setRecipes(data);
+    setIsLoading(false);
   }, [data]);
 
   function handleDefaultIngredientFilter() {
@@ -47,7 +51,7 @@ function RecipeList({ data }) {
       recipe.title.toLowerCase().includes(lowerCaseSearchText)
     );
     setFilteredRecipes(filtered);
-    setCurrentPage(1); // Reset to the first page when searching
+    setCurrentPage(1); 
   };
 
   const remainingRecipes = data.length - currentPage * recipesPerPage;
@@ -81,19 +85,23 @@ function RecipeList({ data }) {
         selectedIngredients={selectedIngredients}
       />
 
-      <div className={classes.cardContainer}>
-        {displayedRecipes.map((recipe, index) => (
-          <div key={index} className={classes.cardContent}>
-            <RecipeCard recipe={recipe} search={search} />
-          </div>
-        ))}
-      </div>
+      {isLoading ? (
+        <Loading /> // Render loading indicator while data is being fetched
+      ) : (
+        <div className={classes.cardContainer}>
+          {displayedRecipes.map((recipe, index) => (
+            <div key={index} className={classes.cardContent}>
+              <RecipeCard recipe={recipe} search={search} />
+            </div>
+          ))}
+        </div>
+      )}
 
       <br />
       <div className={classes.pageInfo}></div>
       <Footer />
       <div className={classes.pageInfo}>
-      {totalPageCount > 1 && (
+        {totalPageCount > 1 && (
           <Pagination
             currentPage={currentPage}
             totalPageCount={totalPageCount}
@@ -105,9 +113,10 @@ function RecipeList({ data }) {
             {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
             Page {currentPage} of {totalPageCount}.
           </p>
-      </div>
+        </div>
       </div>
     </div>
   );
 }
+
 export default RecipeList;

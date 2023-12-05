@@ -19,8 +19,6 @@ client = new MongoClient(connectionString, {
   },
 });
 
-
-
   try {
     await client.connect();
     console.log('Connected to MongoDB');
