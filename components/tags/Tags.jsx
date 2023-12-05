@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
-/**
- * Functional component representing a tags selection component.
- *
- * @component
- * @param {Object} props - The component's props.
- * @param {Function} props.setSelectedTags - The function to set the selected tags.
- * @param {string[]} props.selectedTags - The currently selected tags.
- * @returns {JSX.Element} - The component's rendered elements.
- */
+
 function Tags({ setSelectedTags, selectedTags }) {
   const [tags, setTags] = useState([]);
 
@@ -37,11 +29,6 @@ function Tags({ setSelectedTags, selectedTags }) {
     fetchTags();
   }, []);
 
-  /**
-   * Handles the change in selected tags.
-   *
-   * @param {Object} selectedOptions - The selected tag options to filter by.
-   */
   const handleTagChange = (selectedOptions) => {
     setSelectedTags(selectedOptions.map((option) => option.value));
   };
@@ -49,7 +36,7 @@ function Tags({ setSelectedTags, selectedTags }) {
   const customStyles = {
     multiValue: (base) => ({
       ...base,
-      background: "red",
+      background: "lightgrey",
       color: "white",
     }),
 
@@ -63,8 +50,7 @@ function Tags({ setSelectedTags, selectedTags }) {
 
     multiValueLabel: (base) => ({
       ...base,
-      color: "white",
-      fontWeight: "bold",
+      color: "black",
     }),
 
     placeholder: (base) => ({
@@ -74,7 +60,7 @@ function Tags({ setSelectedTags, selectedTags }) {
 
     menu: (base) => ({
       ...base,
-      width: "12em",
+      width: "10em",
     }),
   };
 

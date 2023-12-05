@@ -2,7 +2,8 @@ import React from "react";
 import Ingredients from "@/components/ingredients/ingredients";
 import styles from "./hero.module.css";
 import Tags from '@/components/tags/Tags'
-//import SearchBar from "../search/SearchBar";
+import Categories from "../categories/categories";
+
 
 export default function Hero({
   setFilterIngredientResults,
@@ -13,20 +14,16 @@ export default function Hero({
   setRecipes,
   selectedTags,
   setSelectedTags,
-}) 
+  selectedCategories,
+  setSelectedCategories,
 
-{
+}) {
   return (
     <div className={styles.heroContainer}>
-      <div className={styles.blurBackground}></div>
       <div>
-      <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
-      {/* <SearchBar
-        onSearch={handleSearch}
-        search={search}
-        setSearch={setSearch}
-      /> */}
-      <br />
+        <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+        <br />
+
         <div>
           <Ingredients
             filterIngredientResults={filterIngredientResults}
@@ -36,6 +33,13 @@ export default function Hero({
             selectedIngredients={selectedIngredients}
             setSelectedIngredients={setSelectedIngredients}
           />
+          <br />
+
+          <Categories
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+          />
+          <br />
         </div>
       </div>
     </div>

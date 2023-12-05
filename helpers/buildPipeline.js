@@ -1,8 +1,6 @@
-
-// Import necessary dependencies
 import { filter } from "lodash";
 
-export function buildPipeline(filters, search, sort) {
+export function buildPipeline(filters, sort) {
   const pipeline = [];
 
   // Add filtering and searching logic if needed
@@ -34,6 +32,8 @@ export function buildPipeline(filters, search, sort) {
         break;
       
     }
+
+    // add filtering object, push it into the pipeline
 
     if (Object.keys(sortObj).length > 0) {
       pipeline.push({

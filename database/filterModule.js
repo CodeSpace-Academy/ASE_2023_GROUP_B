@@ -4,9 +4,8 @@ import { connectToMongo, closeMongoConnection, getClient } from "../pages/api/mo
 export async function getIngredients() {
   const client = getClient();
   try {
-    await connectToMongo(); // Ensure that the MongoDB connection is established
+    await connectToMongo(); 
 
-   
     const collection = client.db("devdb").collection("recipes");
 
     const ingredients = await collection
@@ -66,23 +65,92 @@ export async function filteringByIngredient(selectedIngredients) {
   }
 }
 
-async function getTags() {
+export async function getTags() {
+  const client = getClient();
+
   try {
-    // Connect to MongoDB
-    await client.connect();
+    const collection = client.db("devdb").collection("recipes");
 
-    // Access your database and collection
-    const database = client.db("your-database-name");
-    const collection = database.collection("your-collection-name");
+    const tags = await collection
+      .aggregate([
+        { $unwind: "$tags" },
+        { $group: { _id: "$tags" } },
+        { $project: { _id: 0, tag: "$_id" } },
+      ])
+      .toArray();
 
-    // Perform a query to retrieve tags
-    const tags = await collection.distinct("tagName");
-
-    return tags;
-  } finally {
-    // Close the MongoDB connection
-    await client.close();
+    return tags.map((tagObj) => tagObj.tag);
+  } catch (error) {
+    console.error("Error fetching tags:", error);
+    throw new Error("Could not fetch tags");
   }
 }
 
-export { getTags };
+export async function getCategories() {
+  const client = getClient();
+
+  try {
+    await connectToMongo();
+
+    const categoriesCollection = client.db("devdb").collection("categories");
+    const categories = await categoriesCollection.find().toArray();
+    return categories;
+  } catch (error) {
+    throw new Error("Could not fetch categories");
+  } finally {
+    await closeMongoConnection();
+  }
+}
+
+export async function filtering(filters) {
+  const client = getClient();
+
+  try {
+    await connectToMongo();
+
+    const {
+      tags, ingredients, categories, instructions,
+    } = filters;
+
+    const collection = client.db("devdb").collection("recipes");
+
+    const query = {};
+
+    if (categories && categories.length > 0) {
+      query.category = { $all: categories };
+    }
+
+    if (tags && tags.length > 0) {
+      query.tags = { $all: tags };
+    }
+
+    if (ingredients && ingredients.length > 0) {
+      const ingredientQueries = ingredients.map((ingredient) => ({
+        [`ingredients.${ingredient}`]: { $exists: true },
+      }));
+      query.$and = ingredientQueries;
+    }
+
+    if (instructions) {
+      query.instructions = { $size: instructions };
+    }
+
+    const pipeline = buildPipeline(filters);
+    
+    if (Object.keys(query).length > 0) {
+      pipeline.push({
+        $match: query,
+      });
+    }
+
+    // Execute the pipeline
+    const result = await collection.aggregate(pipeline).toArray();
+
+    return result;
+  } catch (error) {
+    console.error("Error filtering recipes:", error);
+    throw error;
+  } finally {
+    await closeMongoConnection();
+  }
+}

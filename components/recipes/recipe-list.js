@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import classes from '../recipes/recipe-list.module.css';
 import SearchBar from '../search/SearchBar';
 import Hero from '@/components/hero/Hero';
-import Footer from '@/components/layout/footer';
 import Pagination from './pagination';
 import RecipeCard from './recipeCard';
 import Loading from '@/components/loading/Loading'; // Import your Loading component
+
+
 
 function RecipeList({ data }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,6 +18,7 @@ function RecipeList({ data }) {
   const [isLoading, setIsLoading] = useState(true); // New loading state
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   useEffect(() => {
     setIsLoading(true); 
@@ -30,7 +32,6 @@ function RecipeList({ data }) {
     }
   }
 
-  // Check if data is not an array or is empty
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <div className={classes.container}>
@@ -83,6 +84,8 @@ function RecipeList({ data }) {
         filterIngredientResults={filterIngredientResults}
         setSelectedIngredients={setSelectedIngredients}
         selectedIngredients={selectedIngredients}
+        selectedTags={selectedTags} 
+        setSelectedTags={setSelectedTags}
       />
 
       {isLoading ? (
@@ -98,8 +101,6 @@ function RecipeList({ data }) {
       )}
 
       <br />
-      <div className={classes.pageInfo}></div>
-      <Footer />
       <div className={classes.pageInfo}>
         {totalPageCount > 1 && (
           <Pagination

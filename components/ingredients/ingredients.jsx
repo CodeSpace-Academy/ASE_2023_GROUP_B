@@ -74,12 +74,10 @@ function Ingredients({
   };
 
   const handleResetFilters = async () => {
-    // Reset selected ingredients
     setSelectedIngredients([]);
 
-    // Fetch unfiltered recipes
     try {
-      const response = await fetch('/api/all-recipes'); // Replace with the actual endpoint for fetching all recipes
+      const response = await fetch('/api/all-recipes');
       if (response.ok) {
         const data = await response.json();
         setRecipes(data.recipes);
@@ -93,7 +91,6 @@ function Ingredients({
   };
 
   const handleClearInputIngredients = () => {
-    // Clear input ingredients
     setSelectedIngredients([]);
   };
 

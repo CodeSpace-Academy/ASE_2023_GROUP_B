@@ -10,10 +10,7 @@ export default function Hero({
   setSelectedIngredients,
   // handleDefaultSearch,
   setRecipes,
-  onSearch,
-  onAutocomplete,
-  setSearchQuery,
-  searchQuery,
+ 
 }) {
   return (
     <div>
