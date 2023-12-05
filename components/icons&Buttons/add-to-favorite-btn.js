@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../icons&Buttons/favorite.module.css';
+import styles from './favorite.module.css';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
 
 function AddToFavoritesButton({ recipe }) {

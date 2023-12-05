@@ -10,14 +10,16 @@ async function connectToMongo() {
   }
 
   const connectionString = process.env.MONGODB_CONNECTION_STRING;
-  client = new MongoClient(connectionString, {
-    maxIdleTimeMS: 500,
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
+client = new MongoClient(connectionString, {
+  maxIdleTimeMS: 500,
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+});
+
+
 
   try {
     await client.connect();

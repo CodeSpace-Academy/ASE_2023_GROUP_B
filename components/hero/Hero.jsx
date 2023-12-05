@@ -1,33 +1,24 @@
 import React from "react";
-
-import Ingredients from "./ingredients/ingredients.jsx";
+import Ingredients from "@/components/ingredients/ingredients";
+import styles from "./hero.module.css";
 
 export default function Hero({
-  
   setFilterIngredientResults,
   filterIngredientResults,
   handleDefaultIngredientFilter,
   selectedIngredients,
   setSelectedIngredients,
-  // handleDefaultSearch,
-  
   setRecipes,
   onSearch,
   onAutocomplete,
   setSearchQuery,
   searchQuery,
-  
-  
- 
 }) {
-  
   return (
-    <div >
-      <div >
-        
-        <div >
-          
-          
+    <div className={styles.heroContainer}>
+      <div className={styles.blurBackground}></div>
+      <div>
+        <div>
           <Ingredients
             filterIngredientResults={filterIngredientResults}
             setFilterIngredientResults={setFilterIngredientResults}
@@ -36,8 +27,6 @@ export default function Hero({
             selectedIngredients={selectedIngredients}
             setSelectedIngredients={setSelectedIngredients}
           />
-
-          
         </div>
       </div>
     </div>

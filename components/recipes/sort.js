@@ -7,7 +7,7 @@ function Sort({ onSort }) {
   };
 
   return (
-    <div>
+    <div className="Container">
       <select onChange={handleSortChange}>
         <option value="default">Default sorting</option>
         <option value="newest">Sort by Newest First</option>
@@ -23,3 +23,4 @@ function Sort({ onSort }) {
 }
 
 export default Sort;
+
