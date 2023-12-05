@@ -1,16 +1,17 @@
+/* Original styles for larger screens */
 .RecipeContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #343131;
-    color: #fff8f8;
-    padding: 50px;
-    background-image: url('/preview.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 150vh;
-    position: relative;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #343131;
+  color: #fff8f8;
+  padding: 50px;
+  background-image: url('/preview.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 150vh;
+  position: relative;
+}
 
 .leftColumn {
   flex: 1;
@@ -20,7 +21,7 @@
   padding: 10px;
   padding-left: 50px;
   margin-top: 10px;
-  text-align: center;
+  text-align: left;
   height: 130vh;
 }
 
@@ -30,121 +31,38 @@
   background-color: rgba(5, 105, 13, 0.344);
   height: 135vh;
   border-radius: 10px;
-  text-align: center;
+  text-align: left;
 }
 
-.title {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #01a003;
-}
+/* New styles for mobile view */
+@media (max-width: 768px) {
+  .RecipeContainer {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+  }
 
-.AddToFavoriteButton {
-  padding-right: 75px;
-}
+  .leftColumn,
+  .rightColumn {
+    flex: 1;
+    height: auto;
+    margin-top: 10px;
+  }
 
-.sub {
-  font-size: 18px;
-  margin-top: 10px;
-}
+  .leftColumn {
+    border-radius: 0;
+    padding: 10px;
+    text-align: left;
+  }
 
-.errorMessage {
-  color: red;
-  margin-top: 10px;
-}
+  .rightColumn {
+    border-radius: 0;
+    padding: 10px;
+  }
 
-.tagSection {
-  margin-top: 10px;
+  .FavoritesHeart {
+    padding-left: 0;
+    padding-top: 10px;
+    text-align: left;
+  }
 }
-
-.tagButtonsContainer {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.tagButton {
-  margin: 5px;
-  padding: 8px 12px;
-  background-color: #95a5a6; 
-  color: #101211; 
-  border: 1px solid #7f8c8d; 
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.tagButton:hover {
-  background-color: #7f8c8d;
-}
-
-.descriptionSection {
-  margin-top: 20px;
-}
-
-.updateDescriptionContainer {
-  margin-top: 10px;
-}
-
-.btn {
-  margin-top: 10px;
-  background-color: #080909; 
-  color: #fff; 
-}
-
-.instructionsSection {
-  margin-top: 20px;
-}
-
-.updateInstructionsContainer {
-  margin-top: 10px;
-}
-
-.instructionsButton {
-  margin-top: 10px;
-  background-color: #0b0b0b; 
-  color: #fff;
-}
-
-.instructions {
-  list-style-type: decimal;
-}
-
-.sub{
-  color: #080909;
-}
-.p{
-  color:#101211;
-}
-
-.tabs {
-  display: flex;
-  margin-bottom: 10px;
-}
-
-.tab {
-  cursor: pointer;
-  padding: 10px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-bottom: none;
-  border-radius: 5px 5px 0 0;
-}
-
-.activeTab {
-  border-color: #ccc;
-  background-color: green;
-}
-
-.tabContent {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 0 0 5px 5px;
-} 
-
-.FavoritesHeart {
-  width: 50px;
-  padding-bottom: 5px;
-  padding-top: 30px;
-  padding-left: 40vw;
-}
-

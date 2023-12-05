@@ -159,7 +159,7 @@ a {
 }
 
 .subtitle {
-  font-fanmily: 'Poppins';
+  font-family: 'Poppins';
   font-size: 0.7em;
   font-style: italic;
   padding: 10px 0 20px 0;
@@ -179,4 +179,22 @@ a {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media only screen and (max-width: 768px) {
+  .landingTitle {
+    padding-left: 2vw;
+  }
+  
+  .btn {
+    font-size: 10px;
+  }
+  
+  .subtitle {
+    font-size: 0.6em;
+  }
+  
+  .loading-spinner {
+    margin-top: 20px;
+  }
 }
