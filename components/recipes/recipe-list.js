@@ -5,7 +5,17 @@ import Hero from '@/components/hero/Hero';
 import Pagination from './pagination';
 import RecipeCard from './recipeCard';
 
+/**
+ * RecipeList Component
+ * Component to manage and display a list of recipes
+ * @param {Object} props - Component props
+ * @param {Array} props.data - Array of recipe data
+ * @param {function} props.onRemove - Function to remove a recipe
+ * @returns {JSX.Element} React component
+ */
+
 function RecipeList({ data, onRemove }) {
+  // State variables to manage pagination, filtering, and search
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [filterIngredientResults, setFilterIngredientResults] = useState([]);
@@ -15,10 +25,12 @@ function RecipeList({ data, onRemove }) {
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
 
+  // Effect to set recipes when data changes
   useEffect(() => {
     setRecipes(data);
   }, [data]);
 
+  // Function to handle default ingredient filter
   function handleDefaultIngredientFilter() {
     if (selectedIngredients.length > 0) {
       setSelectedIngredients([]);
@@ -34,12 +46,14 @@ function RecipeList({ data, onRemove }) {
     );
   }
 
+  // Function to handle page change for pagination
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPageCount) {
       setCurrentPage(page);
     }
   };
 
+  // Function to handle search functionality
   const handleSearch = () => {
     const lowerCaseSearchText = search.toLowerCase();
     const filtered = data.filter((recipe) =>
