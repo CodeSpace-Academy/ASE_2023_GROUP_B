@@ -1,3 +1,4 @@
+//@helpers/buildPipeline.js
 import { filter } from "lodash";
 
 export function buildPipeline(filters, sort) {
@@ -5,6 +6,44 @@ export function buildPipeline(filters, sort) {
 
   // Add filtering and searching logic if needed
 
+  if (filters) {
+    const {
+      tags, ingredients, categories, instructions,
+    } = filters;
+
+    const filterObj = {};
+
+    // Filter by Tags
+    if (tags && tags.length > 0) {
+      filterObj.tags = { $all: tags };
+    }
+
+    // Filter by Ingredients
+    if (ingredients && ingredients.length > 0) {
+      const ingredientQueries = ingredients.map((ingredient) => ({
+        [`ingredients.${ingredient}`]: { $exists: true },
+      }));
+      filterObj.$and = ingredientQueries;
+    }
+
+    // Filter by Categories
+    if (categories && categories.length > 0) {
+      filterObj.category = { $all: categories };
+    }
+
+    // Filter by Instructions
+    if (instructions) {
+      filterObj.instructions = { $size: instructions };
+    }
+
+    if (Object.keys(filterObj).length > 0) {
+      pipeline.push({
+        $match: filterObj,
+      });
+    }
+  }
+
+  
   if (sort) {
     let sortObj = {};
 
@@ -31,9 +70,11 @@ export function buildPipeline(filters, sort) {
         sortObj = { "instructions.length": -1 };
         break;
       
+      default:
+        // Default sorting if no specific sorting option is provided
+        sortObj = { published: -1 };
+        break;
     }
-
-    // add filtering object, push it into the pipeline
 
     if (Object.keys(sortObj).length > 0) {
       pipeline.push({
@@ -41,13 +82,16 @@ export function buildPipeline(filters, sort) {
       });
     }
   } else {
-   
+    // Default sorting if no specific sorting option is provided
     pipeline.push({
       $sort: {
-        published: -1, 
+        published: -1,
       },
     });
   }
 
   return pipeline;
 }
+
+
+

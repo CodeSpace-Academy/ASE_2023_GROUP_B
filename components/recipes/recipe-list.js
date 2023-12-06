@@ -4,8 +4,7 @@ import SearchBar from '../search/SearchBar';
 import Hero from '@/components/hero/Hero';
 import Pagination from './pagination';
 import RecipeCard from './recipeCard';
-import Loading from '@/components/loading/Loading'; // Import your Loading component
-
+import Loading from '@/components/Loading/Loading';
 
 
 function RecipeList({ data }) {
@@ -19,6 +18,7 @@ function RecipeList({ data }) {
   const recipesPerPage = 100;
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
   const [selectedTags, setSelectedTags] = useState([]);
+  const [selectedInstructions, setSelectedInstructions] = useState(null);
 
   useEffect(() => {
     setIsLoading(true); 
@@ -55,6 +55,10 @@ function RecipeList({ data }) {
     setCurrentPage(1); 
   };
 
+  function handleChange(event) {
+    setSelectedInstructions(event.target.value);
+  }
+
   const remainingRecipes = data.length - currentPage * recipesPerPage;
 
   let displayedRecipes = recipes.slice(
@@ -86,10 +90,13 @@ function RecipeList({ data }) {
         selectedIngredients={selectedIngredients}
         selectedTags={selectedTags} 
         setSelectedTags={setSelectedTags}
+        selectedInstructions={selectedInstructions}
+        setSelectedInstructions={setSelectedInstructions}
+        handleChange={handleChange}
       />
 
       {isLoading ? (
-        <Loading /> // Render loading indicator while data is being fetched
+        <Loading /> 
       ) : (
         <div className={classes.cardContainer}>
           {displayedRecipes.map((recipe, index) => (

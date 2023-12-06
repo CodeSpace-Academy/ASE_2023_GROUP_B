@@ -1,11 +1,7 @@
 .footer {
-
-    position: sticky;
-    top: 0;
     width: 100vw;
-    height:fit-content;
+    height: fit-content;
     background-color: rgba(2, 111, 2, 0.767);
-    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0;
@@ -13,6 +9,7 @@
     box-shadow: 5px 5px 10px rgba(0, 0, 4, 0.714);
 
 }
+
 .socialMedia {
   color: white;
   text-decoration: none;
@@ -30,6 +27,4 @@
 .footer a {
     color: #fff;
     text-decoration: underline;
-
-
 }
