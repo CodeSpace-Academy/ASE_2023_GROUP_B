@@ -2,6 +2,18 @@ import { useEffect, useState } from 'react';
 import styles from './ingredients.module.css';
 import Select, { components } from 'react-select';
 
+/**
+ * Ingredients Component
+ * Component for selecting ingredients to filter recipes
+ * @param {Object} props - Component props
+ * @param {function} props.setFilterIngredientResults - Function to set filtered ingredient results
+ * @param {function} props.handleDefaultIngredientFilter - Function to handle default ingredient filter
+ * @param {function} props.setRecipes - Function to set recipes
+ * @param {Array} props.selectedIngredients - Array of selected ingredients
+ * @param {function} props.setSelectedIngredients - Function to set selected ingredients
+ * @returns {JSX.Element} React component
+ */
+
 function Ingredients({
   setFilterIngredientResults,
   handleDefaultIngredientFilter,
