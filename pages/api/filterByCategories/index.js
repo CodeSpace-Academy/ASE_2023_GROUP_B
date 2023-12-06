@@ -1,5 +1,5 @@
 import { filteringByCategories } from "@/database/filterModule";
-
+import { getClient } from "../mongodb";
 
 const handler = async (req, res) => {
   
@@ -10,6 +10,7 @@ const handler = async (req, res) => {
   const { selectedCategories } = req.body;
   console.log(selectedCategories)
   try {
+    const client = getClient()
     const filterCategoriesResult = await filteringByCategories(
       selectedCategories
     );

@@ -11,7 +11,7 @@ const handler = async (req, res) => {
   try {
     
     const filterTagsResult = await filteringByTags(
-      selectedTgs
+      selectedTags
     );
     console.log(filterTagsResult)
     res.status(200).json({ recipes: filterTagsResult });

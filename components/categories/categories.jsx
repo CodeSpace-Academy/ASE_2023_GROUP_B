@@ -1,87 +1,116 @@
-import { useState, useEffect } from "react";
-import Select from "react-select";
+import { useEffect, useState } from 'react';
+import Select, { components } from 'react-select';
+import styles from './categories.module.css';
 
-
-function Categories({ selectedCategories, setSelectedCategories }) {
+const Categories = ({
+  setFilterCategoryResults,
+  handleDefaultCategoryFilter,
+  setRecipes,
+  selectedCategories,
+  setSelectedCategories,
+}) => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    async function fetchCategories() {
+    const fetchData = async () => {
       try {
-        const response = await fetch("/api/categories");
+        const response = await fetch('/api/categories');
 
         if (response.ok) {
           const data = await response.json();
+
           setCategories(
-            data[0].categories.map((category) => ({
+            data.map((category) => ({
               label: category,
               value: category,
             }))
           );
         } else {
-          console.error("Failed to fetch categories");
+          console.error('Failed to fetch categories');
         }
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error('Error fetching categories:', error);
       }
-    }
+    };
 
-    fetchCategories();
+    fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchRecipesByCategories = async () => {
+      if (selectedCategories.length === 0) {
+        setFilterCategoryResults([]);
+      } else {
+        try {
+          const response = await fetch(`/api/filterByCategories`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ selectedCategories }),
+          });
+
+          if (response.ok) {
+            const filterCategoriesResult = await response.json();
+            setRecipes(filterCategoriesResult.recipes);
+          } else {
+            console.error('Failed to fetch recipes by categories');
+          }
+        } catch (error) {
+          console.error('Error fetching recipes by categories:', error);
+        }
+      }
+    };
+
+    if (selectedCategories.length > 0) {
+      fetchRecipesByCategories(selectedCategories);
+    } else {
+      handleDefaultCategoryFilter();
+    }
+  }, [selectedCategories]);
 
   const handleCategoryChange = (selectedOptions) => {
     setSelectedCategories(selectedOptions.map((option) => option.value));
   };
 
-  const customStyles = {
-    multiValue: (base) => ({
-      ...base,
-      background: "red",
-      color: "white",
-    }),
-
-    control: (base) => ({
-      ...base,
-      backgroundColor: "white",
-      color: "black",
-      width: "fitContent",
-      cursor: "pointer",
-
-      "&:hover": { background: "lightBlue" },
-    }),
-
-    multiValueLabel: (base) => ({
-      ...base,
-      color: "white",
-      fontWeight: "bold",
-    }),
-
-    placeholder: (base) => ({
-      ...base,
-      color: "grey",
-    }),
-
-    menu: (base) => ({
-      ...base,
-      width: "10em",
-    }),
-  };
-
   return (
-    <div>
+    <div className={styles.categoriesContainer}>
       <Select
         isMulti
         options={categories}
         value={categories.filter((category) =>
-          selectedCategories?.includes(category.value)
+          selectedCategories.includes(category.value)
         )}
         onChange={handleCategoryChange}
-        styles={customStyles}
+        className={styles.selectContainer}
         blurInputOnSelect
-        placeholder="Select category"
+        placeholder="select category"
+        components={{
+          MultiValue: ({ children, ...props }) => (
+            <components.MultiValue {...props} className={styles.selectMultiValue}>
+              {children}
+            </components.MultiValue>
+          ),
+          MultiValueLabel: ({ children, ...props }) => (
+            <components.MultiValueLabel {...props} className={styles.selectMultiValueLabel}>
+              {children}
+            </components.MultiValueLabel>
+          ),
+          MultiValueRemove: ({ children, ...props }) => (
+            <components.MultiValueRemove {...props} className={styles.selectMultiValueRemove}>
+              {children}
+            </components.MultiValueRemove>
+          ),
+          Placeholder: ({ children, ...props }) => (
+            <components.Placeholder {...props} className={styles.selectPlaceholder}>
+              {children}
+            </components.Placeholder>
+          ),
+        }}
       />
+      <br />
     </div>
   );
-}
+};
 
 export default Categories;

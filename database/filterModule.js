@@ -96,9 +96,29 @@ export async function getCategories() {
     const categories = await categoriesCollection.find().toArray();
     return categories;
   } catch (error) {
+    console.error("Error fetching categories:", error);
     throw new Error("Could not fetch categories");
   } finally {
     await closeMongoConnection();
+  }
+}
+
+export async function filteringByCategories(categories) {
+  const client = getClient();
+  try {
+    await connectToMongo();
+    const recipesCollection = client.db("devdb").collection("recipes");
+    const query = {};
+
+    if (categories && categories.length > 0) {
+      query.categories = { $in: categories };
+    }
+
+    const filterCategoriesResult = await recipesCollection.find(query);
+    return filterCategoriesResult.toArray();
+  } catch (error) {
+    console.error("Error filtering recipes by categories:", error);
+    throw error;
   }
 }
 

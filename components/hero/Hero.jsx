@@ -12,10 +12,17 @@ export default function Hero({
   selectedIngredients,
   setSelectedIngredients,
   setRecipes,
+
+  setFilterTagsResults,
+  filterTagsResults,
   selectedTags,
   setSelectedTags,
+  handleTagsChange,
+
   selectedCategories,
   setSelectedCategories,
+  handleDefaultCategoryFilter,
+
   selectedInstructions,
   handleChange,
 }) {
@@ -26,10 +33,15 @@ export default function Hero({
           <Categories
             selectedCategories={selectedCategories}
             setSelectedCategories={setSelectedCategories}
+            handleDefaultCategoryFilter={handleDefaultCategoryFilter} 
           />
           <br />
           
-          <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} />
+          <Tags selectedTags={selectedTags} setSelectedTags={setSelectedTags} 
+          handleTagsChange={handleTagsChange}
+          setFilterTagsResults={setFilterTagsResults}
+          setRecipes={setRecipes}
+          filterTagsResults={filterTagsResults}/>
           <br />
 
           <Ingredients

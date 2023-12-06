@@ -33,6 +33,12 @@ function RecipeList({ data, onRemove }) {
     }
   }
 
+  const handleDefaultCategoryFilter = () => {
+    if (selectedCategories.length > 0) {
+      setSelectedCategories([]);
+    }
+  };
+
   if (!Array.isArray(data) || data.length === 0) {
     return (
       <div className={classes.container}>
@@ -89,6 +95,7 @@ function RecipeList({ data, onRemove }) {
         handleChange={handleChange}
         selectedCategories={selectedCategories}
         setSelectedCategories={setSelectedCategories}
+        handleDefaultCategoryFilter={handleDefaultCategoryFilter}
       />
       <br />
 

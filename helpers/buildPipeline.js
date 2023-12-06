@@ -73,10 +73,6 @@ export function buildPipeline(filters, sort) {
         break;
 
         default: sortObj = { published: -1 };
-      
-      default:
-        // Default sorting if no specific sorting option is provided
-        sortObj = { published: -1 };
         break;
     }
 
@@ -86,7 +82,6 @@ export function buildPipeline(filters, sort) {
       });
     }
   } else {
-    // Default sorting if no specific sorting option is provided
     pipeline.push({
       $sort: {
         published: -1,
