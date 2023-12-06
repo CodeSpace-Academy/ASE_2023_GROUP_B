@@ -50,6 +50,9 @@ export function buildPipeline(filters, sort) {
       case "newest":
         sortObj = { published: -1 };
         break;
+      case "oldest":
+        sortObj = { published: 1 };
+        break;
       case "cook-asc":
         sortObj = { cook: 1 };
         break;
@@ -68,6 +71,8 @@ export function buildPipeline(filters, sort) {
       case "steps-desc":
         sortObj = { "instructions.length": -1 };
         break;
+
+        default: sortObj = { published: -1 };
       
       default:
         // Default sorting if no specific sorting option is provided

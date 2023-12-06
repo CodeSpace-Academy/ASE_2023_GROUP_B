@@ -1,40 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+# Rando Sando Recipe App
+
+Welcome to our Recipe Application project! This Agile development project, executed by a team of 8 members, has successfully concluded. Below is comprehensive information about the project and the frameworks used.
+
+
+
+
+## Project Overview
+
+The Recipe Application is a web application developed using Next.js. This modern web framework allowed us to create a fast and scalable application with server-side rendering and excellent developer experience.
+## Team Members
+
+1. ### Product Owner : Renzo
+2. ### Scrum Master : Joshua
+3. ### Developers :
+- Sheila
+- Botshelo
+- Tebogo
+- Isaac
+- Aobakwe
+- Onthatile
+- Vuyiswa
+- Mmaphokeng
+## Technologies Used
+
+### Next.js
+Next.js is a React framework that provides a robust development environment with features like server-side rendering, automatic code splitting, and easy deployment. It greatly contributed to the efficiency and performance of our Recipe Application.
+
+### Create Next App
+The project was bootstrapped with create-next-app. This command-line tool sets up a new Next.js project with sensible defaults, saving us time and effort in the initial setup phase.
+
+### Font Optimization
+We optimized and loaded the Inter font, a custom Google Font, using next/font. This optimization ensures a smooth and visually appealing user experience.
 ## Getting Started
 
-First, run the development server:
+If you want to explore the project or run it locally, follow these steps:
 
-```bash
+Clone the repository to your local machine.
+Navigate to the project directory.
+Install dependencies using one of the following commands:
+npm install
+yarn install
+pnpm install
+bun install
+Run the development server with one of the following commands:
 npm run dev
-# or
 yarn dev
-# or
 pnpm dev
-# or
 bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
+Open http://localhost:3000 in your browser to experience the application.
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+Enhance your understanding of the technologies used by exploring the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next.js Documentation - Learn about Next.js features and API.
+Learn Next.js - An interactive Next.js tutorial.
+Check out the Next.js GitHub repository for feedback and contributions.
+## Deployment
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The application can be deployed using the Vercel Platform from the creators of Next.js. Refer to our Next.js deployment documentation for more details.
 
-## Deploy on Vercel
+Thank you for being a part of our Recipe Application project! If you have any questions or feedback, feel free to reach out.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Happy coding and cooking! 🍲👩‍🍳👨‍🍳

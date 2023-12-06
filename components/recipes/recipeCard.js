@@ -5,7 +5,6 @@ import ViewRecipeBtn from '../icons&Buttons/view-recipe-btn';
 import AddToFavoritesButton from '@/components/icons&Buttons/add-to-favorite-btn';
 import { formatDate } from '@/helpers/date-util';
 import { formatTime } from '@/helpers/time-util';
-//import classes from './recipe-list.module.css';
 import Highlighter from 'react-highlight-words';
 import classes from './recipeCard.module.css';
 
@@ -49,27 +48,30 @@ const RecipeCard = ({ recipe, search, onRemove }) => {
           </p>
 
           <p className={classes.cardCategory}>
-            <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
-            {formatTime(recipe.cook + recipe.prep)}
+            <FaClock style={{ fontSize: '1.0em' }} /> Cook-Time:{' '}
+            {formatTime(recipe.cook)}
           </p>
-        </div>
-        <br />
-         <div className={classes.cardButtons}>
-          <Link href={`/recipe/${recipe._id}`}>
-            <ViewRecipeBtn />
-          </Link>
-    
-          <div className={classes.favHeart}>
-            <AddToFavoritesButton
-              recipe={recipe}
-              onRemove={() => onRemove(recipe._id)}
-            />
-          </div>
-          <br />
+
+        <p className={classes.cardCategory}>
+          <FaClock style={{ fontSize: '1.0em' }} /> Total-Time:{' '}
+          {formatTime(recipe.cook + recipe.prep)}
+        </p>
+
+        <Link href={`/recipe/${recipe._id}`}>
+          <ViewRecipeBtn />
+        </Link>
+
+        <div className={classes.favHeart}>
+        
+          <AddToFavoritesButton
+            recipe={recipe}
+            onRemove={() => onRemove(recipe._id)}
+          />
         </div>
       </div>
     </div>
-  );
+    </div>
+  )
 };
 
 export default RecipeCard;

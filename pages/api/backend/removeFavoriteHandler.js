@@ -5,9 +5,12 @@ export default async function handler(req, res) {
     const { recipeId } = req.body;
     try {
       await RemoveFavoriteFromDB(recipeId);
-      res.status(200).json({ message: 'success' });
+      res.status(200).json({ message: 'Successfully removed from favorites.' });
     } catch (error) {
-      res.status(500).json({ message: 'not working', error });
+      console.error('Error removing favorite:', error);
+      res.status(500).json({ message: 'Failed to remove from favorites.' });
     }
+  } else {
+    res.status(405).json({ message: 'Method Not Allowed' });
   }
 }

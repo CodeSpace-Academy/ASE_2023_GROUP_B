@@ -7,7 +7,7 @@ import RecipeCard from './recipeCard';
 import Loading from '@/components/Loading/Loading';
 
 
-function RecipeList({ data }) {
+function RecipeList({ data, onRemove }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedIngredients, setSelectedIngredients] = useState([]);
   const [filterIngredientResults, setFilterIngredientResults] = useState([]);
@@ -53,6 +53,7 @@ function RecipeList({ data }) {
       recipe.title.toLowerCase().includes(lowerCaseSearchText)
     );
     setFilteredRecipes(filtered);
+    setCurrentPage(1); 
     setCurrentPage(1); 
   };
 
@@ -114,7 +115,7 @@ function RecipeList({ data }) {
 
       <br />
       <div className={classes.pageInfo}>
-        {totalPageCount > 1 && (
+          {totalPageCount > 1 && (
           <Pagination
             currentPage={currentPage}
             totalPageCount={totalPageCount}
@@ -126,7 +127,7 @@ function RecipeList({ data }) {
             {remainingRecipes > 0 && ` ${remainingRecipes} recipes remaining.`}
             Page {currentPage} of {totalPageCount}.
           </p>
-        </div>
+          </div>
       </div>
     </div>
   );
