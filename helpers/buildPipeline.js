@@ -14,6 +14,9 @@ export function buildPipeline(filters, search, sort) {
       case "newest":
         sortObj = { published: -1 };
         break;
+      case "oldest":
+        sortObj = { published: 1 };
+        break;
       case "cook-asc":
         sortObj = { cook: 1 };
         break;
@@ -32,6 +35,8 @@ export function buildPipeline(filters, search, sort) {
       case "steps-desc":
         sortObj = { "instructions.length": -1 };
         break;
+
+        default: sortObj = { published: -1 };
       
     }
 

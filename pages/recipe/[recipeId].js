@@ -11,8 +11,7 @@ import MyCarousel from '@/components/home-page/carousel';
 export default function RecipeDetailPage({ recipe, error, allergens, onRemove }) {
   const [tagsError, setTagsError] = useState(false);
   const [activeTab, setActiveTab] = useState('ingredients');
-  const [isInstructionsVisible, setInstructionsVisible] = useState(false);
-
+ 
   const ingredientsArray =
     recipe && recipe.ingredients
       ? Object.entries(recipe.ingredients).map(

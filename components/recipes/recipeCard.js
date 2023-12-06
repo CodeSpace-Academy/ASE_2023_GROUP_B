@@ -57,6 +57,7 @@ const RecipeCard = ({ recipe, search,onRemove}) => {
         </Link>
 
         <div className={classes.favHeart}>
+        
           <AddToFavoritesButton
             recipe={recipe}
             onRemove={() => onRemove(recipe._id)}
