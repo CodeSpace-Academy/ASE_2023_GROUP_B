@@ -1,5 +1,4 @@
 //@helpers/buildPipeline.js
-import { filter } from "lodash";
 
 export function buildPipeline(filters, sort) {
   const pipeline = [];

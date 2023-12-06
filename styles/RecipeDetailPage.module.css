@@ -22,15 +22,17 @@
   margin-top: 10px;
   text-align: center;
   height: 130vh;
+  color: whitesmoke;
 }
 
 .rightColumn {
   flex: 2;
   padding: 10px;
-  background-color: rgba(5, 105, 13, 0.344);
+  background-color: rgba(5, 105, 13, 0.744);
   height: 135vh;
   border-radius: 10px;
   text-align: center;
+  color: whitesmoke;
 }
 
 .title {
@@ -148,3 +150,36 @@
   padding-left: 40vw;
 }
 
+/* New styles for mobile view */
+@media (max-width: 768px) {
+  .RecipeContainer {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    color: whitesmoke;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    flex: 1;
+    height: auto;
+    margin-top: 10px;
+  }
+
+  .leftColumn {
+    border-radius: 0;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .rightColumn {
+    border-radius: 0;
+    padding: 10px;
+  }
+
+  .FavoritesHeart {
+    padding-left: 0;
+    padding-top: 10px;
+    text-align: left;
+  }
+}

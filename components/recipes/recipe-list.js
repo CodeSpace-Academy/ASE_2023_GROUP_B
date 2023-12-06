@@ -19,6 +19,7 @@ function RecipeList({ data }) {
   const totalPageCount = Math.ceil(filteredRecipes.length / recipesPerPage);
   const [selectedTags, setSelectedTags] = useState([]);
   const [selectedInstructions, setSelectedInstructions] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
   useEffect(() => {
     setIsLoading(true); 
@@ -72,15 +73,7 @@ function RecipeList({ data }) {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>RECIPES</h1>
-
-      <SearchBar
-        onSearch={handleSearch}
-        search={search}
-        setSearch={setSearch}
-      />
-      <br />
-
+      
       <Hero
         handleDefaultIngredientFilter={handleDefaultIngredientFilter}
         setFilterIngredientResults={setFilterIngredientResults}
@@ -93,7 +86,19 @@ function RecipeList({ data }) {
         selectedInstructions={selectedInstructions}
         setSelectedInstructions={setSelectedInstructions}
         handleChange={handleChange}
+        selectedCategories={selectedCategories}
+        setSelectedCategories={setSelectedCategories}
       />
+      <br />
+
+      <h1 className={classes.title}>RECIPES</h1>
+
+      <SearchBar
+        onSearch={handleSearch}
+        search={search}
+        setSearch={setSearch}
+      />
+      <br />
 
       {isLoading ? (
         <Loading /> 
